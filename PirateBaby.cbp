@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="PirateBaby" />
+		<Option pch_mode="2" />
+		<Option default_target="Lin Release" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="W32 Debug">
+				<Option platforms="Windows;" />
+				<Option output="bin/W32/PirateBaby_D" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="resources" />
+				<Option object_output="obj/W32/Debug/" />
+				<Option type="1" />
+				<Option compiler="mingw" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="`sdl-config --cflags`" />
+					<Add option="-D_DEBUG" />
+					<Add option="-D_WIN32" />
+					<Add option="-DPLATFORM_PC" />
+					<Add option="-DPENJIN_SDL" />
+					<Add directory="$(#mingw.include)" />
+				</Compiler>
+				<Linker>
+					<Add option="`sdl-config --libs`" />
+					<Add option="-lmingw32" />
+					<Add option="-lSDL_image" />
+					<Add option="-lSDL_mixer" />
+					<Add option="-lSDL_ttf" />
+					<Add option="-lSDLmain" />
+					<Add option="-lSDL_gfx" />
+					<Add option="-lSDL" />
+					<Add directory="$(#mingw.lib)" />
+				</Linker>
+			</Target>
+			<Target title="W32 Release">
+				<Option platforms="Windows;" />
+				<Option output="bin/W32/PirateBaby_R" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="resources" />
+				<Option object_output="obj/W32/Release/" />
+				<Option type="0" />
+				<Option compiler="mingw" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="`sdl-config --cflags`" />
+					<Add option="-DPLATFORM_PC" />
+					<Add option="-D_WIN32" />
+					<Add option="-DPENJIN_SDL" />
+					<Add directory="$(#mingw.include)" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="`sdl-config --libs`" />
+					<Add option="-lmingw32" />
+					<Add option="-lSDL_image" />
+					<Add option="-lSDL_mixer" />
+					<Add option="-lSDL_ttf" />
+					<Add option="-lSDLmain" />
+					<Add option="-lSDL_gfx" />
+					<Add option="-lSDL" />
+					<Add directory="$(#mingw.lib)" />
+				</Linker>
+			</Target>
+			<Target title="Lin Debug">
+				<Option platforms="Unix;" />
+				<Option output="bin/Linux/PirateBaby_D" prefix_auto="1" extension_auto="0" />
+				<Option working_dir="resources" />
+				<Option object_output="obj/lin/Debug/" />
+				<Option type="1" />
+				<Option compiler="linux" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-DPLATFORM_PC" />
+					<Add option="-D_DEBUG" />
+					<Add option="-D_LINUX" />
+					<Add option="-DPENJIN_SDL" />
+				</Compiler>
+				<Linker>
+					<Add option="`sdl-config --libs`" />
+					<Add option="-lX11 -lXi" />
+					<Add option="-lSDL_ttf" />
+					<Add option="-lSDL_image" />
+					<Add option="-lSDL_mixer" />
+					<Add option="-lSDL_gfx" />
+					<Add directory="../PenjinBase/obj/lin/Debug" />
+				</Linker>
+			</Target>
+			<Target title="Lin Release">
+				<Option platforms="Unix;" />
+				<Option output="bin/Linux/PirateBaby_R" prefix_auto="1" extension_auto="0" />
+				<Option working_dir="resources" />
+				<Option object_output="obj/lin/Release/" />
+				<Option type="0" />
+				<Option compiler="linux" />
+				<Option parameters="-C scripts/gcn.cmf" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-DPLATFORM_PC" />
+					<Add option="-D_LINUX" />
+					<Add option="-DPENJIN_SDL" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="`sdl-config --libs`" />
+					<Add option="-lX11 -lXi" />
+					<Add option="-lSDL_ttf" />
+					<Add option="-lSDL_image" />
+					<Add option="-lSDL_mixer" />
+					<Add option="-lSDL_gfx" />
+					<Add directory="../PenjinBase/obj/lin/Release" />
+				</Linker>
+			</Target>
+			<Target title="Pandora Debug">
+				<Option output="bin/Pandora/PirateBaby.pxf" prefix_auto="1" extension_auto="0" />
+				<Option working_dir="resources" />
+				<Option object_output="obj/Pandora/Debug/" />
+				<Option type="1" />
+				<Option compiler="pandora" />
+				<Option use_console_runner="0" />
+				<Compiler>
+					<Add option="-msoft-float" />
+					<Add option="-g" />
+					<Add option="-DPLATFORM_PANDORA" />
+					<Add option="-D_DEBUG" />
+					<Add option="-DPENJIN_SDL" />
+					<Add directory="$(#pandora_sdk.include)" />
+				</Compiler>
+				<Linker>
+					<Add option="-lSDL_mixer" />
+					<Add option="-lSDL" />
+					<Add option="-lSDL_ttf" />
+					<Add option="-lfreetype" />
+					<Add option="-lvorbisidec" />
+					<Add option="-lSDL_gfx" />
+					<Add option="-lSDL_image" />
+					<Add option="-lSDLmain" />
+					<Add option="-lts" />
+					<Add option="-lpng" />
+					<Add option="-lz" />
+					<Add directory="$(#pandora_sdk.lib)" />
+				</Linker>
+			</Target>
+			<Target title="Pandora Release">
+				<Option output="bin/Pandora/PirateBaby.pxf" prefix_auto="1" extension_auto="0" />
+				<Option working_dir="resources" />
+				<Option object_output="obj/Pandora/Release/" />
+				<Option type="0" />
+				<Option compiler="pandora" />
+				<Compiler>
+					<Add option="-msoft-float" />
+					<Add option="-O2" />
+					<Add option="-DPLATFORM_PANDORA" />
+					<Add option="-DPENJIN_SDL" />
+					<Add directory="$(#pandora_sdk.include)" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-ldl" />
+					<Add option="-lpthread" />
+					<Add option="-lSDL_mixer" />
+					<Add option="-lSDL" />
+					<Add option="-lSDL_ttf" />
+					<Add option="-lfreetype" />
+					<Add option="-lvorbisidec" />
+					<Add option="-lSDL_gfx" />
+					<Add option="-lSDL_image" />
+					<Add option="-lSDLmain" />
+					<Add option="-lts" />
+					<Add option="-lpng" />
+					<Add option="-lz" />
+					<Add directory="$(#pandora_sdk.lib)" />
+				</Linker>
+			</Target>
+			<Target title="LinGL Debug">
+				<Option platforms="Unix;" />
+				<Option output="bin/Linux/PirateBabyGL_D" prefix_auto="1" extension_auto="0" />
+				<Option working_dir="resources" />
+				<Option object_output="obj/lin/DebugGL/" />
+				<Option type="1" />
+				<Option compiler="linux" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-DPLATFORM_PC" />
+					<Add option="-D_DEBUG" />
+					<Add option="-D_LINUX" />
+					<Add option="-DPENJIN_GL" />
+				</Compiler>
+				<Linker>
+					<Add option="`sdl-config --libs`" />
+					<Add option="-lX11 -lXi" />
+					<Add option="-lGL -lGLU" />
+					<Add option="-lSDL_ttf" />
+					<Add option="-lSDL_image" />
+					<Add option="-lSDL_mixer" />
+					<Add option="-lSDL_gfx" />
+					<Add directory="../PenjinBase/obj/lin/Debug" />
+				</Linker>
+			</Target>
+			<Target title="GP2X Debug">
+				<Option output="bin/GP2X/PirateBaby_D.gpe" prefix_auto="1" extension_auto="0" />
+				<Option working_dir="resources" />
+				<Option object_output="obj/GP2X/Debug/" />
+				<Option type="1" />
+				<Option compiler="gp2x" />
+				<Option use_console_runner="0" />
+				<Compiler>
+					<Add option="-msoft-float" />
+					<Add option="-g" />
+					<Add option="`$(#gp2x_sdk)/bin/sdl-config --cflags`" />
+					<Add option="-DPLATFORM_GP2X" />
+					<Add option="-D_DEBUG" />
+					<Add option="-DPENJIN_SDL" />
+					<Add directory="$(#gp2x_sdk.include)" />
+				</Compiler>
+				<Linker>
+					<Add option="-lm -lg -lpthread -lSDL" />
+					<Add option="`$(#gp2x_sdk)/bin/sdl-config --static-libs`" />
+					<Add option="-lSDL_ttf" />
+					<Add option="-lSDL_mixer" />
+					<Add option="-lSDL_image" />
+					<Add option="-lSDL_gfx" />
+					<Add option="-lpng" />
+					<Add option="-lfreetype" />
+					<Add option="-lz" />
+					<Add option="-lsmpeg" />
+					<Add option="-ljpeg" />
+					<Add directory="$(#gp2x_sdk.lib)" />
+				</Linker>
+			</Target>
+			<Target title="GP2X Release">
+				<Option output="bin/GP2X/PirateBaby_R.gpe" prefix_auto="1" extension_auto="0" />
+				<Option working_dir="resources" />
+				<Option object_output="obj/GP2X/Release/" />
+				<Option type="0" />
+				<Option compiler="gp2x" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-msoft-float" />
+					<Add option="-DPLATFORM_GP2X" />
+					<Add option="-DPENJIN_SDL" />
+					<Add directory="$(#gp2x_sdk.include)" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-lm -lg -lpthread -lSDL" />
+					<Add option="`$(#gp2x_sdk)/bin/sdl-config --static-libs`" />
+					<Add option="-lSDL_ttf" />
+					<Add option="-lSDL_mixer" />
+					<Add option="-lSDL_image" />
+					<Add option="-lSDL_gfx" />
+					<Add option="-lpng" />
+					<Add option="-lfreetype" />
+					<Add option="-lz" />
+					<Add option="-lsmpeg" />
+					<Add option="-ljpeg" />
+					<Add directory="$(#gp2x_sdk.lib)" />
+				</Linker>
+			</Target>
+			<Target title="Wii Debug">
+				<Option output="bin/Wii/PirateBaby_D.elf" prefix_auto="1" extension_auto="0" />
+				<Option working_dir="resources" />
+				<Option object_output="obj/Wii/Debug/" />
+				<Option type="1" />
+				<Option compiler="devkitppc" />
+				<Option use_console_runner="0" />
+				<Compiler>
+					<Add option="-mhard-float" />
+					<Add option="-meabi" />
+					<Add option="-Wall" />
+					<Add option="-g" />
+					<Add option="-DPLATFORM_WII" />
+					<Add option="-D_DEBUG" />
+					<Add option="-DPENJIN_SDL" />
+					<Add option="-DPENJIN_SDL_INPUT" />
+					<Add directory="$(#libogc.include)" />
+				</Compiler>
+				<Linker>
+					<Add option="-lSDL_mixer" />
+					<Add option="-lsmpeg" />
+					<Add option="-lSDL_image" />
+					<Add option="-lSDL_gfx" />
+					<Add option="-lSDL_ttf" />
+					<Add option="-lSDL" />
+					<Add option="-lz -lwiiuse" />
+					<Add option="-lfat -lbte -logc" />
+					<Add option="-lwiikeyboard" />
+					<Add library="$(#libogc.lib)/libfreetype.a" />
+					<Add library="$(#libogc.lib)/libpng.a" />
+					<Add library="$(#libogc.lib)/libjpeg.a" />
+					<Add library="$(#libogc.lib)/wii/libz.a" />
+					<Add library="$(#libogc.lib)/libvorbisidec.a" />
+					<Add directory="$(#libogc.lib)/wii" />
+				</Linker>
+			</Target>
+			<Target title="Wii Release">
+				<Option output="bin/Wii/PirateBaby_R.elf" prefix_auto="1" extension_auto="0" />
+				<Option working_dir="resources" />
+				<Option object_output="obj/Wii/Release/" />
+				<Option type="0" />
+				<Option compiler="devkitppc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-DPLATFORM_WII" />
+					<Add option="-DPENJIN_SDL" />
+					<Add directory="$(#libogc.include)" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-lwiiuse -lbte -logc -lm" />
+					<Add directory="$(#libogc.lib)/wii" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="`sdl-config --cflags`" />
+			<Add directory="$(#penjin)" />
+			<Add directory="./source" />
+		</Compiler>
+		<Linker>
+			<Add directory="./" />
+		</Linker>
+		<Unit filename="../PenjinBase/AnimatedSprite.cpp" />
+		<Unit filename="../PenjinBase/AnimatedSprite.h" />
+		<Unit filename="../PenjinBase/Animation.cpp" />
+		<Unit filename="../PenjinBase/Animation.h" />
+		<Unit filename="../PenjinBase/Application.cpp" />
+		<Unit filename="../PenjinBase/Application.h" />
+		<Unit filename="../PenjinBase/ApplicationState.cpp" />
+		<Unit filename="../PenjinBase/ApplicationState.h" />
+		<Unit filename="../PenjinBase/Button.cpp" />
+		<Unit filename="../PenjinBase/Button.h" />
+		<Unit filename="../PenjinBase/Colour.cpp" />
+		<Unit filename="../PenjinBase/Colour.h" />
+		<Unit filename="../PenjinBase/ConfigFile.cpp" />
+		<Unit filename="../PenjinBase/ConfigFile.h" />
+		<Unit filename="../PenjinBase/ConsoleApplication.cpp" />
+		<Unit filename="../PenjinBase/ConsoleApplication.h" />
+		<Unit filename="../PenjinBase/DimensionObject.cpp" />
+		<Unit filename="../PenjinBase/DimensionObject.h" />
+		<Unit filename="../PenjinBase/EnumParser.cpp" />
+		<Unit filename="../PenjinBase/EnumParser.h" />
+		<Unit filename="../PenjinBase/ErrorHandler.cpp" />
+		<Unit filename="../PenjinBase/ErrorHandler.h" />
+		<Unit filename="../PenjinBase/Errors.h" />
+		<Unit filename="../PenjinBase/FileObject.cpp" />
+		<Unit filename="../PenjinBase/FileObject.h" />
+		<Unit filename="../PenjinBase/GFX.h" />
+		<Unit filename="../PenjinBase/Game2d.cpp" />
+		<Unit filename="../PenjinBase/Game2d.h" />
+		<Unit filename="../PenjinBase/Image.cpp" />
+		<Unit filename="../PenjinBase/Image.h" />
+		<Unit filename="../PenjinBase/KeyMap.cpp" />
+		<Unit filename="../PenjinBase/KeyMap.h" />
+		<Unit filename="../PenjinBase/KeyMapDigitalJoyAxis.cpp" />
+		<Unit filename="../PenjinBase/KeyMapDigitalJoyAxis.h" />
+		<Unit filename="../PenjinBase/KeyMapHat.cpp" />
+		<Unit filename="../PenjinBase/KeyMapHat.h" />
+		<Unit filename="../PenjinBase/KeyMapJoyAxis.cpp" />
+		<Unit filename="../PenjinBase/KeyMapJoyAxis.h" />
+		<Unit filename="../PenjinBase/KeyMapJoyButton.cpp" />
+		<Unit filename="../PenjinBase/KeyMapJoyButton.h" />
+		<Unit filename="../PenjinBase/KeyMapKey.cpp" />
+		<Unit filename="../PenjinBase/KeyMapKey.h" />
+		<Unit filename="../PenjinBase/KeyMapMouseAxis.cpp" />
+		<Unit filename="../PenjinBase/KeyMapMouseAxis.h" />
+		<Unit filename="../PenjinBase/KeyMapMouseButton.cpp" />
+		<Unit filename="../PenjinBase/KeyMapMouseButton.h" />
+		<Unit filename="../PenjinBase/KeyMapper.cpp" />
+		<Unit filename="../PenjinBase/KeyMapper.h" />
+		<Unit filename="../PenjinBase/LUT.cpp" />
+		<Unit filename="../PenjinBase/LUT.h" />
+		<Unit filename="../PenjinBase/LayerObject.cpp" />
+		<Unit filename="../PenjinBase/LayerObject.h" />
+		<Unit filename="../PenjinBase/Line.cpp" />
+		<Unit filename="../PenjinBase/Line.h" />
+		<Unit filename="../PenjinBase/LocalisedStringManager.cpp" />
+		<Unit filename="../PenjinBase/LocalisedStringManager.h" />
+		<Unit filename="../PenjinBase/MMUHack.cpp">
+			<Option target="GP2X Debug" />
+			<Option target="GP2X Release" />
+		</Unit>
+		<Unit filename="../PenjinBase/MMUHack.h">
+			<Option target="GP2X Debug" />
+			<Option target="GP2X Release" />
+		</Unit>
+		<Unit filename="../PenjinBase/Object.cpp" />
+		<Unit filename="../PenjinBase/Object.h" />
+		<Unit filename="../PenjinBase/Panel.cpp" />
+		<Unit filename="../PenjinBase/Panel.h" />
+		<Unit filename="../PenjinBase/PenjinFixedFunc.cpp" />
+		<Unit filename="../PenjinBase/PenjinFixedFunc.h" />
+		<Unit filename="../PenjinBase/PenjinTypes.h" />
+		<Unit filename="../PenjinBase/PositionObject.cpp" />
+		<Unit filename="../PenjinBase/PositionObject.h" />
+		<Unit filename="../PenjinBase/Primitive.cpp" />
+		<Unit filename="../PenjinBase/Primitive.h" />
+		<Unit filename="../PenjinBase/RadialObject.cpp" />
+		<Unit filename="../PenjinBase/RadialObject.h" />
+		<Unit filename="../PenjinBase/Rectangle.cpp" />
+		<Unit filename="../PenjinBase/Rectangle.h" />
+		<Unit filename="../PenjinBase/RenderObject.cpp" />
+		<Unit filename="../PenjinBase/RenderObject.h" />
+		<Unit filename="../PenjinBase/Renderer.cpp" />
+		<Unit filename="../PenjinBase/Renderer.h" />
+		<Unit filename="../PenjinBase/RendererSDL_2d.cpp" />
+		<Unit filename="../PenjinBase/RendererSDL_2d.h" />
+		<Unit filename="../PenjinBase/SimpleJoy.cpp" />
+		<Unit filename="../PenjinBase/SimpleJoy.h" />
+		<Unit filename="../PenjinBase/Singleton.h" />
+		<Unit filename="../PenjinBase/Sprite.cpp" />
+		<Unit filename="../PenjinBase/Sprite.h" />
+		<Unit filename="../PenjinBase/StateExample.cpp" />
+		<Unit filename="../PenjinBase/StateExample.h" />
+		<Unit filename="../PenjinBase/StateManager.cpp" />
+		<Unit filename="../PenjinBase/StateManager.h" />
+		<Unit filename="../PenjinBase/StringUtility.cpp" />
+		<Unit filename="../PenjinBase/StringUtility.h" />
+		<Unit filename="../PenjinBase/Surface.cpp" />
+		<Unit filename="../PenjinBase/Surface.h" />
+		<Unit filename="../PenjinBase/Timer.cpp" />
+		<Unit filename="../PenjinBase/Timer.h" />
+		<Unit filename="../PenjinBase/UpdateObject.cpp" />
+		<Unit filename="../PenjinBase/UpdateObject.h" />
+		<Unit filename="../PenjinBase/Vector1d.h" />
+		<Unit filename="../PenjinBase/Vector2d.h" />
+		<Unit filename="../PenjinBase/Vector3d.h" />
+		<Unit filename="../PenjinBase/Widget.cpp" />
+		<Unit filename="../PenjinBase/Widget.h" />
+		<Unit filename="../PenjinBase/Window.cpp" />
+		<Unit filename="../PenjinBase/Window.h" />
+		<Unit filename="../PenjinBase/trenki/fixed_class.h" />
+		<Unit filename="../PenjinBase/trenki/fixed_func.cpp" />
+		<Unit filename="../PenjinBase/trenki/fixed_func.h" />
+		<Unit filename="../PenjinBase/trenki/fixsintab.h" />
+		<Unit filename="../PenjinBase/trenki/vector_math.h" />
+		<Unit filename="source/Baby.cpp" />
+		<Unit filename="source/Baby.h" />
+		<Unit filename="source/BabyEgg.cpp" />
+		<Unit filename="source/BabyEgg.h" />
+		<Unit filename="source/MyGame2d.cpp" />
+		<Unit filename="source/MyGame2d.h" />
+		<Unit filename="source/MyStateChangeCode.h" />
+		<Unit filename="source/MyStateIncludes.h" />
+		<Unit filename="source/MyStateList.h" />
+		<Unit filename="source/StateLevel.cpp" />
+		<Unit filename="source/StateLevel.h" />
+		<Unit filename="source/StateTitle.cpp" />
+		<Unit filename="source/StateTitle.h" />
+		<Unit filename="source/main.cpp" />
+		<Extensions>
+			<envvars />
+			<code_completion />
+			<debugger />
+			<lib_finder disable_auto="1" />
+			<AutoVersioning>
+				<Scheme minor_max="10" build_max="0" rev_max="0" rev_rand_max="10" build_times_to_increment_minor="400" />
+				<Settings autoincrement="1" date_declarations="1" do_auto_increment="1" ask_to_increment="0" language="C++" svn="0" svn_directory="" header_path="version.h" />
+				<Changes_Log show_changes_editor="1" app_title="released version %M.%m.%b of %p" changeslog_path="ChangesLog.txt" />
+				<Code header_guard="VERSION_H" namespace="AutoVersion" prefix="" />
+			</AutoVersioning>
+			<DoxyBlocks>
+				<comment_style block="0" line="0" />
+				<doxyfile_project />
+				<doxyfile_build />
+				<doxyfile_warnings />
+				<doxyfile_output />
+				<doxyfile_dot />
+				<general />
+			</DoxyBlocks>
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
