@@ -412,6 +412,8 @@
 		<Unit filename="../PenjinBase/Singleton.h" />
 		<Unit filename="../PenjinBase/Sprite.cpp" />
 		<Unit filename="../PenjinBase/Sprite.h" />
+		<Unit filename="../PenjinBase/SpriteButton.cpp" />
+		<Unit filename="../PenjinBase/SpriteButton.h" />
 		<Unit filename="../PenjinBase/StateExample.cpp" />
 		<Unit filename="../PenjinBase/StateExample.h" />
 		<Unit filename="../PenjinBase/StateManager.cpp" />

@@ -22,12 +22,14 @@
 #include "StringUtility.h"
 #include "Panel.h"
 #include "Button.h"
+#include "SpriteButton.h"
 #include "Baby.h"
 #include "BabyEgg.h"
 using Penjin::StateLevel;
 using Penjin::Timer;
 using Penjin::Panel;
 using Penjin::Button;
+using Penjin::SpriteButton;
 using Penjin::Baby;
 using Penjin::BabyEgg;
 
@@ -60,9 +62,11 @@ StateLevel::StateLevel() : baby(NULL), globalTime(0),timer(NULL), panel(NULL)
 
     // Now setup the GUI
     panel = new Panel;
+    SpriteButton* a = NULL;
     Widget* b = NULL;
-    b = new Button;
-    panel->addWidget(b);
+    a = new SpriteButton;
+    a->loadImage("images/feed.png");
+    panel->addWidget(a);
     b = NULL;
     b = new Button;
     panel->addWidget(b);
