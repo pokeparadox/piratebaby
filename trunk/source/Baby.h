@@ -46,7 +46,7 @@ namespace Penjin
     class Timer;
 
 
-    class Baby : public RenderObject, public UpdateObject, public PositionObject, private ConfigFile
+    class Baby : public RenderObject, public UpdateObject, private ConfigFile
     {
         public:
             /** Default constructor */
