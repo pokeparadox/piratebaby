@@ -29,6 +29,7 @@ namespace Penjin
     class BabyEgg;
     class Timer;
     class Panel;
+    class Sprite;
 
     class StateLevel : public ApplicationState, public ConfigFile
     {
@@ -51,6 +52,7 @@ namespace Penjin
             Baby* baby;
             Timer* timer;
             Panel* panel;
+            Sprite* background;
     };
 }
 #endif // STATELEVEL_H
