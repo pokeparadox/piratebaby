@@ -23,6 +23,7 @@
 #include "Panel.h"
 #include "Button.h"
 #include "SpriteButton.h"
+#include "Sprite.h"
 #include "Baby.h"
 #include "BabyEgg.h"
 using Penjin::StateLevel;
@@ -30,6 +31,7 @@ using Penjin::Timer;
 using Penjin::Panel;
 using Penjin::Button;
 using Penjin::SpriteButton;
+using Penjin::Sprite;
 using Penjin::Baby;
 using Penjin::BabyEgg;
 
@@ -38,7 +40,7 @@ using Penjin::BabyEgg;
     using namespace std;
 #endif
 
-StateLevel::StateLevel() : baby(NULL), globalTime(0),timer(NULL), panel(NULL)
+StateLevel::StateLevel() : baby(NULL), globalTime(0),timer(NULL), panel(NULL), background(NULL)
 {
     //ctor
     Penjin::GFX::getInstance()->setClearColour(Colour(255,255,255));
@@ -70,6 +72,9 @@ StateLevel::StateLevel() : baby(NULL), globalTime(0),timer(NULL), panel(NULL)
     b = NULL;
     b = new Button;
     panel->addWidget(b);
+
+    // prepare the background
+    background = new Sprite;
 }
 
 StateLevel::~StateLevel()
@@ -85,7 +90,7 @@ StateLevel::~StateLevel()
     delete baby;
     delete timer;
     delete panel;
-    cout << "Level Destructed!" << endl;
+    delete background;
 }
 
 void StateLevel::createDefaultConfig()
@@ -133,6 +138,7 @@ void StateLevel::handleButtons(const int& b)
 void StateLevel::render()
 {
     GFX::getInstance()->clear();
+    //background->render();
     baby->render();
     panel->render();
 }
