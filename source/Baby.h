@@ -43,8 +43,6 @@ namespace Penjin
 
     // Forward class declarations
     class AnimatedSprite;
-    class Timer;
-
 
     class Baby : public RenderObject, public UpdateObject, private ConfigFile
     {
@@ -57,15 +55,18 @@ namespace Penjin
             void render();
             virtual void update();
 
-            int getLevel();
+            void setAge(const int& age);
+            int getAge();
 
+            int getLevel();
             void setLevel(const int& l);
 
         protected:
             //  this function test rules for this creature to evolve
             virtual void evolve();
+            BABY_ACTIONS action;    // current action of baby
             int intelligence;
-            int age;
+            int age; // age is in minutes
             int health;
             float weight;
             int strength;

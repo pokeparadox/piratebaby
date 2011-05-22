@@ -58,7 +58,7 @@ StateLevel::StateLevel() : baby(NULL), globalTime(0),timer(NULL), panel(NULL), b
     timer = new Timer;
     section = "World";
     // we save time to the nearest minute only
-    timer->setMode(MINUTES);
+    timer->setMode(SECONDS);
     globalTime = Penjin::StringUtility::stringToUnsignedInt( getValue(section,"Time") );
     timer->start();
 
@@ -75,6 +75,8 @@ StateLevel::StateLevel() : baby(NULL), globalTime(0),timer(NULL), panel(NULL), b
 
     // prepare the background
     background = new Sprite;
+    background->loadSprite("images/background.png");
+    background->disableTransparentColour();
 }
 
 StateLevel::~StateLevel()
@@ -116,6 +118,7 @@ void StateLevel::update()
     {
         ++globalTime;
         timer->start();
+        baby->setAge(globalTime);
     }
 
     baby->update();
@@ -137,8 +140,8 @@ void StateLevel::handleButtons(const int& b)
 
 void StateLevel::render()
 {
-    GFX::getInstance()->clear();
-    //background->render();
+    //GFX::getInstance()->clear();
+    background->render();
     baby->render();
     panel->render();
 }

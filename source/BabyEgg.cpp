@@ -18,12 +18,22 @@
 */
 #include "BabyEgg.h"
 #include "AnimatedSprite.h"
+#include "GFX.h"
 using Penjin::BabyEgg;
 using Penjin::AnimatedSprite;
+
 
 BabyEgg::BabyEgg()
 {
     sprite->loadFrames("images/egg.png",4,1);
+    sprite->setPlayMode(pmPulse);
+    sprite->setLooping(1);
+    Vector2d<int> dim = GFX::getInstance()->getDimensions();
+    dim.x = dim.x / 2.5f;
+    dim.y = dim.y / 2.25f;
+    sprite->setPosition(dim);
+    action = ACTION_IDLE;
+    level = 0;
 }
 
 BabyEgg::~BabyEgg()
@@ -34,5 +44,35 @@ BabyEgg::~BabyEgg()
 
 void BabyEgg::update()
 {
-    sprite->update();
+    if(action == ACTION_BLINK)
+    {
+        sprite->update();
+        if(sprite->hasFinished())
+            action=ACTION_IDLE;
+    }
+    else
+    {
+        sprite->rewind();
+        if(age == 60 || age == 120 || age == 180)
+        {
+            action=ACTION_BLINK;// Egg wobbling is kind of like blinking... right?
+            sprite->setLooping(1);
+        }
+        else if(age == 240 || age == 300)
+        {
+            action=ACTION_BLINK;// Egg wobbling is kind of like blinking... right?
+            sprite->setLooping(2);
+        }
+        else if(age == 360 || age == 420 || age == 480)
+        {
+            action=ACTION_BLINK;// Egg wobbling is kind of like blinking... right?
+            sprite->setLooping(3);
+        }
+        else if(age == 540 || age == 600)
+        {
+            action=ACTION_BLINK;// Egg wobbling is kind of like blinking... right?
+            sprite->setLooping(5);
+        }
+    }
+
 }
