@@ -57,3 +57,13 @@ void Baby::evolve()
 {
 
 }
+
+void Baby::setAge(const int & a)
+{
+    age = a;
+}
+
+int Baby::getAge()
+{
+    return age;
+}

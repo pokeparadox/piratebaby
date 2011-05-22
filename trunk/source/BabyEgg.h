@@ -34,6 +34,7 @@ namespace Penjin
 
         protected:
         private:
+            void twitch();
     };
 }
 #endif // BABYEGG_H
