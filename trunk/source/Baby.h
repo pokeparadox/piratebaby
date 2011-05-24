@@ -34,12 +34,30 @@ namespace Penjin
     /*These are tyhe states that the baby can be in*/
     enum BABY_ACTIONS
     {
-        ACTION_NONE,
+        ACTION_NONE=-1,
         ACTION_IDLE,
         ACTION_DANCE,
+        ACTION_JUMP,
         ACTION_BLINK,
-        ACTION_SLEEP
+        ACTION_SLEEP,
+        ACTION_WAKE,
+        ACTION_EVOLVE
     };
+
+    // These are the different evolutions that the baby can be in
+    enum BABY_EVOLUTIONS
+    {
+        EVO_EGG=0,
+        EVO_BLOB,
+        EVO_EGG_BABY,
+        EVO_GHOST,
+        EVO_SKELETON,
+        EVO_ZOMBIE,
+        EVO_PIRATE,
+        EVO_NINJA
+    }
+
+    const string DEFAULT_BABY_SAVE = "config/PirateBaby.baby";
 
     // Forward class declarations
     class AnimatedSprite;

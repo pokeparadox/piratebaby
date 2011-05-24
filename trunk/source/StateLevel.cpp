@@ -64,10 +64,10 @@ StateLevel::StateLevel() : baby(NULL), globalTime(0),timer(NULL), panel(NULL), b
 
     // Now setup the GUI
     panel = new Panel;
-    SpriteButton* a = NULL;
+    Widget* a = NULL;
     Widget* b = NULL;
-    a = new SpriteButton;
-    a->loadImage("images/feed.png");
+    a = new Button;
+    //a->loadImage("images/feed.png");
     panel->addWidget(a);
     b = NULL;
     b = new Button;
@@ -154,6 +154,10 @@ void StateLevel::input()
         {
             panel->setShouldHide(false);
             Joy::getInstance()->resetA();
+        }
+        if(Joy::getInstance()->getMouse().y < GFX::getInstance()->getHeight() / 90)
+        {
+            panel->setShouldHide(false);
         }
     }
     else

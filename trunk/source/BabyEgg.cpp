@@ -23,7 +23,7 @@ using Penjin::BabyEgg;
 using Penjin::AnimatedSprite;
 
 
-BabyEgg::BabyEgg()
+BabyEgg::BabyEgg() : touchCount(0)
 {
     sprite->loadFrames("images/egg.png",4,1);
     sprite->setPlayMode(pmPulse);
@@ -50,29 +50,58 @@ void BabyEgg::update()
         if(sprite->hasFinished())
             action=ACTION_IDLE;
     }
-    else
+    else if( action == ACTION_IDLE)
     {
         sprite->rewind();
         if(age == 60 || age == 120 || age == 180)
         {
             action=ACTION_BLINK;// Egg wobbling is kind of like blinking... right?
             sprite->setLooping(1);
+            weight+=0.12f;
         }
         else if(age == 240 || age == 300)
         {
             action=ACTION_BLINK;// Egg wobbling is kind of like blinking... right?
             sprite->setLooping(2);
+            intelligence++;
         }
         else if(age == 360 || age == 420 || age == 480)
         {
             action=ACTION_BLINK;// Egg wobbling is kind of like blinking... right?
             sprite->setLooping(3);
+            weight+=0.05f;
         }
         else if(age == 540 || age == 600)
         {
             action=ACTION_BLINK;// Egg wobbling is kind of like blinking... right?
             sprite->setLooping(5);
+            intelligence++;
+        }
+        else if(age > 600)
+        {
+            action=ACTION_EVOLVE;
+            evolve();
         }
     }
+}
 
+void BabyEgg::evolve()
+{
+    // Setup evolve animation
+    sprite->clearFrames();
+}
+
+
+void BabyEgg::touch()
+{
+    // We only tolerate 10 touches
+    if(touchCount<10)
+    {
+        ++touchCount;
+    }
+    else
+    {
+        action=ACTION_EVOLVE;
+        evolve();
+    }
 }
