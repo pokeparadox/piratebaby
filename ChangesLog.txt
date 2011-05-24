@@ -1,0 +1,7 @@
+23 May 2011
+   released version 1.0.362 of PirateBaby
+
+     Change log:
+        -Added: Trigger Panel by moving mouse to top of screen.
+        -Added: Leave Panel by clicking outside of Panel Area
+

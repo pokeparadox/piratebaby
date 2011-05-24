@@ -27,7 +27,7 @@
 using Penjin::Baby;
 using Penjin::AnimatedSprite;
 
-Baby::Baby() : sprite(NULL)
+Baby::Baby() : sprite(NULL), intelligence(1), weight(0.2f)
 {
     //ctor
     sprite = new AnimatedSprite;

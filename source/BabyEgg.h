@@ -31,10 +31,14 @@ namespace Penjin
             virtual ~BabyEgg();
 
             virtual void update();
+            void touch();           // touch the egg
+
 
         protected:
+            virtual void evolve();
+
         private:
-            void twitch();
+            int touchCount;
     };
 }
 #endif // BABYEGG_H
