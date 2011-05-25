@@ -29,6 +29,7 @@
 #include "UpdateObject.h"
 #include "PositionObject.h"
 #include "ConfigFile.h"
+
 namespace Penjin
 {
     /*These are tyhe states that the baby can be in*/
@@ -55,7 +56,7 @@ namespace Penjin
         EVO_ZOMBIE,
         EVO_PIRATE,
         EVO_NINJA
-    }
+    };
 
     const string DEFAULT_BABY_SAVE = "config/PirateBaby.baby";
 
@@ -80,8 +81,12 @@ namespace Penjin
             void setLevel(const int& l);
 
         protected:
+            //  Return the string version of action
+            string actionToString();
+            void stringToAction(const string& s);
             //  this function test rules for this creature to evolve
             virtual void evolve();
+            void defaultConfig();
             BABY_ACTIONS action;    // current action of baby
             int intelligence;
             int age; // age is in minutes

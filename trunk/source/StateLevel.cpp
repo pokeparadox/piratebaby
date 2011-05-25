@@ -52,14 +52,14 @@ StateLevel::StateLevel() : baby(NULL), globalTime(0),timer(NULL), panel(NULL), b
     string section = "Baby";
 
     // now we setup the correct baby object based on the type detected.
-    setupBabyType(getValue(section,"BabyType"));
+    setupBabyType(getValue(section,"BabyType","Egg"));
 
     // grab time from the file
     timer = new Timer;
     section = "World";
     // we save time to the nearest minute only
     timer->setMode(SECONDS);
-    globalTime = Penjin::StringUtility::stringToUnsignedInt( getValue(section,"Time") );
+    globalTime = Penjin::StringUtility::stringToUnsignedInt( getValue(section,"Time","0") );
     timer->start();
 
     // Now setup the GUI
