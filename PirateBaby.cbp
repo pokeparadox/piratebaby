@@ -84,7 +84,6 @@
 					<Add option="-lSDL_image" />
 					<Add option="-lSDL_mixer" />
 					<Add option="-lSDL_gfx" />
-					<Add directory="../PenjinBase/obj/lin/Debug" />
 				</Linker>
 			</Target>
 			<Target title="Lin Release">
@@ -109,7 +108,6 @@
 					<Add option="-lSDL_image" />
 					<Add option="-lSDL_mixer" />
 					<Add option="-lSDL_gfx" />
-					<Add directory="../PenjinBase/obj/lin/Release" />
 				</Linker>
 			</Target>
 			<Target title="Pandora Debug">

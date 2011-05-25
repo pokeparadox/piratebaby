@@ -1,3 +1,10 @@
+25 May 2011
+   released version 1.0.372 of PirateBaby
+
+     Change log:
+        -Added: Saving to Baby class.
+        -Added: getValue(section,key,value) function to ConfigFile. Attempts to read the value from file and specify a value if missing in one function.
+
 23 May 2011
    released version 1.0.362 of PirateBaby
 
