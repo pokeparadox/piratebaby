@@ -320,8 +320,6 @@
 		<Linker>
 			<Add directory="./" />
 		</Linker>
-		<Unit filename="../PenjinBase/AnimatedSprite.cpp" />
-		<Unit filename="../PenjinBase/AnimatedSprite.h" />
 		<Unit filename="../PenjinBase/Animation.cpp" />
 		<Unit filename="../PenjinBase/Animation.h" />
 		<Unit filename="../PenjinBase/Application.cpp" />
@@ -330,6 +328,8 @@
 		<Unit filename="../PenjinBase/ApplicationState.h" />
 		<Unit filename="../PenjinBase/Button.cpp" />
 		<Unit filename="../PenjinBase/Button.h" />
+		<Unit filename="../PenjinBase/CollisionRegion.cpp" />
+		<Unit filename="../PenjinBase/CollisionRegion.h" />
 		<Unit filename="../PenjinBase/Colour.cpp" />
 		<Unit filename="../PenjinBase/Colour.h" />
 		<Unit filename="../PenjinBase/ConfigFile.cpp" />
@@ -350,6 +350,8 @@
 		<Unit filename="../PenjinBase/Game2d.h" />
 		<Unit filename="../PenjinBase/Image.cpp" />
 		<Unit filename="../PenjinBase/Image.h" />
+		<Unit filename="../PenjinBase/ImageSheet.cpp" />
+		<Unit filename="../PenjinBase/ImageSheet.h" />
 		<Unit filename="../PenjinBase/KeyMap.cpp" />
 		<Unit filename="../PenjinBase/KeyMap.h" />
 		<Unit filename="../PenjinBase/KeyMapDigitalJoyAxis.cpp" />

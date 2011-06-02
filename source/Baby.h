@@ -18,7 +18,7 @@
 	along with Penjin.  If not, see <http://www.gnu.org/licenses/>.
 */
 /***************************************************************************************************
-*   \file CLASS_NAME is INSERT DESCRIPTION
+*   \file Baby is the base class for a series of different Babies
 *   \author Kevin Winfield-Pantoja
 */
 #ifndef BABY_H
@@ -58,10 +58,11 @@ namespace Penjin
         EVO_NINJA
     };
 
-    const string DEFAULT_BABY_SAVE = "config/PirateBaby.baby";
+    const string DEFAULT_BABY_SAVE = "config/Baby01.baby";
 
     // Forward class declarations
-    class AnimatedSprite;
+    class Sprite;
+    class Timer;
 
     class Baby : public RenderObject, public UpdateObject, private ConfigFile
     {
@@ -96,8 +97,8 @@ namespace Penjin
             int happiness;
             int cleanliness;
             int level;          // This is the discipline level which adds new responsibilities as it increaes
-
-            AnimatedSprite* sprite;
+            Timer* timer;
+            Sprite* sprite;
 
         private:
     };
