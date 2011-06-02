@@ -17,15 +17,15 @@
 	along with Penjin.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "BabyEgg.h"
-#include "AnimatedSprite.h"
+#include "Sprite.h"
 #include "GFX.h"
 using Penjin::BabyEgg;
-using Penjin::AnimatedSprite;
+using Penjin::Sprite;
 
 
 BabyEgg::BabyEgg() : touchCount(0)
 {
-    sprite->loadFrames("images/egg.png",4,1);
+    sprite->load("images/egg.png",4,1);
     sprite->setPlayMode(pmPulse);
     sprite->setLooping(1);
     Vector2d<int> dim = GFX::getInstance()->getDimensions();
@@ -44,6 +44,7 @@ BabyEgg::~BabyEgg()
 
 void BabyEgg::update()
 {
+    Baby::update();
     if(action == ACTION_BLINK)
     {
         sprite->update();
@@ -88,7 +89,7 @@ void BabyEgg::update()
 void BabyEgg::evolve()
 {
     // Setup evolve animation
-    sprite->clearFrames();
+    sprite->clear();
 }
 
 

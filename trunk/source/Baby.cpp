@@ -23,25 +23,29 @@
 */
 
 #include "Baby.h"
-#include "AnimatedSprite.h"
+#include "Sprite.h"
+#include "Timer.h"
 #include "StringUtility.h"
 using Penjin::Baby;
-using Penjin::AnimatedSprite;
+using Penjin::Sprite;
+using Penjin::Timer;
 
-Baby::Baby() :  intelligence(1), weight(0.2f), sprite(NULL), action(ACTION_IDLE)
+Baby::Baby() :  action(ACTION_IDLE),intelligence(1), weight(0.2f), sprite(NULL), timer(NULL)
 {
     //ctor
-    sprite = new AnimatedSprite;
+    sprite = new Sprite;
     Penjin::ERRORS e = load(DEFAULT_BABY_SAVE);
-    if(e != PENJIN_OK)
-        defaultConfig();
-    else
-    {
-        string section = "Status";
-        intelligence = StringUtility::stringToInt( getValue(section,"Intelligence", "1"));
-        weight = StringUtility::stringToFloat( getValue(section, "Weight","0.2") );
-        stringToAction(getValue(section, "Action","ACTION_IDLE"));
-    }
+
+    string section = "Status";
+    age = StringUtility::stringToInt(  getValue(section, "Age", "0")   );
+    intelligence = StringUtility::stringToInt( getValue(section,"Intelligence", "1"));
+    weight = StringUtility::stringToFloat( getValue(section, "Weight","0.2") );
+    stringToAction(getValue(section, "Action","ACTION_IDLE"));
+    if(hasChanged())
+        save(DEFAULT_BABY_SAVE);
+    timer = new Timer;
+    timer->setMode(SECONDS);
+    timer->start();
 }
 
 Baby::~Baby()
@@ -49,18 +53,12 @@ Baby::~Baby()
     //dtor
     delete sprite;
     string section = "Status";
+    setValue(section, "Age", StringUtility::intToString(age));
     setValue(section, "Intelligence", StringUtility::intToString(intelligence) );
     setValue(section, "Weight", StringUtility::floatToString(weight) );
     setValue(section, "Action", actionToString());
-    save(DEFAULT_BABY_SAVE);
-}
-
-void Baby::defaultConfig()
-{
-    string section = "Status";
-    setValue(section, "Intelligence", "1");
-    setValue(section, "Weight", "0.2");
-    setValue(section, "Action", "ACTION_IDLE");
+    if(hasChanged())
+        save(DEFAULT_BABY_SAVE);
 }
 
 string Baby::actionToString()
@@ -105,15 +103,18 @@ void Baby::stringToAction(const string& s)
 
 void Baby::render()
 {
-    if(sprite)
-        sprite->render();
+    sprite->render();
 }
 
 
 void Baby::update()
 {
-    if(sprite)
-        sprite->update();
+    if(timer->getScaledTicks() >= 1)
+    {
+        ++age;
+        timer->start();
+    }
+    sprite->update();
 }
 
 

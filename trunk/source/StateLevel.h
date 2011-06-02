@@ -23,13 +23,12 @@
 
 namespace Penjin
 {
+    const string BABY_LIST = "config/babies.ini";
 
-    const string BABY_CONFIG_DEFAULT = "config/PirateBabyGeneral.ini";
     class Baby;
     class BabyEgg;
-    class Timer;
     class Panel;
-    class Sprite;
+    class Image;
 
     class StateLevel : public ApplicationState, public ConfigFile
     {
@@ -46,13 +45,11 @@ namespace Penjin
 
         protected:
             void setupBabyType(const string& type);
-            void createDefaultConfig();
             void handleButtons(const int& b);   // perform relevant actions depending on button
-            unsigned int globalTime;
+
             Baby* baby;
-            Timer* timer;
             Panel* panel;
-            Sprite* background;
+            Image* background;
     };
 }
 #endif // STATELEVEL_H

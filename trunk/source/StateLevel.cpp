@@ -18,7 +18,6 @@
 */
 #include "GFX.h"
 #include "StateLevel.h"
-#include "Timer.h"
 #include "StringUtility.h"
 #include "Panel.h"
 #include "Button.h"
@@ -27,7 +26,6 @@
 #include "Baby.h"
 #include "BabyEgg.h"
 using Penjin::StateLevel;
-using Penjin::Timer;
 using Penjin::Panel;
 using Penjin::Button;
 using Penjin::SpriteButton;
@@ -40,27 +38,20 @@ using Penjin::BabyEgg;
     using namespace std;
 #endif
 
-StateLevel::StateLevel() : baby(NULL), globalTime(0),timer(NULL), panel(NULL), background(NULL)
+StateLevel::StateLevel() : baby(NULL), panel(NULL), background(NULL)
 {
     //ctor
     Penjin::GFX::getInstance()->setClearColour(Colour(255,255,255));
-    // Load general settings file
-    Penjin::ERRORS e = load(BABY_CONFIG_DEFAULT);
 
-    if(e != PENJIN_OK)
-        createDefaultConfig();
-    string section = "Baby";
+    // Load list of babies and general settings
+    load(BABY_LIST);
+    string section = "Baby01";
 
     // now we setup the correct baby object based on the type detected.
-    setupBabyType(getValue(section,"BabyType","Egg"));
+    setupBabyType(getValue(section,"Type","Egg"));
 
-    // grab time from the file
-    timer = new Timer;
-    section = "World";
-    // we save time to the nearest minute only
-    timer->setMode(SECONDS);
-    globalTime = Penjin::StringUtility::stringToUnsignedInt( getValue(section,"Time","0") );
-    timer->start();
+    if(hasChanged())
+        save(BABY_LIST);
 
     // Now setup the GUI
     panel = new Panel;
@@ -74,34 +65,17 @@ StateLevel::StateLevel() : baby(NULL), globalTime(0),timer(NULL), panel(NULL), b
     panel->addWidget(b);
 
     // prepare the background
-    background = new Sprite;
-    background->loadSprite("images/background.png");
-    background->disableTransparentColour();
+    background = new Image;
+    background->load("images/background.png");
 }
 
 StateLevel::~StateLevel()
 {
-    //dtor
-    // Save and cleanup
-    string section = "Baby";
-    //setValue(section, "BabyType", "Egg");
-    section = "World";
-    setValue(section, "Time",  Penjin::StringUtility::intToString(globalTime));
-
-    save(BABY_CONFIG_DEFAULT);
+    if(hasChanged())
+        save(BABY_LIST);
     delete baby;
-    delete timer;
     delete panel;
     delete background;
-}
-
-void StateLevel::createDefaultConfig()
-{
-    string section = "Baby";
-    setValue(section, "BabyType", "Egg");
-    section = "World";
-    setValue(section, "Time", "0");
-    save(BABY_CONFIG_DEFAULT);
 }
 
 void StateLevel::setupBabyType(const string& t)
@@ -114,13 +88,6 @@ void StateLevel::setupBabyType(const string& t)
 
 void StateLevel::update()
 {
-    if(timer->getScaledTicks() >= 1)
-    {
-        ++globalTime;
-        timer->start();
-        baby->setAge(globalTime);
-    }
-
     baby->update();
     panel->update();
     handleButtons(panel->whichWidget());
@@ -140,7 +107,7 @@ void StateLevel::handleButtons(const int& b)
 
 void StateLevel::render()
 {
-    //GFX::getInstance()->clear();
+    GFX::getInstance()->clear();
     background->render();
     baby->render();
     panel->render();
