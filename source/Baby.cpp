@@ -132,3 +132,8 @@ int Baby::getAge()
 {
     return age;
 }
+
+int Baby::getLevel()
+{
+    return level;
+}

@@ -25,6 +25,8 @@
 #include "Sprite.h"
 #include "Baby.h"
 #include "BabyEgg.h"
+#include "BabyBlob.h"
+#include "BabyEggBaby.h"
 using Penjin::StateLevel;
 using Penjin::Panel;
 using Penjin::Button;
@@ -32,6 +34,8 @@ using Penjin::SpriteButton;
 using Penjin::Sprite;
 using Penjin::Baby;
 using Penjin::BabyEgg;
+using Penjin::BabyBlob;
+using Penjin::BabyEggBaby;
 
 #ifdef DEBUG
     #include <iostream>
@@ -53,16 +57,8 @@ StateLevel::StateLevel() : baby(NULL), panel(NULL), background(NULL)
     if(hasChanged())
         save(BABY_LIST);
 
-    // Now setup the GUI
-    panel = new Panel;
-    Widget* a = NULL;
-    Widget* b = NULL;
-    a = new Button;
-    //a->loadImage("images/feed.png");
-    panel->addWidget(a);
-    b = NULL;
-    b = new Button;
-    panel->addWidget(b);
+
+    setupPanel();
 
     // prepare the background
     background = new Image;
@@ -84,13 +80,58 @@ void StateLevel::setupBabyType(const string& t)
     baby = NULL;
     if(t == "" || t == "Egg")
         baby = new BabyEgg;
+    else if(t == "Blob")
+        baby = new BabyBlob;
+    else if(t == "EggBaby")
+        baby = new BabyEggBaby;
+    setValue("Baby01","Type",t);
+}
+
+
+void StateLevel::setupPanel()
+{
+    int level = baby->getLevel();
+
+    // Now setup the GUI
+    if(panel == NULL)
+        panel = new Panel;
+
+    panel->clear();
+    if(level >= 0)
+    {
+        SpriteButton* a = NULL;
+        a = new SpriteButton;
+        //a->loadImage("images/status.png");
+        panel->addWidget(a);
+    }
+    if(level >= 1)
+    {
+        SpriteButton* a = NULL;
+        a = new SpriteButton;
+        //a->loadImage("images/food.png");
+        panel->addWidget(a);
+    }
 }
 
 void StateLevel::update()
 {
     baby->update();
+    handleActions();
+
     panel->update();
     handleButtons(panel->whichWidget());
+}
+
+void StateLevel::handleActions()
+{
+    BABY_ACTIONS action = baby->getAction();
+    // If the baby is ready to evolve set the next form
+    if(action == ACTION_EVOLVE)
+    {
+        setupBabyType(baby->getNextForm());
+        setupPanel();
+    }
+
 }
 
 void StateLevel::handleButtons(const int& b)

@@ -25,6 +25,7 @@ using Penjin::Sprite;
 
 BabyEgg::BabyEgg() : touchCount(0)
 {
+    sprite->clear();
     sprite->load("images/egg.png",4,1);
     sprite->setPlayMode(pmPulse);
     sprite->setLooping(1);
@@ -64,7 +65,7 @@ void BabyEgg::update()
         {
             action=ACTION_BLINK;// Egg wobbling is kind of like blinking... right?
             sprite->setLooping(2);
-            intelligence++;
+            ++intelligence;
         }
         else if(age == 360 || age == 420 || age == 480)
         {
@@ -105,4 +106,11 @@ void BabyEgg::touch()
         action=ACTION_EVOLVE;
         evolve();
     }
+}
+
+string BabyEgg::getNextForm()
+{
+    if(age<300)
+        return "Blob";
+    return "EggBaby";
 }
