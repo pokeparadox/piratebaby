@@ -1,4 +1,5 @@
-/*
+/**
+    \section LICENSE
 	Penjin is Copyright (c)2005, 2006, 2007, 2008, 2009, 2010, 2011 Kevin Winfield-Pantoja
 
 	This file is part of Penjin.
@@ -15,32 +16,36 @@
 
 	You should have received a copy of the GNU Lesser General Public License
 	along with Penjin.  If not, see <http://www.gnu.org/licenses/>.
-*/#ifndef BABYEGG_H
-#define BABYEGG_H
+**********************************************************************************************/
+/**
+  * \file INSERT DECRIPTION HERE
+  * \author Kevin Winfield-Pantoja
+*/#ifndef BABYBLOB_H
+#define BABYBLOB_H
 
-#include "Baby.h"
-
+#include "BabyEgg.h"
 namespace Penjin
 {
-    class BabyEgg : public Baby
+    class Prop;
+
+    class BabyBlob : public BabyEgg
     {
         public:
             /** Default constructor */
-            BabyEgg();
+            BabyBlob();
             /** Default destructor */
-            virtual ~BabyEgg();
+            virtual ~BabyBlob();
 
             virtual void update();
-            void touch();           // touch the egg
 
-            // Egg can only evolve into a blob or EggBaby
+            // interect with a prop in game.
+            virtual void interact(Prop* prop);
+
             virtual string getNextForm();
-
         protected:
-            virtual void evolve();
-
         private:
-            int touchCount;
     };
 }
-#endif // BABYEGG_H
+
+
+#endif // BABYBLOB_H

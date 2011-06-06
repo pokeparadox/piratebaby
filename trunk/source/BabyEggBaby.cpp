@@ -1,4 +1,5 @@
-/*
+/**
+    \section LICENSE
 	Penjin is Copyright (c)2005, 2006, 2007, 2008, 2009, 2010, 2011 Kevin Winfield-Pantoja
 
 	This file is part of Penjin.
@@ -15,32 +16,32 @@
 
 	You should have received a copy of the GNU Lesser General Public License
 	along with Penjin.  If not, see <http://www.gnu.org/licenses/>.
-*/#ifndef BABYEGG_H
-#define BABYEGG_H
+**********************************************************************************************/
+/**
+  * \file INSERT DECRIPTION HERE
+  * \author Kevin Winfield-Pantoja
+*/
+#include "BabyEggBaby.h"
+#include "Sprite.h"
+using Penjin::BabyEggBaby;
+using Penjin::Sprite;
 
-#include "Baby.h"
-
-namespace Penjin
+BabyEggBaby::BabyEggBaby()
 {
-    class BabyEgg : public Baby
-    {
-        public:
-            /** Default constructor */
-            BabyEgg();
-            /** Default destructor */
-            virtual ~BabyEgg();
-
-            virtual void update();
-            void touch();           // touch the egg
-
-            // Egg can only evolve into a blob or EggBaby
-            virtual string getNextForm();
-
-        protected:
-            virtual void evolve();
-
-        private:
-            int touchCount;
-    };
+    //ctor
+    sprite->clear();
+    sprite->load("images/eggbaby.png",4,1);
+    sprite->setPlayMode(pmPulse);
+    sprite->setLooping(1);
+    Vector2d<int> dim = GFX::getInstance()->getDimensions();
+    dim.x = dim.x / 2.5f;
+    dim.y = dim.y / 2.25f;
+    sprite->setPosition(dim);
+    action = ACTION_IDLE;
+    level = 1;
 }
-#endif // BABYEGG_H
+
+BabyEggBaby::~BabyEggBaby()
+{
+    //dtor
+}

@@ -63,6 +63,7 @@ namespace Penjin
     // Forward class declarations
     class Sprite;
     class Timer;
+    class Prop;
 
     class Baby : public RenderObject, public UpdateObject, private ConfigFile
     {
@@ -80,6 +81,10 @@ namespace Penjin
 
             int getLevel();
             void setLevel(const int& l);
+            // request the next form this baby will take.
+            virtual string getNextForm(){return "Blob";}
+            //  What action is this baby doing
+            BABY_ACTIONS getAction(){return action;}
 
         protected:
             //  Return the string version of action

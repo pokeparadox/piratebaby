@@ -27,7 +27,10 @@ namespace Penjin
 
     class Baby;
     class BabyEgg;
+    class BabyBlob;
+    class BabyEggBaby;
     class Panel;
+    class SpriteButton;
     class Image;
 
     class StateLevel : public ApplicationState, public ConfigFile
@@ -44,7 +47,9 @@ namespace Penjin
 
 
         protected:
-            void setupBabyType(const string& type);
+            void handleActions();                       // performs different actions depending on the action of the baby
+            void setupBabyType(const string& type);     // Create the correct Baby class
+            void setupPanel();                          // Setup the panel depending on the level of the baby
             void handleButtons(const int& b);   // perform relevant actions depending on button
 
             Baby* baby;
