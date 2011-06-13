@@ -17,7 +17,6 @@
 	along with Penjin.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "MyGame2d.h"
-#include "ConfigFile.h"
 using Penjin::MyGame2d;
 
 MyGame2d::MyGame2d()

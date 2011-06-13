@@ -30,7 +30,7 @@ using Penjin::Baby;
 using Penjin::Sprite;
 using Penjin::Timer;
 
-Baby::Baby() :  action(ACTION_IDLE),intelligence(1), weight(0.2f), sprite(NULL), timer(NULL)
+Baby::Baby() :  action(ACTION_IDLE),intelligence(1),hunger(90),strength(0), weight(0.2f), sprite(NULL), timer(NULL)
 {
     //ctor
     sprite = new Sprite;
@@ -40,6 +40,7 @@ Baby::Baby() :  action(ACTION_IDLE),intelligence(1), weight(0.2f), sprite(NULL),
     age = StringUtility::stringToInt(  getValue(section, "Age", "0")   );
     intelligence = StringUtility::stringToInt( getValue(section,"Intelligence", "1"));
     weight = StringUtility::stringToFloat( getValue(section, "Weight","0.2") );
+    hunger = StringUtility::stringToInt( getValue(section,"Hunger", "90"));
     stringToAction(getValue(section, "Action","ACTION_IDLE"));
     if(hasChanged())
         save(DEFAULT_BABY_SAVE);
@@ -56,6 +57,7 @@ Baby::~Baby()
     setValue(section, "Age", StringUtility::intToString(age));
     setValue(section, "Intelligence", StringUtility::intToString(intelligence) );
     setValue(section, "Weight", StringUtility::floatToString(weight) );
+    setValue(section, "Hunger", StringUtility::intToString(hunger) );
     setValue(section, "Action", actionToString());
     if(hasChanged())
         save(DEFAULT_BABY_SAVE);
@@ -136,4 +138,19 @@ int Baby::getAge()
 int Baby::getLevel()
 {
     return level;
+}
+
+float Baby::getWeight()
+{
+    return weight;
+}
+
+int Baby::getHunger()
+{
+    return hunger;
+}
+
+int Baby::getIntelligence()
+{
+    return intelligence;
 }

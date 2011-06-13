@@ -20,53 +20,37 @@
 /**
   * \file INSERT DECRIPTION HERE
   * \author Kevin Winfield-Pantoja
-*/
-#include "BabyBlob.h"
-#include "Sprite.h"
-using Penjin::BabyBlob;
-using Penjin::Sprite;
-BabyBlob::BabyBlob()
+*/#ifndef STATSWINDOW_H
+#define STATSWINDOW_H
+
+#include "Window.h"
+
+namespace Penjin
 {
-    //ctor
-    sprite->clear();
-    sprite->load("images/blob.png",4,1);
-    sprite->setPlayMode(pmPulse);
-    sprite->setLooping(1);
-    Vector2d<int> dim = GFX::getInstance()->getDimensions();
-    dim.x = dim.x / 2.5f;
-    dim.y = dim.y / 2.25f;
-    sprite->setPosition(dim);
-    action = ACTION_IDLE;
-    level = 1;
-}
+    class Baby;
+    class Button;
+    class Text;
 
-BabyBlob::~BabyBlob()
-{
-    //dtor
-}
-
-string BabyBlob::getNextForm()
-{
-    return "";
-}
-
-void BabyBlob::interact(Prop* prop)
-{
-
-}
-
-void BabyBlob::update()
-{
-    Baby::update();
-
-    // Hunger increases with time
-    if(timer->getTicks()%600 == 1)
+    class StatsWindow : public Window
     {
-        // If we are not at max hunger we increase
-        if(hunger<100)
-            ++hunger;
-        // We lose weight if we are at max hunger
-        else
-            weight-=0.02f;
-    }
+        public:
+            /** Default constructor */
+            StatsWindow();
+            /** Default destructor */
+            virtual ~StatsWindow();
+
+            /** \brief Set the Baby class instance we can extract the stats*/
+            void setBaby(Baby* b);
+
+            virtual void render();
+
+            virtual void update();
+        protected:
+        private:
+            Baby* baby;             //  This is set from outside the class, we don't need to tidy
+            Button* window;         //  Button object not actually used as button, used as backing decoration for Window.
+            Text* text;
+    };
 }
+
+#endif // STATSWINDOW_H

@@ -28,8 +28,6 @@ namespace Penjin
             MyGame2d();
             /** Default destructor */
             virtual ~MyGame2d();
-
-            //virtual void loop();
     };
 }
 #endif // MYGAME2D_H
