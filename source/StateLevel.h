@@ -32,6 +32,7 @@ namespace Penjin
     class Panel;
     class SpriteButton;
     class Image;
+    class StatsWindow;
 
     class StateLevel : public ApplicationState, public ConfigFile
     {
@@ -50,11 +51,13 @@ namespace Penjin
             void handleActions();                       // performs different actions depending on the action of the baby
             void setupBabyType(const string& type);     // Create the correct Baby class
             void setupPanel();                          // Setup the panel depending on the level of the baby
+            void setupWindows();                        // Prepares any windows we may need to view.
             void handleButtons(const int& b);   // perform relevant actions depending on button
 
             Baby* baby;
             Panel* panel;
             Image* background;
+            StatsWindow* statWindow;             // Window showing all info of baby
     };
 }
 #endif // STATELEVEL_H

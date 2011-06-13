@@ -27,6 +27,7 @@
 #include "BabyEgg.h"
 #include "BabyBlob.h"
 #include "BabyEggBaby.h"
+#include "StatsWindow.h"
 using Penjin::StateLevel;
 using Penjin::Panel;
 using Penjin::Button;
@@ -36,13 +37,13 @@ using Penjin::Baby;
 using Penjin::BabyEgg;
 using Penjin::BabyBlob;
 using Penjin::BabyEggBaby;
-
+using Penjin::StatsWindow;
 #ifdef DEBUG
     #include <iostream>
     using namespace std;
 #endif
 
-StateLevel::StateLevel() : baby(NULL), panel(NULL), background(NULL)
+StateLevel::StateLevel() : baby(NULL), panel(NULL), background(NULL), statWindow(NULL)
 {
     //ctor
     Penjin::GFX::getInstance()->setClearColour(Colour(255,255,255));
@@ -59,10 +60,19 @@ StateLevel::StateLevel() : baby(NULL), panel(NULL), background(NULL)
 
 
     setupPanel();
+    setupWindows();
 
     // prepare the background
     background = new Image;
     background->load("images/background.png");
+}
+
+void StateLevel::setupWindows()
+{
+    // Stats window
+    statWindow = new StatsWindow;
+    statWindow->setTitle("Stats");
+    statWindow->setBaby(baby);
 }
 
 StateLevel::~StateLevel()
@@ -72,6 +82,7 @@ StateLevel::~StateLevel()
     delete baby;
     delete panel;
     delete background;
+    delete statWindow;
 }
 
 void StateLevel::setupBabyType(const string& t)
@@ -101,20 +112,21 @@ void StateLevel::setupPanel()
     {
         SpriteButton* a = NULL;
         a = new SpriteButton;
-        //a->loadImage("images/status.png");
+        a->loadImage("images/status.png");
         panel->addWidget(a);
     }
     if(level >= 1)
     {
         SpriteButton* a = NULL;
         a = new SpriteButton;
-        //a->loadImage("images/food.png");
+        a->loadImage("images/food.png");
         panel->addWidget(a);
     }
 }
 
 void StateLevel::update()
 {
+    statWindow->update();
     baby->update();
     handleActions();
 
@@ -138,20 +150,24 @@ void StateLevel::handleButtons(const int& b)
 {
     if(b == 0)
     {
-        // Give food
+        // check stats
+        statWindow->focus();        // Focus the Window
+        panel->setShouldHide(true); // Hide the toolbar
     }
     else if(b == 1)
     {
-        // Wash
+        // feed
     }
 }
 
 void StateLevel::render()
 {
-    GFX::getInstance()->clear();
+    //GFX::getInstance()->clear();
     background->render();
     baby->render();
     panel->render();
+
+    statWindow->render();
 }
 
 void StateLevel::input()

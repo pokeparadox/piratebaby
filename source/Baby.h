@@ -78,7 +78,9 @@ namespace Penjin
 
             void setAge(const int& age);
             int getAge();
-
+            int getIntelligence();
+            float getWeight();
+            int getHunger();
             int getLevel();
             void setLevel(const int& l);
             // request the next form this baby will take.
@@ -95,10 +97,11 @@ namespace Penjin
             void defaultConfig();
             BABY_ACTIONS action;    // current action of baby
             int intelligence;
-            int age; // age is in minutes
+            int age; // age is in seconds
             int health;
             float weight;
             int strength;
+            int hunger;         // Hunger level
             int happiness;
             int cleanliness;
             int level;          // This is the discipline level which adds new responsibilities as it increaes
