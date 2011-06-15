@@ -23,10 +23,17 @@
 #include "Button.h"
 #include "SpriteButton.h"
 #include "Sprite.h"
+
+// BABY INCLUDES
 #include "Baby.h"
 #include "BabyEgg.h"
 #include "BabyBlob.h"
 #include "BabyEggBaby.h"
+
+//  PROPS
+#include "Food.h"
+#include "Cheese.h"
+
 #include "StatsWindow.h"
 using Penjin::StateLevel;
 using Penjin::Panel;
@@ -38,12 +45,15 @@ using Penjin::BabyEgg;
 using Penjin::BabyBlob;
 using Penjin::BabyEggBaby;
 using Penjin::StatsWindow;
+using Penjin::Food;
+using Penjin::Cheese;
+
 #ifdef DEBUG
     #include <iostream>
     using namespace std;
 #endif
 
-StateLevel::StateLevel() : baby(NULL), panel(NULL), background(NULL), statWindow(NULL)
+StateLevel::StateLevel() : baby(NULL), panel(NULL), background(NULL), statWindow(NULL), food(NULL)
 {
     //ctor
     Penjin::GFX::getInstance()->setClearColour(Colour(255,255,255));
@@ -83,6 +93,7 @@ StateLevel::~StateLevel()
     delete panel;
     delete background;
     delete statWindow;
+    delete food;
 }
 
 void StateLevel::setupBabyType(const string& t)
@@ -128,6 +139,17 @@ void StateLevel::update()
 {
     statWindow->update();
     baby->update();
+    if(food)
+    {
+        food->update();
+        baby->eat(food);
+        if(food->isExhausted())
+        {
+            delete food;
+            food = NULL;
+        }
+    }
+
     handleActions();
 
     panel->update();
@@ -157,16 +179,23 @@ void StateLevel::handleButtons(const int& b)
     else if(b == 1)
     {
         // feed
+        if(food == NULL)
+        {
+            food = NULL;
+            food = new Cheese;
+        }
+        panel->setShouldHide(true); // Hide the toolbar
     }
 }
 
 void StateLevel::render()
 {
-    //GFX::getInstance()->clear();
     background->render();
     baby->render();
-    panel->render();
+    if(food)
+        food->render();
 
+    panel->render();
     statWindow->render();
 }
 

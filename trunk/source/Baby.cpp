@@ -30,7 +30,7 @@ using Penjin::Baby;
 using Penjin::Sprite;
 using Penjin::Timer;
 
-Baby::Baby() :  action(ACTION_IDLE),intelligence(1),hunger(90),strength(0), weight(0.2f), sprite(NULL), timer(NULL)
+Baby::Baby() :  action(ACTION_IDLE),intelligence(1),hunger(90),cleanliness(10), strength(0), weight(0.2f), sprite(NULL), timer(NULL)
 {
     //ctor
     sprite = new Sprite;
@@ -41,6 +41,7 @@ Baby::Baby() :  action(ACTION_IDLE),intelligence(1),hunger(90),strength(0), weig
     intelligence = StringUtility::stringToInt( getValue(section,"Intelligence", "1"));
     weight = StringUtility::stringToFloat( getValue(section, "Weight","0.2") );
     hunger = StringUtility::stringToInt( getValue(section,"Hunger", "90"));
+    cleanliness = StringUtility::stringToInt( getValue(section,"Cleanliness", "10"));
     stringToAction(getValue(section, "Action","ACTION_IDLE"));
     if(hasChanged())
         save(DEFAULT_BABY_SAVE);
@@ -116,6 +117,7 @@ void Baby::update()
         ++age;
         timer->start();
     }
+    sprite->setPosition(position);
     sprite->update();
 }
 
@@ -153,4 +155,9 @@ int Baby::getHunger()
 int Baby::getIntelligence()
 {
     return intelligence;
+}
+
+void Baby::eat(Food* food)
+{
+    return;
 }

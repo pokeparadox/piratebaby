@@ -64,6 +64,7 @@ namespace Penjin
     class Sprite;
     class Timer;
     class Prop;
+    class Food;
 
     class Baby : public RenderObject, public UpdateObject, private ConfigFile
     {
@@ -75,6 +76,8 @@ namespace Penjin
 
             void render();
             virtual void update();
+
+            virtual void eat(Food* food);
 
             void setAge(const int& age);
             int getAge();
@@ -103,7 +106,7 @@ namespace Penjin
             int strength;
             int hunger;         // Hunger level
             int happiness;
-            int cleanliness;
+            int cleanliness;    //
             int level;          // This is the discipline level which adds new responsibilities as it increaes
             Timer* timer;
             Sprite* sprite;
