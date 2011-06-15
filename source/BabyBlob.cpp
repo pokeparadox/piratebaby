@@ -23,8 +23,12 @@
 */
 #include "BabyBlob.h"
 #include "Sprite.h"
+#include "Food.h"
+#include "Cheese.h"
 using Penjin::BabyBlob;
 using Penjin::Sprite;
+using Penjin::Food;
+using Penjin::Cheese;
 BabyBlob::BabyBlob()
 {
     //ctor
@@ -36,6 +40,7 @@ BabyBlob::BabyBlob()
     dim.x = dim.x / 2.5f;
     dim.y = dim.y / 2.25f;
     sprite->setPosition(dim);
+    position = dim;
     action = ACTION_IDLE;
     level = 1;
 }
@@ -53,6 +58,53 @@ string BabyBlob::getNextForm()
 void BabyBlob::interact(Prop* prop)
 {
 
+}
+
+void BabyBlob::eat(Food* f)
+{
+    if(f == NULL)
+        return;
+
+    if(f->isOnFloor())
+    {
+        //  Walk towards the food
+        int walkD = 0;
+        int half = position.x + (sprite->getDimensions().x *0.5f);
+        int half2 = f->getPosition().x + (f->getDimensions().x * 0.5f);
+        if(half > half2)
+            walkD = -1;
+        else if(half < half2)
+            walkD = 1;
+        if(walkD != 0)
+        {
+            position.x += walkD;
+            sprite->setPosition(position);
+        }
+        else if(sprite->hitTest(f).hasCollided)
+        {
+            if(!f->isExhausted()
+               && timer->getTicks()%60 ==1)
+            {
+                if(f->cNutrition < f->getNutrition())
+                {
+                    ++f->cNutrition;
+                    if(hunger>0)
+                        --hunger;
+                }
+                if(f->cWeight < f->getWeight())
+                {
+                    f->cWeight+=0.02f;
+                    weight+=0.02f;
+                }
+                if(f->cWaste < f->getWaste())
+                {
+                    ++f->cWaste;
+                    if(cleanliness>0)
+                        --cleanliness;
+                }
+            }
+        }
+    }
 }
 
 void BabyBlob::update()

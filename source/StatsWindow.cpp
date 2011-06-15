@@ -48,8 +48,9 @@ StatsWindow::StatsWindow() : baby(NULL), window(NULL), text(NULL)
     text->load("fonts/unispace.ttf",8);
     text->setColour(BLACK);
     text->setRelativity(true);
-    text->setPosition(position);
-    text->setCursorPosition(position);
+    text->setWrapping(false);
+    text->setPosition(position + Vector2d<float>(2,2));
+    text->setCursorPosition(position + Vector2d<float>(2,2));
     text->setDimensions(dimensions);
 }
 
@@ -71,7 +72,7 @@ void StatsWindow::render()
         return;
     // Render Button as the window area
     window->render();
-    text->setCursorPosition(position);
+    text->setCursorPosition(position + Vector2d<float>(2,2));
     if(baby)
     {
         // Level 00

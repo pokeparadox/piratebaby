@@ -33,6 +33,8 @@ namespace Penjin
     class SpriteButton;
     class Image;
     class StatsWindow;
+    class Food;
+    class Cheese;
 
     class StateLevel : public ApplicationState, public ConfigFile
     {
@@ -52,12 +54,14 @@ namespace Penjin
             void setupBabyType(const string& type);     // Create the correct Baby class
             void setupPanel();                          // Setup the panel depending on the level of the baby
             void setupWindows();                        // Prepares any windows we may need to view.
-            void handleButtons(const int& b);   // perform relevant actions depending on button
+            void handleButtons(const int& b);           // perform relevant actions depending on button
 
             Baby* baby;
             Panel* panel;
             Image* background;
-            StatsWindow* statWindow;             // Window showing all info of baby
+            StatsWindow* statWindow;            //  Window showing all info of baby
+            Food* food;                         //  The food object for baby to eat.
+            //vector <Prop*> props;             //  Vector of props the Baby can interact with.
     };
 }
 #endif // STATELEVEL_H

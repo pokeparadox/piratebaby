@@ -41,6 +41,8 @@ namespace Penjin
             // interect with a prop in game.
             virtual void interact(Prop* prop);
 
+            void eat(Food* food);
+
             virtual string getNextForm();
         protected:
         private:

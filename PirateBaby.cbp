@@ -383,6 +383,8 @@
 		<Unit filename="../PenjinTwo/PositionObject.h" />
 		<Unit filename="../PenjinTwo/Primitive.cpp" />
 		<Unit filename="../PenjinTwo/Primitive.h" />
+		<Unit filename="../PenjinTwo/Random.cpp" />
+		<Unit filename="../PenjinTwo/Random.h" />
 		<Unit filename="../PenjinTwo/Rectangle.cpp" />
 		<Unit filename="../PenjinTwo/Rectangle.h" />
 		<Unit filename="../PenjinTwo/RenderObject.cpp" />
@@ -430,6 +432,10 @@
 		<Unit filename="source/BabyEgg.h" />
 		<Unit filename="source/BabyEggBaby.cpp" />
 		<Unit filename="source/BabyEggBaby.h" />
+		<Unit filename="source/Cheese.cpp" />
+		<Unit filename="source/Cheese.h" />
+		<Unit filename="source/Food.cpp" />
+		<Unit filename="source/Food.h" />
 		<Unit filename="source/MyGame2d.cpp" />
 		<Unit filename="source/MyGame2d.h" />
 		<Unit filename="source/MyStateChangeCode.h" />
