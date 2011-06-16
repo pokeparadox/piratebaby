@@ -1,42 +1,57 @@
 #Application Details
+
+
 [Application]
-Title=PirateBaby
-Description=A Virtual Pet toy.
+Title = PirateBaby
+Description = A Virtual Pet toy.
+
+
 # ErrorMessages
 [Errors]
-PENJIN_ERROR=There seemed to be a problem!
-PENJIN_OK=Everything seemed to go ok.
-PENJIN_PARSE_ERROR=A Parsing Error happened.
-PENJIN_FILE_NOT_FOUND=We were unable to find that file...
-PENJIN_UNABLE_TO_SAVE=We could not save the file.
-PENJIN_TEXTURE_CONVERSION_ERROR=The texture was unable to be converted.
-PENJIN_NO_COMMANDLINE=No commandline args were provided.
-PENJIN_INVALID_COMMANDLINE=The commandline args provided were not valid!
-PENJIN_INVALID_INDEX=The array index went out of range!
-PENJIN_INVALID_MENUITEM_TYPE=That MenuItem Type does not exist!
-PENJIN_UNDEFINED_STATE=That game state is not defined!
-PENJIN_FUNCTION_IS_STUB=This function has not been implemented!
+PENJIN_ERROR = There seemed to be a problem!
+PENJIN_OK = Everything seemed to go ok.
+PENJIN_PARSE_ERROR = A Parsing Error happened.
+PENJIN_FILE_NOT_FOUND = We were unable to find that file...
+PENJIN_UNABLE_TO_SAVE = We could not save the file.
+PENJIN_TEXTURE_CONVERSION_ERROR = The texture was unable to be converted.
+PENJIN_NO_COMMANDLINE = No commandline args were provided.
+PENJIN_INVALID_COMMANDLINE = The commandline args provided were not valid!
+PENJIN_INVALID_INDEX = The array index went out of range!
+PENJIN_INVALID_MENUITEM_TYPE = That MenuItem Type does not exist!
+PENJIN_UNDEFINED_STATE = That game state is not defined!
+PENJIN_FUNCTION_IS_STUB = This function has not been implemented!
 
 #  SDL_image
-PENJIN_IMG_UNABLE_TO_OPEN=Unable to open image
+PENJIN_IMG_UNABLE_TO_OPEN = Unable to open image
+
 #  SDL_ttf
-PENJIN_TTF_UNABLE_TO_OPEN=Unable to open font
+PENJIN_TTF_UNABLE_TO_OPEN = Unable to open font
+
 #  SDL misc stuff
-PENJIN_SDL_SOMETHING_FAILED=Something went wrong with SDL.
-PENJIN_SDL_VIDEO_INIT_FAILED=Initialising SDL video did not work!
-PENJIN_SDL_VIDEO_QUERY_FAILED=Querying SDL video capabilities failed.
-PENJIN_SDL_SETVIDEOMODE_FAILED=We could not set that video mode!
-PENJIN_SDL_INVALID_COLORKEY=That Colourkey is invalid.
-PENJIN_SDL_HAS_ALPHA_CHANNEL=This has an alpha channel.
+PENJIN_SDL_SOMETHING_FAILED = Something went wrong with SDL.
+PENJIN_SDL_VIDEO_INIT_FAILED = Initialising SDL video did not work!
+PENJIN_SDL_VIDEO_QUERY_FAILED = Querying SDL video capabilities failed.
+PENJIN_SDL_SETVIDEOMODE_FAILED = We could not set that video mode!
+PENJIN_SDL_INVALID_COLORKEY = That Colourkey is invalid.
+PENJIN_SDL_HAS_ALPHA_CHANNEL = This has an alpha channel.
+
 #  EGL
-PENJIN_EGL_NO_DISPLAY=We could not create an EGL display
-PENJIN_EGL_INIT_FAILED=Initialisation of EGL failed.
-PENJIN_EGL_NO_CONTEXT=Creating an EGL context failed.
+PENJIN_EGL_NO_DISPLAY = We could not create an EGL display
+PENJIN_EGL_INIT_FAILED = Initialisation of EGL failed.
+PENJIN_EGL_NO_CONTEXT = Creating an EGL context failed.
 
 #  devkitpro libFAT
-PENJIN_FAT_INIT_FAILED=Unable to init FAT
-PENJIN_FAT_GET_ROOT_FAILED=Unable to get root
-PENJIN_FAT_ACCESS_ROOT_FAILED=Unable to access root.
+PENJIN_FAT_INIT_FAILED = Unable to init FAT
+PENJIN_FAT_GET_ROOT_FAILED = Unable to get root
+PENJIN_FAT_ACCESS_ROOT_FAILED = Unable to access root.
+
 #  Penjin status
-PENJIN_SHUTDOWN=Penjin is shutting down...
-PENJIN_GOODBYE=Goodbye! ^_~
+PENJIN_SHUTDOWN = Penjin is shutting down...
+PENJIN_GOODBYE = Goodbye! ^_~
+
+
+[StatsWindow]
+Title = Baby Stats.
+Age = Age
+Level = Level
+Nutrition = Nutrition

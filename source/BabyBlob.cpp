@@ -46,11 +46,19 @@ BabyBlob::BabyBlob()
     sprEat->load("images/blobeat.png",4,1);
     sprEat->setPlayMode(pmPulse);
     sprEat->setLooping(true);
-    dim = GFX::getInstance()->getDimensions();
-    dim.x = dim.x / 2.5f;
-    dim.y = dim.y / 2.25f;
     sprEat->setPosition(dim);
 
+    sprWalkLeft->clear();
+    sprWalkLeft->load("images/blobwalkleft.png",4,1);
+    sprWalkLeft->setPlayMode(pmPulse);
+    sprWalkLeft->setLooping(true);
+    sprWalkLeft->setPosition(dim);
+
+    sprWalkRight->clear();
+    sprWalkRight->load("images/blobwalkright.png",4,1);
+    sprWalkRight->setPlayMode(pmPulse);
+    sprWalkRight->setLooping(true);
+    sprWalkRight->setPosition(dim);
 
     sprActive = sprIdle;
     position = dim;
@@ -61,6 +69,7 @@ BabyBlob::BabyBlob()
 BabyBlob::~BabyBlob()
 {
     //dtor
+    saveData();
 }
 
 string BabyBlob::getNextForm()
@@ -91,14 +100,17 @@ void BabyBlob::eat(Food* f)
         if(half > half2)
         {
             walkD = -1;
+            switchAction(ACTION_WALK_LEFT);
         }
         else if(half < half2)
         {
             walkD = 1;
+            switchAction(ACTION_WALK_RIGHT);
         }
 
         if(walkD != 0)
         {
+            // Walk towards food
             position.x += walkD;
             sprActive->setPosition(position);
         }
@@ -136,7 +148,13 @@ void BabyBlob::update()
 {
     Baby::update();
 
-    // Hunger increases with time
+    // We use energy walking
+    if(action == ACTION_WALK_LEFT || action == ACTION_WALK_RIGHT)
+    {
+        // We also lose weight due to walking
+        weight-=0.0001f;
+    }
+    // We also get hungry over time
     if(timer->getTicks()%600 == 1)
     {
         // If we are not at max hunger we increase

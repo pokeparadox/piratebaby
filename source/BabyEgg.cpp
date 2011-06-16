@@ -23,7 +23,7 @@ using Penjin::BabyEgg;
 using Penjin::Sprite;
 
 
-BabyEgg::BabyEgg() : touchCount(0)
+BabyEgg::BabyEgg()
 {
     sprIdle->clear();
     sprIdle->load("images/egg.png",4,1);
@@ -37,6 +37,7 @@ BabyEgg::BabyEgg() : touchCount(0)
     action = ACTION_IDLE;
     sprActive = sprIdle;
     level = 0;
+    touchCount = 0;
 }
 
 BabyEgg::~BabyEgg()
@@ -81,7 +82,7 @@ void BabyEgg::update()
             sprActive->setLooping(5);
             intelligence++;
         }
-        else if(age > 600)
+        else if(age > 600 || touchCount > 20)
         {
             action=ACTION_EVOLVE;
             evolve();
@@ -95,20 +96,6 @@ void BabyEgg::evolve()
     sprActive->clear();
 }
 
-
-void BabyEgg::touch()
-{
-    // We only tolerate 10 touches
-    if(touchCount<10)
-    {
-        ++touchCount;
-    }
-    else
-    {
-        action=ACTION_EVOLVE;
-        evolve();
-    }
-}
 
 string BabyEgg::getNextForm()
 {

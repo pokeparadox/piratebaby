@@ -31,7 +31,6 @@ namespace Penjin
             virtual ~BabyEgg();
 
             virtual void update();
-            void touch();           // touch the egg
 
             // Egg can only evolve into a blob or EggBaby
             virtual string getNextForm();
@@ -39,8 +38,6 @@ namespace Penjin
         protected:
             virtual void evolve();
 
-        private:
-            int touchCount;
     };
 }
 #endif // BABYEGG_H

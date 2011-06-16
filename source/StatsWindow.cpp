@@ -26,6 +26,7 @@
 #include "Button.h"
 #include "Baby.h"
 #include "Text.h"
+#include "LocalisedStringManager.h"
 
 using Penjin::StatsWindow;
 using Penjin::Widget;
@@ -76,10 +77,18 @@ void StatsWindow::render()
     if(baby)
     {
         // Level 00
-        text->print("Baby Stats.\n\n");
-        text->print("Age:"); text->print(baby->getAge()/600); text->print("\n");
+        string section="StatsWindow";
+        text->print(    LocaleMan::getInstance()->getValue(section,"Title","Baby Stats.") +"\n\n"   );
+        text->print(    LocaleMan::getInstance()->getValue(section,"Age","Age") + ":"   ); text->print(baby->getAge()/600); text->print("\n");
         int level = baby->getLevel();
-        text->print("Level:"); text->print(level); text->print("\n");
+        text->print(    LocaleMan::getInstance()->getValue(section,"Level","Level") + ":"); text->print(level);text->print("-");
+        if(level == 0)
+            text->print(LocaleMan::getInstance()->getValue(section,"Patience","Patiance")    +"." );
+        else if(level == 1)
+            text->print(LocaleMan::getInstance()->getValue(section,"Nutrition","Nutrition")    +"." );
+        text->print("\n");
+
+
         text->print("Intelligence:"); text->print(baby->getIntelligence()); text->print("\n");
         text->print("Weight:"); text->print(baby->getWeight()); text->print("\n");
         // Level 01
@@ -89,7 +98,8 @@ void StatsWindow::render()
         }
 
     }
-
+    if(LocaleMan::getInstance()->hasChanged())
+        LocaleMan::getInstance()->save();
 }
 
 void StatsWindow::update()
