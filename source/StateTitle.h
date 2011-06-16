@@ -39,11 +39,11 @@ namespace Penjin
             StateTitle();
             /** Default destructor */
             virtual ~StateTitle();
-
+            virtual void init();
             virtual void render();
             virtual void update();
             virtual void input();
-
+            virtual void clear();
         private:
             //Rectangle* rect;
             //AnimatedSprite* egg;

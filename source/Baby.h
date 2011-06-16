@@ -37,6 +37,7 @@ namespace Penjin
     {
         ACTION_NONE=-1,
         ACTION_IDLE,
+        ACTION_EAT,
         ACTION_DANCE,
         ACTION_JUMP,
         ACTION_BLINK,
@@ -98,7 +99,9 @@ namespace Penjin
             //  this function test rules for this creature to evolve
             virtual void evolve();
             void defaultConfig();
-            BABY_ACTIONS action;    // current action of baby
+            void switchAction(const BABY_ACTIONS& a);
+
+            BABY_ACTIONS action;    //  current action of baby
             int intelligence;
             int age; // age is in seconds
             int health;
@@ -109,7 +112,16 @@ namespace Penjin
             int cleanliness;    //
             int level;          // This is the discipline level which adds new responsibilities as it increaes
             Timer* timer;
-            Sprite* sprite;
+
+            // This sprite points to the active animated sprite.
+            Sprite* sprActive;
+
+            Sprite* sprIdle;
+            Sprite* sprJump;
+            Sprite* sprdance;
+            Sprite* sprWalkLeft;
+            Sprite* sprWalkRight;
+            Sprite* sprEat;
 
         private:
     };

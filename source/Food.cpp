@@ -21,34 +21,57 @@
   * \file INSERT DECRIPTION HERE
   * \author Kevin Winfield-Pantoja
 */
-#include "BabyEggBaby.h"
-#include "Sprite.h"
-using Penjin::BabyEggBaby;
-using Penjin::Sprite;
+#include "Food.h"
+#include "Random.h"
+#include "GFX.h"
+#include "Vector2d.h"
+using Penjin::Food;
+using Penjin::Vector2d;
 
-BabyEggBaby::BabyEggBaby()
+Food::Food() : cNutrition(0), cWeight(0), cWaste(0), onFloor(false)
 {
     //ctor
-    sprIdle->clear();
-    sprIdle->load("images/eggbaby.png",4,1);
-    sprIdle->setPlayMode(pmPulse);
-    sprIdle->setLooping(1);
-
-    sprEat->clear();
-    sprEat->load("images/eggbabyeat.png",4,1);
-    sprEat->setPlayMode(pmPulse);
-    sprEat->setLooping(true);
-
     Vector2d<int> dim = GFX::getInstance()->getDimensions();
-    dim.x = dim.x / 2.5f;
-    dim.y = dim.y / 2.25f;
-    sprIdle->setPosition(dim);
-    action = ACTION_IDLE;
-    sprActive = sprIdle;
-    level = 1;
+    position.x = Penjin::Random::nextInt(0,dim.x-dimensions.x);
+    floorLevel = dim.y*0.65f;
 }
 
-BabyEggBaby::~BabyEggBaby()
+Food::~Food()
 {
     //dtor
 }
+
+bool Food::isExhausted()
+{
+    return(cNutrition>=nutrition && cWeight>=weight && cWaste>= waste);
+}
+
+bool Food::isOnFloor()
+{
+    return onFloor;
+}
+
+int Food::getNutrition()
+{
+    return nutrition;
+}
+
+float Food::getWeight()
+{
+    return weight;
+}
+
+int Food::getWaste()
+{
+    return waste;
+}
+
+void Food::update()
+{
+    Sprite::update();
+    if(position.y < floorLevel)
+        position.y+=2;
+    else
+        onFloor = true;
+}
+

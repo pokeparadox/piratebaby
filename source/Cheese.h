@@ -1,8 +1,5 @@
-#ifndef MYSTATECHANGECODE_H_INCLUDED
-#define MYSTATECHANGECODE_H_INCLUDED
-
 /**
-	\section LICENSE
+    \section LICENSE
 	Penjin is Copyright (c)2005, 2006, 2007, 2008, 2009, 2010, 2011 Kevin Winfield-Pantoja
 
 	This file is part of Penjin.
@@ -19,20 +16,29 @@
 
 	You should have received a copy of the GNU Lesser General Public License
 	along with Penjin.  If not, see <http://www.gnu.org/licenses/>.
+**********************************************************************************************/
+/**
+  * \file INSERT DECRIPTION HERE
+  * \author Kevin Winfield-Pantoja
 */
-/***************************************************************************************************
-*   \file MyStateChangeCode is your custom code to handle state changes within the StateManager
-*   \author Kevin Winfield-Pantoja
-*/
+#ifndef CHEESE_H
+#define CHEESE_H
 
-case STATE_TITLE:
+#include "Food.h"
+
+namespace Penjin
 {
-    state = new StateTitle;
-    break;
+    class Cheese : public Food
+    {
+        public:
+            /** Default constructor */
+            Cheese();
+            /** Default destructor */
+            virtual ~Cheese();
+        protected:
+        private:
+    };
+
 }
-case STATE_LEVEL:
-{
-    state = new StateLevel;
-    break;
-}
-#endif // MYSTATECHANGECODE_H_INCLUDED
+
+#endif // CHEESE_H

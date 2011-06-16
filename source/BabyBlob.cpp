@@ -29,17 +29,30 @@ using Penjin::BabyBlob;
 using Penjin::Sprite;
 using Penjin::Food;
 using Penjin::Cheese;
+
 BabyBlob::BabyBlob()
 {
     //ctor
-    sprite->clear();
-    sprite->load("images/blob.png",4,1);
-    sprite->setPlayMode(pmPulse);
-    sprite->setLooping(1);
+    sprIdle->clear();
+    sprIdle->load("images/blob.png",4,1);
+    sprIdle->setPlayMode(pmPulse);
+    sprIdle->setLooping(1);
     Vector2d<int> dim = GFX::getInstance()->getDimensions();
     dim.x = dim.x / 2.5f;
     dim.y = dim.y / 2.25f;
-    sprite->setPosition(dim);
+    sprIdle->setPosition(dim);
+
+    sprEat->clear();
+    sprEat->load("images/blobeat.png",4,1);
+    sprEat->setPlayMode(pmPulse);
+    sprEat->setLooping(true);
+    dim = GFX::getInstance()->getDimensions();
+    dim.x = dim.x / 2.5f;
+    dim.y = dim.y / 2.25f;
+    sprEat->setPosition(dim);
+
+
+    sprActive = sprIdle;
     position = dim;
     action = ACTION_IDLE;
     level = 1;
@@ -63,28 +76,38 @@ void BabyBlob::interact(Prop* prop)
 void BabyBlob::eat(Food* f)
 {
     if(f == NULL)
+    {
+        switchAction(ACTION_IDLE);
         return;
+    }
 
     if(f->isOnFloor())
     {
         //  Walk towards the food
         int walkD = 0;
-        int half = position.x + (sprite->getDimensions().x *0.5f);
+        int half = position.x + (sprActive->getDimensions().x *0.5f);
         int half2 = f->getPosition().x + (f->getDimensions().x * 0.5f);
+
         if(half > half2)
+        {
             walkD = -1;
+        }
         else if(half < half2)
+        {
             walkD = 1;
+        }
+
         if(walkD != 0)
         {
             position.x += walkD;
-            sprite->setPosition(position);
+            sprActive->setPosition(position);
         }
-        else if(sprite->hitTest(f).hasCollided)
+        else if(sprActive->hitTest(f).hasCollided)
         {
             if(!f->isExhausted()
                && timer->getTicks()%60 ==1)
             {
+                switchAction(ACTION_EAT);
                 if(f->cNutrition < f->getNutrition())
                 {
                     ++f->cNutrition;
@@ -102,9 +125,11 @@ void BabyBlob::eat(Food* f)
                     if(cleanliness>0)
                         --cleanliness;
                 }
-            }
-        }
-    }
+            }// !isExhausted
+        }//hasCollided
+    }// onFloor
+    else
+        switchAction(ACTION_IDLE);
 }
 
 void BabyBlob::update()

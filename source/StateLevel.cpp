@@ -56,6 +56,16 @@ using Penjin::Cheese;
 StateLevel::StateLevel() : baby(NULL), panel(NULL), background(NULL), statWindow(NULL), food(NULL)
 {
     //ctor
+
+}
+
+void StateLevel::init()
+{
+    baby = NULL;
+    panel = NULL;
+    background = NULL;
+    statWindow = NULL;
+    food = NULL;
     Penjin::GFX::getInstance()->setClearColour(Colour(255,255,255));
 
     // Load list of babies and general settings
@@ -77,15 +87,7 @@ StateLevel::StateLevel() : baby(NULL), panel(NULL), background(NULL), statWindow
     background->load("images/background.png");
 }
 
-void StateLevel::setupWindows()
-{
-    // Stats window
-    statWindow = new StatsWindow;
-    statWindow->setTitle("Stats");
-    statWindow->setBaby(baby);
-}
-
-StateLevel::~StateLevel()
+void StateLevel::clear()
 {
     if(hasChanged())
         save(BABY_LIST);
@@ -94,6 +96,20 @@ StateLevel::~StateLevel()
     delete background;
     delete statWindow;
     delete food;
+}
+
+StateLevel::~StateLevel()
+{
+    clear();
+}
+
+
+void StateLevel::setupWindows()
+{
+    // Stats window
+    statWindow = new StatsWindow;
+    statWindow->setTitle("Stats");
+    statWindow->setBaby(baby);
 }
 
 void StateLevel::setupBabyType(const string& t)
@@ -142,13 +158,13 @@ void StateLevel::update()
     if(food)
     {
         food->update();
-        baby->eat(food);
         if(food->isExhausted())
         {
             delete food;
             food = NULL;
         }
     }
+    baby->eat(food);
 
     handleActions();
 
