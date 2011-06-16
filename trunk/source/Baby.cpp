@@ -26,11 +26,12 @@
 #include "Sprite.h"
 #include "Timer.h"
 #include "StringUtility.h"
+#include "SimpleJoy.h"
 using Penjin::Baby;
 using Penjin::Sprite;
 using Penjin::Timer;
 
-Baby::Baby() :  action(ACTION_IDLE),intelligence(1),hunger(90),cleanliness(10), strength(0), weight(0.2f),
+Baby::Baby() :  action(ACTION_IDLE), touchCount(0) ,intelligence(1),hunger(90),cleanliness(10), strength(0), weight(0.2f),
 sprActive(NULL), sprIdle(NULL), sprJump(NULL), sprdance(NULL), sprWalkLeft(NULL), sprWalkRight(NULL), sprEat(NULL),
 timer(NULL)
 {
@@ -68,6 +69,11 @@ Baby::~Baby()
     delete sprWalkLeft;
     delete sprWalkRight;
     delete sprEat;
+    saveData();
+}
+
+void Baby::saveData()
+{
     string section = "Status";
     setValue(section, "Age", StringUtility::intToString(age));
     setValue(section, "Intelligence", StringUtility::intToString(intelligence) );
@@ -130,14 +136,23 @@ void Baby::render()
 
 void Baby::update()
 {
+    // aging
     if(timer->getScaledTicks() >= 1)
     {
         ++age;
         timer->start();
     }
-    //switchAction(nextAction);
+    // Animations
     sprActive->setPosition(position);
     sprActive->update();
+
+    // User touch
+    if(sprActive->hitTest( Joy::getInstance()->getMouse() ).hasCollided && Joy::getInstance()->isLeftClick())
+    {
+        ++touchCount;
+        switchAction(ACTION_BLINK);
+    }
+
 }
 
 void Baby::switchAction(const BABY_ACTIONS& a)
@@ -153,6 +168,16 @@ void Baby::switchAction(const BABY_ACTIONS& a)
         {
             sprEat->setPosition(sprActive->getPosition());
             sprActive = sprEat;
+        }
+        else if(a == ACTION_WALK_LEFT)
+        {
+            sprWalkLeft->setPosition(sprActive->getPosition());
+            sprActive = sprWalkLeft;
+        }
+        else if(a == ACTION_WALK_RIGHT)
+        {
+            sprWalkRight->setPosition(sprActive->getPosition());
+            sprActive = sprWalkRight;
         }
         action = a;
     }

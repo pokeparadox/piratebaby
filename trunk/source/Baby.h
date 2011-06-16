@@ -37,6 +37,8 @@ namespace Penjin
     {
         ACTION_NONE=-1,
         ACTION_IDLE,
+        ACTION_WALK_LEFT,
+        ACTION_WALK_RIGHT,
         ACTION_EAT,
         ACTION_DANCE,
         ACTION_JUMP,
@@ -100,8 +102,10 @@ namespace Penjin
             virtual void evolve();
             void defaultConfig();
             void switchAction(const BABY_ACTIONS& a);
+            void saveData();
 
             BABY_ACTIONS action;    //  current action of baby
+            int touchCount;         //  amount of time the user has clicked baby
             int intelligence;
             int age; // age is in seconds
             int health;
