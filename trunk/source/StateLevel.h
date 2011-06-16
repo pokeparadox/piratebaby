@@ -44,9 +44,11 @@ namespace Penjin
             /** Default destructor */
             virtual ~StateLevel();
 
+            virtual void init();
             virtual void render();
             virtual void update();
             virtual void input();
+            virtual void clear();
 
 
         protected:

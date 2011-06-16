@@ -25,15 +25,17 @@ using Penjin::Sprite;
 
 BabyEgg::BabyEgg() : touchCount(0)
 {
-    sprite->clear();
-    sprite->load("images/egg.png",4,1);
-    sprite->setPlayMode(pmPulse);
-    sprite->setLooping(1);
+    sprIdle->clear();
+    sprIdle->load("images/egg.png",4,1);
+    sprIdle->setPlayMode(pmPulse);
+    sprIdle->setLooping(1);
     Vector2d<int> dim = GFX::getInstance()->getDimensions();
     dim.x = dim.x / 2.5f;
     dim.y = dim.y / 2.25f;
-    sprite->setPosition(dim);
+    sprIdle->setPosition(dim);
+    position = dim;
     action = ACTION_IDLE;
+    sprActive = sprIdle;
     level = 0;
 }
 
@@ -48,35 +50,35 @@ void BabyEgg::update()
     Baby::update();
     if(action == ACTION_BLINK)
     {
-        sprite->update();
-        if(sprite->hasFinished())
+        sprActive->update();
+        if(sprActive->hasFinished())
             action=ACTION_IDLE;
     }
     else if( action == ACTION_IDLE)
     {
-        sprite->rewind();
+        sprActive->rewind();
         if(age == 60 || age == 120 || age == 180)
         {
             action=ACTION_BLINK;// Egg wobbling is kind of like blinking... right?
-            sprite->setLooping(1);
+            sprActive->setLooping(1);
             weight+=0.12f;
         }
         else if(age == 240 || age == 300)
         {
             action=ACTION_BLINK;// Egg wobbling is kind of like blinking... right?
-            sprite->setLooping(2);
+            sprActive->setLooping(2);
             ++intelligence;
         }
         else if(age == 360 || age == 420 || age == 480)
         {
             action=ACTION_BLINK;// Egg wobbling is kind of like blinking... right?
-            sprite->setLooping(3);
+            sprActive->setLooping(3);
             weight+=0.05f;
         }
         else if(age == 540 || age == 600)
         {
             action=ACTION_BLINK;// Egg wobbling is kind of like blinking... right?
-            sprite->setLooping(5);
+            sprActive->setLooping(5);
             intelligence++;
         }
         else if(age > 600)
@@ -90,7 +92,7 @@ void BabyEgg::update()
 void BabyEgg::evolve()
 {
     // Setup evolve animation
-    sprite->clear();
+    sprActive->clear();
 }
 
 

@@ -30,11 +30,19 @@ using Penjin::Baby;
 using Penjin::Sprite;
 using Penjin::Timer;
 
-Baby::Baby() :  action(ACTION_IDLE),intelligence(1),hunger(90),cleanliness(10), strength(0), weight(0.2f), sprite(NULL), timer(NULL)
+Baby::Baby() :  action(ACTION_IDLE),intelligence(1),hunger(90),cleanliness(10), strength(0), weight(0.2f),
+sprActive(NULL), sprIdle(NULL), sprJump(NULL), sprdance(NULL), sprWalkLeft(NULL), sprWalkRight(NULL), sprEat(NULL),
+timer(NULL)
 {
     //ctor
-    sprite = new Sprite;
     Penjin::ERRORS e = load(DEFAULT_BABY_SAVE);
+
+    sprIdle = new Sprite;
+    sprJump = new Sprite;
+    sprdance = new Sprite;
+    sprWalkLeft = new Sprite;
+    sprWalkRight = new Sprite;
+    sprEat = new Sprite;
 
     string section = "Status";
     age = StringUtility::stringToInt(  getValue(section, "Age", "0")   );
@@ -53,7 +61,13 @@ Baby::Baby() :  action(ACTION_IDLE),intelligence(1),hunger(90),cleanliness(10), 
 Baby::~Baby()
 {
     //dtor
-    delete sprite;
+    sprActive=NULL;
+    delete sprIdle;
+    delete sprJump;
+    delete sprdance;
+    delete sprWalkLeft;
+    delete sprWalkRight;
+    delete sprEat;
     string section = "Status";
     setValue(section, "Age", StringUtility::intToString(age));
     setValue(section, "Intelligence", StringUtility::intToString(intelligence) );
@@ -68,6 +82,8 @@ string Baby::actionToString()
 {
     if(action == ACTION_IDLE)
         return "ACTION_IDLE";
+    else if(action == ACTION_EAT)
+        return "ACTION_EAT";
     else if(action == ACTION_DANCE)
         return "ACTION_DANCE";
     else if(action == ACTION_JUMP)
@@ -88,6 +104,8 @@ void Baby::stringToAction(const string& s)
 {
     if(s == "ACTION_IDLE")
         action = ACTION_IDLE;
+    else if(s == "ACTION_EAT")
+        action = ACTION_EAT;
     else if(s == "ACTION_DANCE")
         action = ACTION_DANCE;
     else if(s == "ACTION_JUMP")
@@ -106,7 +124,7 @@ void Baby::stringToAction(const string& s)
 
 void Baby::render()
 {
-    sprite->render();
+    sprActive->render();
 }
 
 
@@ -117,10 +135,28 @@ void Baby::update()
         ++age;
         timer->start();
     }
-    sprite->setPosition(position);
-    sprite->update();
+    //switchAction(nextAction);
+    sprActive->setPosition(position);
+    sprActive->update();
 }
 
+void Baby::switchAction(const BABY_ACTIONS& a)
+{
+    if(a != action)
+    {
+        if(a == ACTION_IDLE)
+        {
+            sprIdle->setPosition(sprActive->getPosition());
+            sprActive = sprIdle;
+        }
+        else if(a == ACTION_EAT)
+        {
+            sprEat->setPosition(sprActive->getPosition());
+            sprActive = sprEat;
+        }
+        action = a;
+    }
+}
 
 void Baby::evolve()
 {

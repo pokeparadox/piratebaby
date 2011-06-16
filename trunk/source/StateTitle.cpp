@@ -24,6 +24,7 @@
 #include "GFX.h"
 #include "SimpleJoy.h"
 #include "StateManager.h"
+#include "MyStateList.h"
 //#include "Rectangle.h"
 //#include "AnimatedSprite.h"
 using Penjin::StateTitle;
@@ -34,7 +35,11 @@ using Penjin::SimpleJoy;
 StateTitle::StateTitle()
 {
     //ctor
-    Penjin::GFX::getInstance()->setClearColour(Colour(0,0,255));
+}
+
+void StateTitle::init()
+{
+        Penjin::GFX::getInstance()->setClearColour(Colour(0,0,255));
     //Penjin::GFX::getInstance()->setDrawWidth(5);
 /*rect = new Rectangle;
     rect->setColour(RED);
@@ -56,11 +61,16 @@ StateTitle::StateTitle()
     egg->setFrameRate(FIFTEEN_FRAMES);*/
 }
 
+void StateTitle::clear()
+{
+    //delete rect;
+    //delete egg;
+}
+
 StateTitle::~StateTitle()
 {
     //dtor
-    //delete rect;
-    //delete egg;
+    clear();
 }
 
 void StateTitle::render()

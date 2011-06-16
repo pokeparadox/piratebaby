@@ -401,8 +401,6 @@
 		<Unit filename="../PenjinTwo/Sprite.h" />
 		<Unit filename="../PenjinTwo/SpriteButton.cpp" />
 		<Unit filename="../PenjinTwo/SpriteButton.h" />
-		<Unit filename="../PenjinTwo/StateExample.cpp" />
-		<Unit filename="../PenjinTwo/StateExample.h" />
 		<Unit filename="../PenjinTwo/StateManager.cpp" />
 		<Unit filename="../PenjinTwo/StateManager.h" />
 		<Unit filename="../PenjinTwo/StringUtility.cpp" />
@@ -438,8 +436,6 @@
 		<Unit filename="source/Food.h" />
 		<Unit filename="source/MyGame2d.cpp" />
 		<Unit filename="source/MyGame2d.h" />
-		<Unit filename="source/MyStateChangeCode.h" />
-		<Unit filename="source/MyStateIncludes.h" />
 		<Unit filename="source/MyStateList.h" />
 		<Unit filename="source/Prop.cpp" />
 		<Unit filename="source/Prop.h" />
