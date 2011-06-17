@@ -37,14 +37,18 @@ namespace Penjin
             virtual ~BabyBlob();
 
             virtual void update();
+            virtual void render();
 
             // interect with a prop in game.
             virtual void interact(Prop* prop);
 
             void eat(Food* food);
+            virtual void wash();
 
             virtual string getNextForm();
         protected:
+            void doPoop();
+            vector <Sprite*> poops;
         private:
     };
 }

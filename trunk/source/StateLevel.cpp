@@ -23,6 +23,7 @@
 #include "Button.h"
 #include "SpriteButton.h"
 #include "Sprite.h"
+#include "Rectangle.h"
 
 // BABY INCLUDES
 #include "Baby.h"
@@ -47,16 +48,16 @@ using Penjin::BabyEggBaby;
 using Penjin::StatsWindow;
 using Penjin::Food;
 using Penjin::Cheese;
+using Penjin::Rectangle;
 
 #ifdef DEBUG
     #include <iostream>
     using namespace std;
 #endif
 
-StateLevel::StateLevel() : baby(NULL), panel(NULL), background(NULL), statWindow(NULL), food(NULL)
+StateLevel::StateLevel() : baby(NULL), panel(NULL), background(NULL), statWindow(NULL), food(NULL), water(NULL), waterDir(NULL)
 {
     //ctor
-
 }
 
 void StateLevel::init()
@@ -85,6 +86,17 @@ void StateLevel::init()
     // prepare the background
     background = new Image;
     background->load("images/background.png");
+
+    water = new Rectangle;
+    water->setColour(Colour(0,0,(uchar)200,128));
+    Vector2d<int> dim = GFX::getInstance()->getDimensions();
+    dim.y +=1;
+    water->setDimensions(dim);
+    dim.x = 0;
+    water->setPosition(dim);
+
+    waterDir = new SimpleDirection;
+    waterDir->value = diNONE;
 }
 
 void StateLevel::clear()
@@ -96,6 +108,8 @@ void StateLevel::clear()
     delete background;
     delete statWindow;
     delete food;
+    delete water;
+    delete waterDir;
 }
 
 StateLevel::~StateLevel()
@@ -149,6 +163,13 @@ void StateLevel::setupPanel()
         a->loadImage("images/food.png");
         panel->addWidget(a);
     }
+    if(level >= 2)
+    {
+        SpriteButton* a = NULL;
+        a = new SpriteButton;
+        a->loadImage("images/wash.png");
+        panel->addWidget(a);
+    }
 }
 
 void StateLevel::update()
@@ -166,6 +187,30 @@ void StateLevel::update()
     }
     baby->eat(food);
 
+    // Handle water
+    if(waterDir->value == diBOTTOM)
+    {
+        if(water->getPosition().y < GFX::getInstance()->getHeight())
+        {
+            Vector2d<float> t = water->getPosition();
+            t.y+=1;
+            water->setPosition(t);
+        }
+        else
+            waterDir->value = diNONE;
+
+    }
+    else if(waterDir->value == diTOP)
+    {
+        if(water->getPosition().y > 0)
+        {
+            Vector2d<float> t= water->getPosition();
+            t.y-=1;
+            water->setPosition(t);
+        }
+        else
+            waterDir->value = diBOTTOM;
+    }
     handleActions();
 
     panel->update();
@@ -181,6 +226,12 @@ void StateLevel::handleActions()
         setupBabyType(baby->getNextForm());
         setupPanel();
     }
+    else if(baby->hasLevelChanged())
+    {
+        setupPanel();
+        baby->setLevelChanged(false);
+    }
+
 
 }
 
@@ -202,6 +253,12 @@ void StateLevel::handleButtons(const int& b)
         }
         panel->setShouldHide(true); // Hide the toolbar
     }
+    else if(b == 2)
+    {
+        baby->wash();
+        waterDir->value = diTOP;
+        panel->setShouldHide(true); // Hide the toolbar
+    }
 }
 
 void StateLevel::render()
@@ -210,6 +267,7 @@ void StateLevel::render()
     baby->render();
     if(food)
         food->render();
+    water->render();
 
     panel->render();
     statWindow->render();

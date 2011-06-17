@@ -35,6 +35,8 @@ namespace Penjin
     class StatsWindow;
     class Food;
     class Cheese;
+    class Rectangle;
+    class SimpleDirection;
 
     class StateLevel : public ApplicationState, public ConfigFile
     {
@@ -63,6 +65,8 @@ namespace Penjin
             Image* background;
             StatsWindow* statWindow;            //  Window showing all info of baby
             Food* food;                         //  The food object for baby to eat.
+            Rectangle* water;                   //  Water to wash baby
+            SimpleDirection* waterDir;          //  Direction water is moving (UP/DOWN)
             //vector <Prop*> props;             //  Vector of props the Baby can interact with.
     };
 }

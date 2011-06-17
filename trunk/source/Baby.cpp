@@ -31,7 +31,7 @@ using Penjin::Baby;
 using Penjin::Sprite;
 using Penjin::Timer;
 
-Baby::Baby() :  action(ACTION_IDLE), touchCount(0) ,intelligence(1),hunger(90),cleanliness(10), strength(0), weight(0.2f),
+Baby::Baby() :  action(ACTION_IDLE), touchCount(0) ,intelligence(1),hunger(90),hygiene(10), toilet(20),strength(0), weight(0.2f),levelChanged(true),
 sprActive(NULL), sprIdle(NULL), sprJump(NULL), sprdance(NULL), sprWalkLeft(NULL), sprWalkRight(NULL), sprEat(NULL),
 timer(NULL)
 {
@@ -47,10 +47,13 @@ timer(NULL)
 
     string section = "Status";
     age = StringUtility::stringToInt(  getValue(section, "Age", "0")   );
+    level = StringUtility::stringToInt(  getValue(section, "Level", "0")   );
     intelligence = StringUtility::stringToInt( getValue(section,"Intelligence", "1"));
     weight = StringUtility::stringToFloat( getValue(section, "Weight","0.2") );
     hunger = StringUtility::stringToInt( getValue(section,"Hunger", "90"));
-    cleanliness = StringUtility::stringToInt( getValue(section,"Cleanliness", "10"));
+    hygiene = StringUtility::stringToInt( getValue(section,"Hygiene", "10"));
+    toilet = StringUtility::stringToInt( getValue(section,"Toilet", "20"));
+    strength = StringUtility::stringToInt( getValue(section,"Strength", "10"));
     stringToAction(getValue(section, "Action","ACTION_IDLE"));
     if(hasChanged())
         save(DEFAULT_BABY_SAVE);
@@ -76,9 +79,14 @@ void Baby::saveData()
 {
     string section = "Status";
     setValue(section, "Age", StringUtility::intToString(age));
+    setValue(section, "Level", StringUtility::intToString(level));
     setValue(section, "Intelligence", StringUtility::intToString(intelligence) );
     setValue(section, "Weight", StringUtility::floatToString(weight) );
     setValue(section, "Hunger", StringUtility::intToString(hunger) );
+    setValue(section, "Hygiene", StringUtility::intToString(hygiene) );
+    setValue(section, "Toilet", StringUtility::intToString(toilet) );
+    setValue(section, "Strength", StringUtility::intToString(strength) );
+
     setValue(section, "Action", actionToString());
     if(hasChanged())
         save(DEFAULT_BABY_SAVE);
@@ -94,6 +102,8 @@ string Baby::actionToString()
         return "ACTION_DANCE";
     else if(action == ACTION_JUMP)
         return "ACTION_JUMP";
+    else if(action == ACTION_POOP)
+        return "ACTION_POOP";
     else if(action == ACTION_BLINK)
         return "ACTION_BLINK";
     else if(action == ACTION_SLEEP)
@@ -116,6 +126,8 @@ void Baby::stringToAction(const string& s)
         action = ACTION_DANCE;
     else if(s == "ACTION_JUMP")
         action = ACTION_JUMP;
+    else if(s == "ACTION_POOP")
+        action = ACTION_POOP;
     else if(s == "ACTION_BLINK")
         action = ACTION_BLINK;
     else if(s == "ACTION_SLEEP")
@@ -179,8 +191,24 @@ void Baby::switchAction(const BABY_ACTIONS& a)
             sprWalkRight->setPosition(sprActive->getPosition());
             sprActive = sprWalkRight;
         }
+        else if(a == ACTION_POOP)
+        {
+            sprJump->setPosition(sprActive->getPosition());
+            sprActive = sprJump;
+            // Introduce washing Button at level 2
+            if(level<=1)
+            {
+                level = 2;
+                levelChanged = true;
+            }
+        }
         action = a;
     }
+}
+
+void Baby::wash()
+{
+    hygiene = 100;
 }
 
 void Baby::evolve()
@@ -211,6 +239,11 @@ float Baby::getWeight()
 int Baby::getHunger()
 {
     return hunger;
+}
+
+int Baby::getHygiene()
+{
+    return hygiene;
 }
 
 int Baby::getIntelligence()

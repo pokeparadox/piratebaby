@@ -81,21 +81,30 @@ void StatsWindow::render()
         text->print(    LocaleMan::getInstance()->getValue(section,"Title","Baby Stats.") +"\n\n"   );
         text->print(    LocaleMan::getInstance()->getValue(section,"Age","Age") + ":"   ); text->print(baby->getAge()/600); text->print("\n");
         int level = baby->getLevel();
-        text->print(    LocaleMan::getInstance()->getValue(section,"Level","Level") + ":"); text->print(level);text->print("-");
+        text->print(    LocaleMan::getInstance()->getValue(section,"Level","Level") + ":"); text->print(level);text->print(" - ");
         if(level == 0)
-            text->print(LocaleMan::getInstance()->getValue(section,"Patience","Patiance")    +"." );
+            text->print(LocaleMan::getInstance()->getValue(section,"Patience","Patience")    +"." );
         else if(level == 1)
             text->print(LocaleMan::getInstance()->getValue(section,"Nutrition","Nutrition")    +"." );
+        else if(level == 2)
+            text->print(LocaleMan::getInstance()->getValue(section,"Hygiene","Hygiene")    +"." );
         text->print("\n");
 
+        text->print(LocaleMan::getInstance()->getValue(section,"Intelligence","Intelligence") + ":");text->print(baby->getIntelligence()); text->print("\n");
+        text->print(LocaleMan::getInstance()->getValue(section,"Weight","Weight") + ":"); text->print(baby->getWeight()); text->print("\n");
 
-        text->print("Intelligence:"); text->print(baby->getIntelligence()); text->print("\n");
-        text->print("Weight:"); text->print(baby->getWeight()); text->print("\n");
         // Level 01
         if(level>=1)
         {
-            text->print("Hunger:"); text->print(baby->getHunger()); text->print("\n");
+            text->print(LocaleMan::getInstance()->getValue(section,"Hunger","Hungger") + ":");
+            text->print(baby->getHunger()); text->print("\n");
         }
+        if(level>=2)
+        {
+            text->print(LocaleMan::getInstance()->getValue(section,"Hygiene","Hygiene") + ":");
+            text->print(baby->getHygiene()); text->print("\n");
+        }
+
 
     }
     if(LocaleMan::getInstance()->hasChanged())

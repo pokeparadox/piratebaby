@@ -63,12 +63,15 @@ BabyBlob::BabyBlob()
     sprActive = sprIdle;
     position = dim;
     action = ACTION_IDLE;
-    level = 1;
 }
 
 BabyBlob::~BabyBlob()
 {
     //dtor
+    // Clean up shit
+    for(uint i = 0; i < poops.size(); ++i)
+        delete poops.at(i);
+
     saveData();
 }
 
@@ -80,6 +83,18 @@ string BabyBlob::getNextForm()
 void BabyBlob::interact(Prop* prop)
 {
 
+}
+
+void BabyBlob::wash()
+{
+    Baby::wash();
+    // Clean up shit
+    for(uint i = 0; i < poops.size(); ++i)
+    {
+        delete poops.at(i);
+        poops.at(i)=NULL;
+    }
+    poops.clear();
 }
 
 void BabyBlob::eat(Food* f)
@@ -134,14 +149,27 @@ void BabyBlob::eat(Food* f)
                 if(f->cWaste < f->getWaste())
                 {
                     ++f->cWaste;
-                    if(cleanliness>0)
-                        --cleanliness;
+                    // fill up toilet meter
+                    ++toilet;
+                    // If toilet meter full, go to toilet
+                    // going to toilet is dirty.
+                    if(toilet>=100 && hygiene>0)
+                    {
+                        --hygiene;
+                    }
                 }
             }// !isExhausted
         }//hasCollided
     }// onFloor
     else
         switchAction(ACTION_IDLE);
+}
+
+void BabyBlob::render()
+{
+    for(uint i =0; i < poops.size(); ++i)
+        poops.at(i)->render();
+    Baby::render();
 }
 
 void BabyBlob::update()
@@ -154,6 +182,7 @@ void BabyBlob::update()
         // We also lose weight due to walking
         weight-=0.0001f;
     }
+
     // We also get hungry over time
     if(timer->getTicks()%600 == 1)
     {
@@ -163,5 +192,17 @@ void BabyBlob::update()
         // We lose weight if we are at max hunger
         else
             weight-=0.02f;
+    }
+
+    // Check toilet duties
+    if(toilet>=100)
+    {
+        toilet = 0;
+        Sprite* poop = NULL;
+        poop = new Sprite;
+        poop->load("images/poop.png");
+        poop->setPosition(position);
+        poops.push_back(poop);
+        switchAction(ACTION_POOP);
     }
 }
