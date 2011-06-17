@@ -40,6 +40,7 @@ namespace Penjin
         ACTION_WALK_LEFT,
         ACTION_WALK_RIGHT,
         ACTION_EAT,
+        ACTION_POOP,
         ACTION_DANCE,
         ACTION_JUMP,
         ACTION_BLINK,
@@ -81,19 +82,22 @@ namespace Penjin
             virtual void update();
 
             virtual void eat(Food* food);
+            virtual void wash();
 
             void setAge(const int& age);
             int getAge();
             int getIntelligence();
             float getWeight();
             int getHunger();
+            int getHygiene();
             int getLevel();
             void setLevel(const int& l);
             // request the next form this baby will take.
             virtual string getNextForm(){return "Blob";}
             //  What action is this baby doing
             BABY_ACTIONS getAction(){return action;}
-
+            bool hasLevelChanged(){return levelChanged;}
+            void setLevelChanged(const bool& c){levelChanged = c;}
         protected:
             //  Return the string version of action
             string actionToString();
@@ -113,8 +117,11 @@ namespace Penjin
             int strength;
             int hunger;         // Hunger level
             int happiness;
-            int cleanliness;    //
+            int hygiene;    //
             int level;          // This is the discipline level which adds new responsibilities as it increaes
+                                // It is increased by various conditions.
+            bool levelChanged;
+            int toilet;        // This is the poopy level. Poop is released when full.
             Timer* timer;
 
             // This sprite points to the active animated sprite.

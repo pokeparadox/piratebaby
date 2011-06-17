@@ -36,7 +36,6 @@ BabyEgg::BabyEgg()
     position = dim;
     action = ACTION_IDLE;
     sprActive = sprIdle;
-    level = 0;
     touchCount = 0;
 }
 
