@@ -31,7 +31,7 @@ using Penjin::Vector2d;
 Food::Food() : cNutrition(0), cWeight(0), cWaste(0), onFloor(false)
 {
     //ctor
-    Vector2d<int> dim = GFX::getInstance()->getDimensions();
+    Vector2d<int> dim = GFX::getInstance()->getResolution();
     position.x = Penjin::Random::nextInt(0,dim.x-dimensions.x);
     floorLevel = dim.y*0.65f;
 }

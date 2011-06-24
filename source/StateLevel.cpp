@@ -89,7 +89,7 @@ void StateLevel::init()
 
     water = new Rectangle;
     water->setColour(Colour(0,0,(uchar)200,128));
-    Vector2d<int> dim = GFX::getInstance()->getDimensions();
+    Vector2d<int> dim = GFX::getInstance()->getResolution();
     dim.y +=1;
     water->setDimensions(dim);
     dim.x = 0;
