@@ -37,12 +37,18 @@ StatsWindow::StatsWindow() : baby(NULL), window(NULL), text(NULL)
 {
     //ctor
     hidden = true;
-    setDimensions(Penjin::GFX::getInstance()->getDimensions() * 0.8f);
-    setPosition((Penjin::GFX::getInstance()->getDimensions() - dimensions) *0.5f);
+    Vector2d<float> pos;
+    pos.x=24;
+    pos.y=18;
+    Vector2d<int> dim;
+    dim.x=192;
+    dim.y=144;
+    setDimensions(dim);
+    setPosition(pos);
 
     window = new Button;
-    window->setPosition(position);
-    window->setDimensions(dimensions);
+    window->setPosition(pos);
+    window->setDimensions(dim);
     window->a = 128;
 
     text = new Text;
@@ -50,9 +56,9 @@ StatsWindow::StatsWindow() : baby(NULL), window(NULL), text(NULL)
     text->setColour(BLACK);
     text->setRelativity(true);
     text->setWrapping(false);
-    text->setPosition(position + Vector2d<float>(2,2));
-    text->setCursorPosition(position + Vector2d<float>(2,2));
-    text->setDimensions(dimensions);
+    text->setPosition(pos + Vector2d<float>(2,2));
+    text->setCursorPosition(pos + Vector2d<float>(2,2));
+    text->setDimensions(dim);
 }
 
 StatsWindow::~StatsWindow()

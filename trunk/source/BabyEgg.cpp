@@ -29,7 +29,7 @@ BabyEgg::BabyEgg()
     sprIdle->load("images/egg.png",4,1);
     sprIdle->setPlayMode(pmPulse);
     sprIdle->setLooping(1);
-    Vector2d<int> dim = GFX::getInstance()->getDimensions();
+    Vector2d<int> dim = GFX::getInstance()->getResolution();
     dim.x = dim.x / 2.5f;
     dim.y = dim.y / 2.25f;
     sprIdle->setPosition(dim);
