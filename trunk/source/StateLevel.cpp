@@ -48,7 +48,7 @@ using Penjin::BabyEggBaby;
 using Penjin::StatsWindow;
 using Penjin::Food;
 using Penjin::Cheese;
-using Penjin::Rectangle;
+//using Penjin::Rectangle;
 
 #ifdef DEBUG
     #include <iostream>
