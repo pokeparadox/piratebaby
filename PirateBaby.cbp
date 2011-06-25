@@ -8,7 +8,6 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="W32 Debug">
-				<Option platforms="Windows;" />
 				<Option output="bin/W32/PirateBaby_D" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="resources" />
 				<Option object_output="obj/W32/Debug/" />
@@ -32,11 +31,12 @@
 					<Add option="-lSDLmain" />
 					<Add option="-lSDL_gfx" />
 					<Add option="-lSDL" />
+					<Add library="libPenjinTwoD" />
 					<Add directory="$(#mingw.lib)" />
+					<Add directory="$(#penjintwo.lib)/W32" />
 				</Linker>
 			</Target>
 			<Target title="W32 Release">
-				<Option platforms="Windows;" />
 				<Option output="bin/W32/PirateBaby_R" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="resources" />
 				<Option object_output="obj/W32/Release/" />
@@ -60,7 +60,9 @@
 					<Add option="-lSDLmain" />
 					<Add option="-lSDL_gfx" />
 					<Add option="-lSDL" />
+					<Add library="libPenjinTwo" />
 					<Add directory="$(#mingw.lib)" />
+					<Add directory="$(#penjintwo.lib)/W32" />
 				</Linker>
 			</Target>
 			<Target title="Lin Debug">
