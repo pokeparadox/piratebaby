@@ -192,6 +192,14 @@ void BabyBlob::update()
         // We lose weight if we are at max hunger
         else
             weight-=0.02f;
+
+        // Check hygiene and illness.
+        // If we are so dirty, we are ill and lose health.
+        if(hygiene <= 0)
+        {
+            hygiene = 0;
+            --health;
+        }
     }
 
     // Check toilet duties

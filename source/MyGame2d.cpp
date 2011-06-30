@@ -18,15 +18,18 @@
 */
 #include "MyGame2d.h"
 #include "MyStateList.h"
+#include "StateTitle.h"
 #include "StateLevel.h"
 using Penjin::MyGame2d;
+using Penjin::StateTitle;
 using Penjin::StateLevel;
 
 MyGame2d::MyGame2d()
 {
     //ctor
+    Penjin::StateMan::getInstance()->addState(STATE_TITLE, new StateTitle);
     Penjin::StateMan::getInstance()->addState(STATE_LEVEL, new StateLevel);
-    Penjin::StateMan::getInstance()->setNextState(STATE_LEVEL);
+    Penjin::StateMan::getInstance()->setNextState(STATE_TITLE);
     Penjin::StateMan::getInstance()->stateManagement();
 }
 
