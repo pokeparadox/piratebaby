@@ -25,46 +25,102 @@
 #include "SimpleJoy.h"
 #include "StateManager.h"
 #include "MyStateList.h"
-//#include "Rectangle.h"
-//#include "AnimatedSprite.h"
+#include "Timer.h"
+#include "Sprite.h"
+#include "Text.h"
+#include "BackBuffer.h"
 using Penjin::StateTitle;
-//using Penjin::Rectangle;
+using Penjin::Timer;
 using Penjin::SimpleJoy;
-//using Penjin::AnimatedSprite;
+using Penjin::Sprite;
+using Penjin::Text;
+using Penjin::BackBuffer;
 
-StateTitle::StateTitle()
+StateTitle::StateTitle() : timer(NULL), current(0), text(NULL), buff(NULL)
 {
     //ctor
 }
 
 void StateTitle::init()
 {
-        Penjin::GFX::getInstance()->setClearColour(Colour(0,0,255));
-    //Penjin::GFX::getInstance()->setDrawWidth(5);
-/*rect = new Rectangle;
-    rect->setColour(RED);
-    rect->setDrawWidth(10);
-    rect->setPosition(Vector2d<float>(50,50));
-    rect->setWidth(200);
-    rect->setHeight(200);*/
+    timer = new Timer;
+    timer->setMode(SECONDS);
+    current = 0;
 
-  /*  egg = NULL;
-    egg = new AnimatedSprite;
-    egg->loadFrames("images/egg.png",4,1);
-    Vector2d<int> pos = GFX::getInstance()->getDimensions();
-    Vector2d<int> offset;
-    offset.x = egg->getWidth()*0.5;
-    offset.y = egg->getHeight()*0.5;
-    pos.x = pos.x*0.5f-offset.x;
-    pos.y = pos.y*0.5f+offset.y;
-    egg->setPosition(pos);
-    egg->setFrameRate(FIFTEEN_FRAMES);*/
+    text = new Text;
+    text->load("fonts/unispace.ttf",11);
+    text->setAlignment(TextClass::CENTRED);
+    text->setColour(LIGHT_GREY);
+    text->setRelativity(false);
+
+    setupSplashes();
+
+    buff = new BackBuffer;
+
+    Penjin::GFX::getInstance()->setClearColour(Colour(0,0,0));
+    timer->start();
+}
+
+void StateTitle::setupSplashes()
+{
+    const string path = "images/splash/";
+
+    // Pirate Games Splash
+    Sprite* t = NULL;
+    t = new Sprite;
+    t->load(path+"pirategames.png");
+    Vector2d<float> pos;
+    pos = Penjin::GFX::getInstance()->getResolution() - t->getDimensions();
+    pos = pos *0.5f;
+    t->setPosition(pos);
+    splashes.push_back(t);
+
+    // Penjin Powered
+    t = NULL;
+    t = new Sprite;
+    t->load(path+"penjin.png");
+    pos = Penjin::GFX::getInstance()->getResolution() - t->getDimensions();
+    pos = pos *0.5f;
+    t->setPosition(pos);
+    splashes.push_back(t);
+
+    #if defined (PLATFORM_PANDORA) || defined(PLATFORM_PC)
+        // OpenPandora
+        t = NULL;
+        t = new Sprite;
+        t->load(path+"pandora.png");
+        pos = Penjin::GFX::getInstance()->getResolution() - t->getDimensions();
+        pos = pos *0.5f;
+        t->setPosition(pos);
+        splashes.push_back(t);
+    #endif
+    /*
+    // RIOTdigital
+    t = NULL;
+    t = new Sprite;
+    t->load(path+"riot.png");
+    Vector2d<float> pos(t->getDimensions());
+    pos = Penjin::GFX::getInstance()->getResolution() - t->getDimensions();
+    pos = pos *0.5f;
+    t->setPosition(pos);
+    splashes.push_back(t);*/
 }
 
 void StateTitle::clear()
 {
-    //delete rect;
-    //delete egg;
+    delete timer;
+    timer = NULL;
+    delete text;
+    text = NULL;
+    delete buff;
+    buff = NULL;
+
+    for(int i = splashes.size()-1;i>=0;--i)
+    {
+        delete splashes.at(i);
+        splashes.at(i) = NULL;
+    }
+    splashes.clear();
 }
 
 StateTitle::~StateTitle()
@@ -75,28 +131,59 @@ StateTitle::~StateTitle()
 
 void StateTitle::render()
 {
-    //  Clear the screen
-    Penjin::GFX::getInstance()->clear();
-    //egg->render();
-    //  Queue rectangle in displaylist.
-    //rect->queueRender();
-    //Penjin::GFX::getInstance()->drawPixel(Vector2d<float> (50,50));
-   // Penjin::GFX::getInstance()->drawPixel(Vector2d<float> (51,50));
-   // Penjin::GFX::getInstance()->drawPixel(Vector2d<float> (52,50));
+    // render current splash
+    if(current<splashes.size())
+        splashes.at(current)->render();
 
-   // Penjin::GFX::getInstance()->drawRectangle(Vector2d<float> (0,0), Vector2d<int> (20,20));
+    printText();
+
+
+	buff->update();
+	buff->setAlpha(250);
+	Penjin::GFX::getInstance()->clear();
+	buff->render();
+}
+
+void StateTitle::printText()
+{
+    Text* t = text;
+    t->setPosition(Vector2d<float>(0,160));
+    if(current == 0)
+        t->print("Pirate Games 2011");
+    else if(current == 1)
+        t->print("Using PenjinTwo.");
+#if defined (PLATFORM_PANDORA) || defined(PLATFORM_PC)
+    else if(current == 2)
+        t->print("On OpenPandora.");
+    else if(current == 3)
+        t->print("For RIOTdigital.");
+#else
+    else if(current == 2)
+        t->print("For RIOTdigital.");
+#endif
 }
 
 void StateTitle::update()
 {
-    //egg->update();
+    if(timer->getScaledTicks() >= 3)
+    {
+        ++current;
+        // reset timer
+        timer->start();
+    }
+
+    if(current >= splashes.size())
+    {
+        StateMan::getInstance()->setNextState(STATE_LEVEL);
+    }
 }
 
 void StateTitle::input()
 {
-    if(Joy::getInstance()->isA())
+    SimpleJoy* j = Joy::getInstance();
+    if(j->isA() || j->isX() || j->isB() || j->isLeftClick())
     {
-        Penjin::StateMan::getInstance()->setNextState(STATE_LEVEL);
-        Joy::getInstance()->resetA();
+        ++current;
+        j->resetKeys();
     }
 }

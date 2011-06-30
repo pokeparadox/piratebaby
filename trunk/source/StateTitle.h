@@ -1,20 +1,20 @@
 /*
-	Penjin is Copyright (c)2005, 2006, 2007, 2008, 2009, 2010, 2011 Kevin Winfield-Pantoja
+	PirateBaby is Copyright (c) 2011 Kevin Winfield-Pantoja
 
-	This file is part of Penjin.
+	This file is part of PirateBaby.
 
-	Penjin is free software: you can redistribute it and/or modify
-	it under the terms of the GNU Lesser General Public License as published by
+	PirateBaby is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
 	the Free Software Foundation, either version 3 of the License, or
 	(at your option) any later version.
 
-	Penjin is distributed in the hope that it will be useful,
+	PirateBaby is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU Lesser General Public License for more details.
+	GNU General Public License for more details.
 
-	You should have received a copy of the GNU Lesser General Public License
-	along with Penjin.  If not, see <http://www.gnu.org/licenses/>.
+	You should have received a copy of the GNU General Public License
+	along with PirateBaby.  If not, see <http://www.gnu.org/licenses/>.
 */
 /***************************************************************************************************
 *   \file StateTitle is a GameState to show the Title screen.
@@ -24,12 +24,16 @@
 #define STATETITLE_H
 
 #include "ApplicationState.h"
+#include <vector>
+using std::vector;
 
 namespace Penjin
 {
     //  Forward decalrations
-    //class Rectangle;
-    //class AnimatedSprite;
+    class Sprite;
+    class Timer;
+    class Text;
+    class BackBuffer;
 
     //  State delaration
     class StateTitle : public ApplicationState
@@ -45,8 +49,13 @@ namespace Penjin
             virtual void input();
             virtual void clear();
         private:
-            //Rectangle* rect;
-            //AnimatedSprite* egg;
+            void setupSplashes();       //  Setup the splash screen images to display
+            void printText();           //  display the relevant text for each image
+            Timer* timer;               //  To time the display of each splash
+            vector<Sprite*> splashes;   //  Splash images for title
+            int current;                //  The current splash to display
+            Text* text;                 //  Display relevant text.
+            BackBuffer* buff;
     };
 }
 #endif // STATETITLE_H
