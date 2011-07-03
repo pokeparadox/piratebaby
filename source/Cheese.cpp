@@ -27,9 +27,9 @@ using Penjin::Cheese;
 Cheese::Cheese()
 {
     //ctor
-    nutrition = 2;
-    weight=0.08f;
-    waste=2;
+    nutrition = 4;
+    weight=0.09f;
+    waste=10;
     load("images/food.png");
 }
 

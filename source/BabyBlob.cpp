@@ -63,6 +63,8 @@ BabyBlob::BabyBlob()
     sprActive = sprIdle;
     position = dim;
     action = ACTION_IDLE;
+
+    illness = NULL;
 }
 
 BabyBlob::~BabyBlob()
@@ -71,6 +73,8 @@ BabyBlob::~BabyBlob()
     // Clean up shit
     for(uint i = 0; i < poops.size(); ++i)
         delete poops.at(i);
+
+    delete illness;
 
     saveData();
 }
@@ -95,6 +99,13 @@ void BabyBlob::wash()
         poops.at(i)=NULL;
     }
     poops.clear();
+}
+
+void BabyBlob::heal()
+{
+    Baby::heal();
+    delete illness;
+    illness = NULL;
 }
 
 void BabyBlob::eat(Food* f)
@@ -170,6 +181,8 @@ void BabyBlob::render()
     for(uint i =0; i < poops.size(); ++i)
         poops.at(i)->render();
     Baby::render();
+    if(illness)
+        illness->render();
 }
 
 void BabyBlob::update()
@@ -194,10 +207,25 @@ void BabyBlob::update()
             weight-=0.02f;
 
         // Check hygiene and illness.
+        if(!poops.empty())
+        {
+            // We subtract for each poop
+            for(int i = poops.size()-1; i>=0; --i)
+                --hygiene;
+        }
+
         // If we are so dirty, we are ill and lose health.
         if(hygiene <= 0)
         {
             hygiene = 0;
+            switchAction(ACTION_ILL);
+            if(illness == NULL)
+            {
+                illness = new Sprite;
+                illness->load("images/illness.gif",4,1);
+                illness->setLooping(true);
+                illness->setPosition(position);
+            }
             --health;
         }
     }
@@ -213,4 +241,14 @@ void BabyBlob::update()
         poops.push_back(poop);
         switchAction(ACTION_POOP);
     }
+
+    if(illness)
+    {
+        illness->setPosition(position);
+        illness->update();
+    }
+
+    //  Check death
+    if(health<=0 || weight <= 0.0f)
+        switchAction(ACTION_DIE);
 }

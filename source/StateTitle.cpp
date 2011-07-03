@@ -29,6 +29,7 @@
 #include "Sprite.h"
 #include "Text.h"
 #include "BackBuffer.h"
+#include "LocalisedStringManager.h"
 using Penjin::StateTitle;
 using Penjin::Timer;
 using Penjin::SimpleJoy;
@@ -146,20 +147,24 @@ void StateTitle::render()
 
 void StateTitle::printText()
 {
+    // create shorthand for LSM
+    Penjin::LocalisedStringManager* lsm = LocaleMan::getInstance();
+    string section="StateTitleSplash";
     Text* t = text;
     t->setPosition(Vector2d<float>(0,160));
+    //  Render localised text
     if(current == 0)
-        t->print("Pirate Games 2011");
+        t->print(lsm->getValue(section,"PirateGames", "Pirate Games 2011"));
     else if(current == 1)
-        t->print("Using PenjinTwo.");
+        t->print(lsm->getValue(section,"PenjinTwo", "Using PenjinTwo."));
 #if defined (PLATFORM_PANDORA) || defined(PLATFORM_PC)
     else if(current == 2)
-        t->print("On OpenPandora.");
+        t->print(lsm->getValue(section,"OpenPandora", "On OpenPandora."));
     else if(current == 3)
-        t->print("For RIOTdigital.");
+        t->print(lsm->getValue(section,"RIOTdigital", "For RIOTdigital."));
 #else
     else if(current == 2)
-        t->print("For RIOTdigital.");
+        t->print(lsm->getValue(section,"RIOTdigital", "For RIOTdigital."));
 #endif
 }
 
