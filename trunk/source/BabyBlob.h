@@ -44,11 +44,13 @@ namespace Penjin
 
             void eat(Food* food);
             virtual void wash();
+            virtual void heal();
 
             virtual string getNextForm();
         protected:
             void doPoop();
             vector <Sprite*> poops;
+            Sprite* illness;
         private:
     };
 }

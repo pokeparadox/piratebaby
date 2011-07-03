@@ -27,10 +27,11 @@ using Penjin::StateLevel;
 MyGame2d::MyGame2d()
 {
     //ctor
-    Penjin::StateMan::getInstance()->addState(STATE_TITLE, new StateTitle);
-    Penjin::StateMan::getInstance()->addState(STATE_LEVEL, new StateLevel);
-    Penjin::StateMan::getInstance()->setNextState(STATE_TITLE);
-    Penjin::StateMan::getInstance()->stateManagement();
+    Penjin::StateManager* sm = Penjin::StateMan::getInstance();
+    sm->addState(STATE_TITLE, new StateTitle);
+    sm->addState(STATE_LEVEL, new StateLevel);
+    sm->setNextState(STATE_TITLE);
+    sm->stateManagement();
 }
 
 MyGame2d::~MyGame2d()

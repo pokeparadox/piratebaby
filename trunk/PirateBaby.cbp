@@ -131,6 +131,7 @@
 					<Add option="-DPLATFORM_PANDORA" />
 					<Add option="-D_DEBUG" />
 					<Add option="-DPENJIN_SDL" />
+					<Add option="-DPENJIN_SDL_INPUT" />
 					<Add directory="$(#pandora_sdk.include)" />
 				</Compiler>
 				<Linker>
@@ -145,7 +146,9 @@
 					<Add option="-lts" />
 					<Add option="-lpng" />
 					<Add option="-lz" />
+					<Add library="libPenjinTwoD" />
 					<Add directory="$(#pandora_sdk.lib)" />
+					<Add directory="$(#penjintwo.lib)/Pandora" />
 				</Linker>
 			</Target>
 			<Target title="Pandora Release">
@@ -159,6 +162,7 @@
 					<Add option="-O2" />
 					<Add option="-DPLATFORM_PANDORA" />
 					<Add option="-DPENJIN_SDL" />
+					<Add option="-DPENJIN_SDL_INPUT" />
 					<Add directory="$(#pandora_sdk.include)" />
 				</Compiler>
 				<Linker>
@@ -176,7 +180,9 @@
 					<Add option="-lts" />
 					<Add option="-lpng" />
 					<Add option="-lz" />
+					<Add library="libPenjinTwo" />
 					<Add directory="$(#pandora_sdk.lib)" />
+					<Add directory="$(#penjintwo.lib)/Pandora" />
 				</Linker>
 			</Target>
 			<Target title="LinGL Debug">

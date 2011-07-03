@@ -41,6 +41,8 @@ namespace Penjin
         ACTION_WALK_RIGHT,
         ACTION_EAT,
         ACTION_POOP,
+        ACTION_ILL,
+        ACTION_DIE,
         ACTION_DANCE,
         ACTION_JUMP,
         ACTION_BLINK,
@@ -83,6 +85,7 @@ namespace Penjin
 
             virtual void eat(Food* food);
             virtual void wash();
+            virtual void heal();
 
             void setAge(const int& age);
             int getAge();
@@ -90,6 +93,7 @@ namespace Penjin
             float getWeight();
             int getHunger();
             int getHygiene();
+            int getHealth();
             int getLevel();
             void setLevel(const int& l);
             // request the next form this baby will take.

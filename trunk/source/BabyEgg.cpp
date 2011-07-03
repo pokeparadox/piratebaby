@@ -98,7 +98,11 @@ void BabyEgg::evolve()
 
 string BabyEgg::getNextForm()
 {
-    if(age<300)
+    if(age<300|| touchCount > 20)
+    {
+        level = 1;
         return "Blob";
+    }
+
     return "EggBaby";
 }

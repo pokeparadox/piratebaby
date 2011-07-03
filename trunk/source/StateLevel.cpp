@@ -67,7 +67,7 @@ void StateLevel::init()
     background = NULL;
     statWindow = NULL;
     food = NULL;
-    Penjin::GFX::getInstance()->setClearColour(Colour(255,255,255));
+    Penjin::GFX::getInstance()->setClearColour(Colour(0,0,0));
 
     // Load list of babies and general settings
     load(BABY_LIST);
@@ -170,6 +170,13 @@ void StateLevel::setupPanel()
         a->loadImage("images/wash.png");
         panel->addWidget(a);
     }
+    if(level >= 3)
+    {
+        SpriteButton* a = NULL;
+        a = new SpriteButton;
+        a->loadImage("images/heal.png");
+        panel->addWidget(a);
+    }
 }
 
 void StateLevel::update()
@@ -228,6 +235,9 @@ void StateLevel::handleActions()
     }
     else if(baby->hasLevelChanged())
     {
+        // If level changes to 0 this means baby died - we reset
+        if(baby->getLevel() == 0)
+            setupBabyType("Egg");
         setupPanel();
         baby->setLevelChanged(false);
     }
@@ -259,10 +269,16 @@ void StateLevel::handleButtons(const int& b)
         waterDir->value = diTOP;
         panel->setShouldHide(true); // Hide the toolbar
     }
+    else if(b == 3)
+    {
+        baby->heal();
+        panel->setShouldHide(true); // Hide the toolbar
+    }
 }
 
 void StateLevel::render()
 {
+    GFX::getInstance()->clear();
     background->render();
     baby->render();
     if(food)

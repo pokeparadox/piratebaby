@@ -51,6 +51,7 @@ timer(NULL)
     intelligence = StringUtility::stringToInt( getValue(section,"Intelligence", "1"));
     weight = StringUtility::stringToFloat( getValue(section, "Weight","0.2") );
     hunger = StringUtility::stringToInt( getValue(section,"Hunger", "90"));
+    health = StringUtility::stringToInt( getValue(section,"Health", "50"));
     hygiene = StringUtility::stringToInt( getValue(section,"Hygiene", "10"));
     toilet = StringUtility::stringToInt( getValue(section,"Toilet", "20"));
     strength = StringUtility::stringToInt( getValue(section,"Strength", "10"));
@@ -83,11 +84,40 @@ void Baby::saveData()
     setValue(section, "Intelligence", StringUtility::intToString(intelligence) );
     setValue(section, "Weight", StringUtility::floatToString(weight) );
     setValue(section, "Hunger", StringUtility::intToString(hunger) );
+    setValue(section, "Health", StringUtility::intToString(hunger) );
     setValue(section, "Hygiene", StringUtility::intToString(hygiene) );
     setValue(section, "Toilet", StringUtility::intToString(toilet) );
     setValue(section, "Strength", StringUtility::intToString(strength) );
 
     setValue(section, "Action", actionToString());
+    if(hasChanged())
+        save(DEFAULT_BABY_SAVE);
+}
+
+void Baby::defaultConfig()
+{
+    string section = "Status";
+    setValue(section, "Age", "0");
+    age = 0;
+    setValue(section, "Level", "0");
+    level = 0;
+    setValue(section, "Intelligence", "0" );
+    intelligence = 0;
+    setValue(section, "Weight", "0" );
+    weight = 0;
+    setValue(section, "Hunger", "90" );
+    hunger = 90;
+    setValue(section, "Health", "50");
+    health = 50;
+    setValue(section, "Hygiene", "10");
+    hygiene = 10;
+    setValue(section, "Toilet", "20");
+    toilet = 20;
+    setValue(section, "Strength", "10");
+    strength = 10;
+    action = ACTION_IDLE;
+    setValue(section, "Action", actionToString());
+
     if(hasChanged())
         save(DEFAULT_BABY_SAVE);
 }
@@ -104,6 +134,10 @@ string Baby::actionToString()
         return "ACTION_JUMP";
     else if(action == ACTION_POOP)
         return "ACTION_POOP";
+    else if(action == ACTION_ILL)
+        return "ACTION_ILL";
+    else if(action == ACTION_DIE)
+        return "ACTION_DIE";
     else if(action == ACTION_BLINK)
         return "ACTION_BLINK";
     else if(action == ACTION_SLEEP)
@@ -128,6 +162,10 @@ void Baby::stringToAction(const string& s)
         action = ACTION_JUMP;
     else if(s == "ACTION_POOP")
         action = ACTION_POOP;
+    else if(s == "ACTION_ILL")
+        action = ACTION_ILL;
+    else if(s == "ACTION_DIE")
+        action = ACTION_DIE;
     else if(s == "ACTION_BLINK")
         action = ACTION_BLINK;
     else if(s == "ACTION_SLEEP")
@@ -202,6 +240,26 @@ void Baby::switchAction(const BABY_ACTIONS& a)
                 levelChanged = true;
             }
         }
+        else if(a == ACTION_ILL)
+        {
+            //sprJump->setPosition(sprActive->getPosition());
+            //sprActive = sprJump;
+            // Introduce washing Button at level 2
+            if(level<=2)
+            {
+                level = 3;
+                levelChanged = true;
+            }
+        }
+        else if(a == ACTION_DIE)
+        {
+            //sprJump->setPosition(sprActive->getPosition());
+            //sprActive = sprJump;
+            // Introduce washing Button at level 2
+
+                defaultConfig();
+                levelChanged = true;
+        }
         action = a;
     }
 }
@@ -209,6 +267,14 @@ void Baby::switchAction(const BABY_ACTIONS& a)
 void Baby::wash()
 {
     hygiene = 100;
+}
+
+void Baby::heal()
+{
+
+    ++health;
+    if(health>100)
+        health = 100;
 }
 
 void Baby::evolve()
@@ -244,6 +310,11 @@ int Baby::getHunger()
 int Baby::getHygiene()
 {
     return hygiene;
+}
+
+int Baby::getHealth()
+{
+    return health;
 }
 
 int Baby::getIntelligence()

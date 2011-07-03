@@ -57,6 +57,14 @@ Level = Level
 Nutrition = Nutrition
 Intelligence = Intelligence
 Weight = Weight
-Hunger = Hungger
+Hunger = Hunger
 Hygiene = Hygiene
 Patience = Patience
+Health = Health
+
+
+[StateTitleSplash]
+PirateGames = Pirate Games 2011
+PenjinTwo = Using PenjinTwo.
+OpenPandora = On OpenPandora.
+RIOTdigital = For RIOTdigital.

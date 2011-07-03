@@ -45,7 +45,6 @@ BabyEggBaby::BabyEggBaby()
     sprIdle->setPosition(dim);
     action = ACTION_IDLE;
     sprActive = sprIdle;
-    level = 1;
 }
 
 BabyEggBaby::~BabyEggBaby()
