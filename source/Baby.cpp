@@ -36,7 +36,7 @@ sprActive(NULL), sprIdle(NULL), sprJump(NULL), sprdance(NULL), sprWalkLeft(NULL)
 timer(NULL)
 {
     //ctor
-    Penjin::ERRORS e = load(DEFAULT_BABY_SAVE);
+    loadStats();
 
     sprIdle = new Sprite;
     sprJump = new Sprite;
@@ -45,6 +45,15 @@ timer(NULL)
     sprWalkRight = new Sprite;
     sprEat = new Sprite;
 
+
+    timer = new Timer;
+    timer->setMode(SECONDS);
+    timer->start();
+}
+
+void Baby::loadStats()
+{
+    Penjin::ERRORS e = load(DEFAULT_BABY_SAVE);
     string section = "Status";
     age = StringUtility::stringToInt(  getValue(section, "Age", "0")   );
     level = StringUtility::stringToInt(  getValue(section, "Level", "0")   );
@@ -58,9 +67,6 @@ timer(NULL)
     stringToAction(getValue(section, "Action","ACTION_IDLE"));
     if(hasChanged())
         save(DEFAULT_BABY_SAVE);
-    timer = new Timer;
-    timer->setMode(SECONDS);
-    timer->start();
 }
 
 Baby::~Baby()
@@ -84,7 +90,7 @@ void Baby::saveData()
     setValue(section, "Intelligence", StringUtility::intToString(intelligence) );
     setValue(section, "Weight", StringUtility::floatToString(weight) );
     setValue(section, "Hunger", StringUtility::intToString(hunger) );
-    setValue(section, "Health", StringUtility::intToString(hunger) );
+    setValue(section, "Health", StringUtility::intToString(health) );
     setValue(section, "Hygiene", StringUtility::intToString(hygiene) );
     setValue(section, "Toilet", StringUtility::intToString(toilet) );
     setValue(section, "Strength", StringUtility::intToString(strength) );
@@ -103,7 +109,7 @@ void Baby::defaultConfig()
     level = 0;
     setValue(section, "Intelligence", "0" );
     intelligence = 0;
-    setValue(section, "Weight", "0" );
+    setValue(section, "Weight", "0.2" );
     weight = 0;
     setValue(section, "Hunger", "90" );
     hunger = 90;
@@ -271,8 +277,8 @@ void Baby::wash()
 
 void Baby::heal()
 {
-
-    ++health;
+    if(timer->getTicks()>500)
+        health+=10;
     if(health>100)
         health = 100;
 }

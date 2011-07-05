@@ -352,6 +352,10 @@
 		<Unit filename="source/MyStateList.h" />
 		<Unit filename="source/Prop.cpp" />
 		<Unit filename="source/Prop.h" />
+		<Unit filename="source/QuitButton.cpp" />
+		<Unit filename="source/QuitButton.h" />
+		<Unit filename="source/StateCredits.cpp" />
+		<Unit filename="source/StateCredits.h" />
 		<Unit filename="source/StateLevel.cpp" />
 		<Unit filename="source/StateLevel.h" />
 		<Unit filename="source/StateTitle.cpp" />

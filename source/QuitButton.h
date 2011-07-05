@@ -1,8 +1,5 @@
-#ifndef MYSTATELIST_H_INCLUDED
-#define MYSTATELIST_H_INCLUDED
-
 /**
-	\section LICENSE
+    \section LICENSE
 	Penjin is Copyright (c)2005, 2006, 2007, 2008, 2009, 2010, 2011 Kevin Winfield-Pantoja
 
 	This file is part of Penjin.
@@ -19,15 +16,31 @@
 
 	You should have received a copy of the GNU Lesser General Public License
 	along with Penjin.  If not, see <http://www.gnu.org/licenses/>.
-*/
-/***************************************************************************************************
-*   \file MyStateList is a list of states used by this program with their numericial ID
-*   \author Kevin Winfield-Pantoja
-*/
-    enum STATE_LIST
+**********************************************************************************************/
+/**
+  * \file INSERT DECRIPTION HERE
+  * \author Kevin Winfield-Pantoja
+*/#ifndef QUITBUTTON_H
+#define QUITBUTTON_H
+
+#include "Button.h"
+
+namespace Penjin
+{
+    class QuitButton : public Button
     {
-        STATE_TITLE = 1,
-        STATE_LEVEL,
-        STATE_CREDITS
+        public:
+            /** Default constructor */
+            QuitButton();
+            /** Default destructor */
+            virtual ~QuitButton();
+
+            virtual void render();
+
+        protected:
+        private:
     };
-#endif // MYSTATELIST_H_INCLUDED
+
+}
+
+#endif // QUITBUTTON_H
