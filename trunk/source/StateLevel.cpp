@@ -22,9 +22,11 @@
 #include "Panel.h"
 #include "Button.h"
 #include "SpriteButton.h"
+#include "QuitButton.h"
 #include "Sprite.h"
 #include "Rectangle.h"
-
+#include "StateManager.h"
+#include "MyStateList.h"
 // BABY INCLUDES
 #include "Baby.h"
 #include "BabyEgg.h"
@@ -48,6 +50,7 @@ using Penjin::BabyEggBaby;
 using Penjin::StatsWindow;
 using Penjin::Food;
 using Penjin::Cheese;
+using Penjin::QuitButton;
 //using Penjin::Rectangle;
 
 #ifdef DEBUG
@@ -55,18 +58,25 @@ using Penjin::Cheese;
     using namespace std;
 #endif
 
-StateLevel::StateLevel() : baby(NULL), panel(NULL), background(NULL), statWindow(NULL), food(NULL), water(NULL), waterDir(NULL)
+StateLevel::StateLevel() : baby(NULL), panel(NULL), background(NULL), statWindow(NULL), food(NULL), water(NULL), waterDir(NULL), quitButton(NULL),
+creditsButton(NULL), splashButton(NULL)
 {
     //ctor
 }
 
 void StateLevel::init()
 {
+    shouldQuit = false;
     baby = NULL;
     panel = NULL;
     background = NULL;
     statWindow = NULL;
     food = NULL;
+    water = NULL;
+    waterDir = NULL;
+    quitButton = NULL;
+    creditsButton = NULL;
+    splashButton = NULL;
     Penjin::GFX::getInstance()->setClearColour(Colour(0,0,0));
 
     // Load list of babies and general settings
@@ -82,6 +92,16 @@ void StateLevel::init()
 
     setupPanel();
     setupWindows();
+
+    quitButton = new QuitButton;
+    quitButton->setPosition(Vector2d<float>(212,5));
+
+
+    creditsButton = new Button;
+    creditsButton->setPosition(Vector2d<float>(212,150));
+
+    splashButton = new Button;
+    splashButton->setPosition(Vector2d<float>(4,150));
 
     // prepare the background
     background = new Image;
@@ -110,6 +130,19 @@ void StateLevel::clear()
     delete food;
     delete water;
     delete waterDir;
+    delete quitButton;
+    delete splashButton;
+    delete creditsButton;
+    baby = NULL;
+    panel = NULL;
+    background=NULL;
+    statWindow=NULL;
+    food = NULL;
+    water = NULL;
+    waterDir = NULL;
+    quitButton=NULL;
+    splashButton=NULL;
+    creditsButton=NULL;
 }
 
 StateLevel::~StateLevel()
@@ -136,6 +169,8 @@ void StateLevel::setupBabyType(const string& t)
         baby = new BabyBlob;
     else if(t == "EggBaby")
         baby = new BabyEggBaby;
+    if(statWindow)
+        statWindow->setBaby(baby);
     setValue("Baby01","Type",t);
 }
 
@@ -221,6 +256,9 @@ void StateLevel::update()
     handleActions();
 
     panel->update();
+    quitButton->update();
+    creditsButton->update();
+    splashButton->update();
     handleButtons(panel->whichWidget());
 }
 
@@ -236,8 +274,11 @@ void StateLevel::handleActions()
     else if(baby->hasLevelChanged())
     {
         // If level changes to 0 this means baby died - we reset
-        if(baby->getLevel() == 0)
+        if(baby->getLevel() == 0 && (baby->getWeight()<0.2f || baby->getHealth()==0))
+        {
             setupBabyType("Egg");
+            StateMan::getInstance()->setNextState(STATE_TITLE);
+        }
         setupPanel();
         baby->setLevelChanged(false);
     }
@@ -274,6 +315,16 @@ void StateLevel::handleButtons(const int& b)
         baby->heal();
         panel->setShouldHide(true); // Hide the toolbar
     }
+
+    // Check quitButton
+    if(quitButton->isActive())
+        shouldQuit = true;
+
+    if(creditsButton->isActive())
+        StateMan::getInstance()->setNextState(STATE_CREDITS);
+
+    if(splashButton->isActive())
+        StateMan::getInstance()->setNextState(STATE_TITLE);
 }
 
 void StateLevel::render()
@@ -287,6 +338,12 @@ void StateLevel::render()
 
     panel->render();
     statWindow->render();
+    quitButton->render();
+    if(creditsButton->isMouseSelected())
+        creditsButton->render();
+
+    if(splashButton->isMouseSelected())
+        splashButton->render();
 }
 
 void StateLevel::input()

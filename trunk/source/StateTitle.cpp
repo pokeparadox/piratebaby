@@ -50,7 +50,7 @@ void StateTitle::init()
 
     text = new Text;
     text->load("fonts/unispace.ttf",11);
-    text->setAlignment(TextClass::CENTRED);
+    //text->setAlignment(TextClass::CENTRED);
     text->setColour(LIGHT_GREY);
     text->setRelativity(false);
 
@@ -95,16 +95,23 @@ void StateTitle::setupSplashes()
         t->setPosition(pos);
         splashes.push_back(t);
     #endif
-    /*
+
     // RIOTdigital
     t = NULL;
     t = new Sprite;
-    t->load(path+"riot.png");
-    Vector2d<float> pos(t->getDimensions());
+    t->load(path+"riot01.png");
     pos = Penjin::GFX::getInstance()->getResolution() - t->getDimensions();
     pos = pos *0.5f;
     t->setPosition(pos);
-    splashes.push_back(t);*/
+    splashes.push_back(t);
+
+    t = NULL;
+    t = new Sprite;
+    t->load(path+"riot02.png");
+    pos = Penjin::GFX::getInstance()->getResolution() - t->getDimensions();
+    pos = pos *0.5f;
+    t->setPosition(pos);
+    splashes.push_back(t);
 }
 
 void StateTitle::clear()
@@ -133,14 +140,17 @@ StateTitle::~StateTitle()
 void StateTitle::render()
 {
     // render current splash
-    if(current<splashes.size())
-        splashes.at(current)->render();
+    if(timer->getScaledTicks() < 2)
+    {
+        if(current<splashes.size())
+            splashes.at(current)->render();
+    }
 
     printText();
 
 
 	buff->update();
-	buff->setAlpha(250);
+	buff->setAlpha(253);
 	Penjin::GFX::getInstance()->clear();
 	buff->render();
 }
@@ -151,7 +161,7 @@ void StateTitle::printText()
     Penjin::LocalisedStringManager* lsm = LocaleMan::getInstance();
     string section="StateTitleSplash";
     Text* t = text;
-    t->setPosition(Vector2d<float>(0,160));
+    t->setPosition(Vector2d<float>(2,160));
     //  Render localised text
     if(current == 0)
         t->print(lsm->getValue(section,"PirateGames", "Pirate Games 2011"));
@@ -162,15 +172,19 @@ void StateTitle::printText()
         t->print(lsm->getValue(section,"OpenPandora", "On OpenPandora."));
     else if(current == 3)
         t->print(lsm->getValue(section,"RIOTdigital", "For RIOTdigital."));
+    else if(current == 4)
+        t->print(lsm->getValue(section,"SponsoredBy", "Sponsored by:"));
 #else
     else if(current == 2)
         t->print(lsm->getValue(section,"RIOTdigital", "For RIOTdigital."));
+    else if(current == 3)
+        t->print(lsm->getValue(section,"SponsoredBy", "Sponsored by:"));
 #endif
 }
 
 void StateTitle::update()
 {
-    if(timer->getScaledTicks() >= 3)
+    if(timer->getScaledTicks() >= 4)
     {
         ++current;
         // reset timer

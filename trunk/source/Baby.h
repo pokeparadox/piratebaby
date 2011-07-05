@@ -80,6 +80,8 @@ namespace Penjin
             /** Default destructor */
             virtual ~Baby();
 
+            void loadStats();
+
             void render();
             virtual void update();
 

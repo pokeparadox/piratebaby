@@ -31,6 +31,8 @@ namespace Penjin
     class BabyEggBaby;
     class Panel;
     class SpriteButton;
+    class Button;
+    class QuitButton;
     class Image;
     class StatsWindow;
     class Food;
@@ -67,6 +69,9 @@ namespace Penjin
             Food* food;                         //  The food object for baby to eat.
             Rectangle* water;                   //  Water to wash baby
             SimpleDirection* waterDir;          //  Direction water is moving (UP/DOWN)
+            QuitButton* quitButton;             //  Button which you can quit the app
+            Button* creditsButton;
+            Button* splashButton;
             //vector <Prop*> props;             //  Vector of props the Baby can interact with.
     };
 }
