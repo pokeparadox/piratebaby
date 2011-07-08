@@ -1,0 +1,46 @@
+<PXML xmlns="http://openpandora.org/namespaces/PXML">
+<package id="PirateBaby">
+<version major="0" minor="0" release="1" build="1"/>
+<author name="PokeParadox" email="pokeparadox@gmail.com" website="http://www.pirategames.co.uk"/>
+<titles>
+<title lang="en_US">PirateBaby</title>
+</titles>
+<descriptions>
+<description lang="en_US">PirateBaby is a virtual pet game in which you can feed, wash and care your baby to let it grow to different forms!</description>
+</descriptions>
+<icon src="icon.png"/>
+</package>
+<application id="PirateBaby">
+<exec command="PirateBaby.sh"/>
+<version major="0" minor="0" release="1" build="1"/>
+<author name="PokeParadox" website="http://projectinfinity.org.uk/doku.php?id=homebrew:games:piratebaby"/>
+<titles>
+<title lang="en_US">PirateBaby</title>
+</titles>
+<title lang="en_US">PirateBaby</title>
+<!--
+Extra block for compatibility with OS versions before HF6
+-->
+<descriptions>
+<description lang="en_US">PirateBaby is a virtual pet game in which you can feed, wash and care your baby to let it grow to different forms!</description>
+</descriptions>
+<description lang="en_US">PirateBaby is a virtual pet game in which you can feed, wash and care your baby to let it grow to different forms!</description>
+<!--
+Extra block for compatibility with OS versions before HF6
+-->
+<icon src="icon.png"/>
+<licenses>
+<license name="GPLv3" url="http://www.gnu.org/licenses/gpl.html" sourcecodeurl="http://code.google.com/p/piratebaby/"/>
+</licenses>
+<previewpics>
+<pic src="./previews/preview01.png"/>
+<pic src="./previews/preview02.png"/>
+</previewpics>
+<info name="PirateBaby Readme" type="text/plain" src="PirateBaby.readme.txt"/>
+<categories>
+<category name="Game">
+<subcategory name="KidsGame"/>
+</category>
+</categories>
+</application>
+</PXML>

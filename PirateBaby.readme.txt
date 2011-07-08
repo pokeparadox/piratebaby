@@ -1,0 +1,51 @@
+PirateBaby V0.1 Preview
+#######################
+
+NOTE: This is a Preview release for the RIOTdigital Tag-Team Coding Competition 2011. It is indicative of the direction the game will take and is considered playable, but by no means finished!
+
+PirateBaby is an open-source, multi-platform, virtual pet game in which you can feed, wash and care your baby to let it grow to different forms!
+
+Controls
+########
+
+PirateBaby is controlled using a touch/mouse interface, touch the top of the screen to open the panel. More actions will become available which are triggered by events.
+
+An alternative control scheme is provided for non-touch devices(and for convenience).
+
+L/R Buttons - Switch the selected panel item.
+B - Close panel.
+A - Activate selected button in panel.
+
+Other Notes
+###########
+
+PirateBaby is using PenjinTwo and with this adds some experimental new features.
+   -PenjinPrescale: you can change the resolution of the project in the settings.ini file. This will scale the graphics and
+       positioning. Note this feature is experimental and still has some issues, most notably that Text is not scaled
+       properly!
+   -Localisation: You can change the language in settings.ini and Penjin will create a new language file. You can edit text
+       here to translate the game.
+
+Credits
+#######
+
+Code - PokeParadox
+GFX - Dragons_Slayer
+PenjinTwo - PokeParadox 
+
+Donations
+#########
+
+   If you like my work and want to send a donation you are welcome to do so. I'll even give thanks in the credits of a future release
+   (Please let me know if you do not want this.)
+   All projects uploaded to the Pandora repo will have my PayPal donation link, otherwise you can PayPal me at: 
+
+http://pirategames.co.uk/index.php/other-links/
+
+Links
+#####
+
+PirateBaby - projectinfinity.org.uk/doku.php?id=homebrew:games:piratebaby
+Project Infinity - projectinfinity.org.uk
+Pirate Games - pirategames.co.uk
+
