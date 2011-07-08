@@ -159,7 +159,13 @@
 				<Option compiler="pandora" />
 				<Compiler>
 					<Add option="-msoft-float" />
-					<Add option="-O2" />
+					<Add option="-O3" />
+					<Add option="-mcpu=cortex-a8" />
+					<Add option="-mfpu=neon" />
+					<Add option="-ftree-vectorize" />
+					<Add option="-mfloat-abi=softfp" />
+					<Add option="-ffast-math" />
+					<Add option="-fsingle-precision-constant" />
 					<Add option="-DPLATFORM_PANDORA" />
 					<Add option="-DPENJIN_SDL" />
 					<Add option="-DPENJIN_SDL_INPUT" />

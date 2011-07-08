@@ -133,3 +133,8 @@ void StatsWindow::update()
             hidden = true;
     }
 }
+
+void StatsWindow::hideWindow()
+{
+    hidden = true;
+}

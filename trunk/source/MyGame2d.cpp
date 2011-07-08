@@ -21,6 +21,7 @@
 #include "StateTitle.h"
 #include "StateLevel.h"
 #include "StateCredits.h"
+#include "GFX.h"
 using Penjin::MyGame2d;
 using Penjin::StateTitle;
 using Penjin::StateLevel;
@@ -28,6 +29,9 @@ using Penjin::StateLevel;
 MyGame2d::MyGame2d()
 {
     //ctor
+    // This ensure that the correct base resolution is set.
+    Penjin::GFX::getInstance()->setBaseResolution(Vector2d<int>(240,180));
+
     Penjin::StateManager* sm = Penjin::StateMan::getInstance();
     sm->addState(STATE_TITLE, new StateTitle);
     sm->addState(STATE_LEVEL, new StateLevel);

@@ -45,6 +45,8 @@ namespace Penjin
             virtual void render();
 
             virtual void update();
+
+            void hideWindow();
         protected:
         private:
             Baby* baby;             //  This is set from outside the class, we don't need to tidy

@@ -89,7 +89,10 @@ void StateCredits::init()
 
 
     //text->setWrapping(false);
+    Vector2d<float> pxScale = Penjin::GFX::getInstance()->getPixelScale();
     pos.y += sprite->getHeight();
+    pos.y = pos.y/pxScale.y;
+
     text->setPosition(pos);
     tx->setPosition(pos - Vector2d<float>(2,2));
 
@@ -165,8 +168,8 @@ void StateCredits::render()
         printText();
 
 	buff->update();
-	buff->setAlpha(235);
-	Penjin::GFX::getInstance()->clear();
+	buff->setAlpha(35);
+	//Penjin::GFX::getInstance()->clear();
 
 	buff->setPosition(Vector2d<float>(sin(deg)*1.5f,cos(deg)*1.2f));
 	buff->render();

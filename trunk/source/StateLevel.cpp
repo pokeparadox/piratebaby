@@ -355,6 +355,26 @@ void StateLevel::input()
             panel->setShouldHide(false);
             Joy::getInstance()->resetA();
         }
+        else if(Joy::getInstance()->isB())
+        {
+            statWindow->hideWindow();
+            Joy::getInstance()->resetB();
+        }
+        if(Joy::getInstance()->isR() && Joy::getInstance()->isL())
+        {
+            quitButton->setActive(true);
+            Joy::getInstance()->resetR();Joy::getInstance()->resetL();
+        }
+        if(Joy::getInstance()->isStart() && Joy::getInstance()->isSelect())
+        {
+            splashButton->setActive(true);
+            //Joy::getInstance()->resetSelect();Joy::getInstance()->resetStart();
+        }
+        if(Joy::getInstance()->isStart() && Joy::getInstance()->isX())
+        {
+            creditsButton->setActive(true);
+            //Joy::getInstance()->resetStart();Joy::getInstance()->resetX();
+        }
         if(Joy::getInstance()->getMouse().y < GFX::getInstance()->getHeight() / 90)
         {
             panel->setShouldHide(false);
@@ -364,7 +384,7 @@ void StateLevel::input()
     {
         if(Joy::getInstance()->isA())
         {
-            panel->selectionConfirm();
+            handleButtons(panel->selectionConfirm());
             Joy::getInstance()->resetA();
         }
         else if(Joy::getInstance()->isB())
