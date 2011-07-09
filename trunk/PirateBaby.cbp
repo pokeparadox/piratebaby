@@ -191,31 +191,6 @@
 					<Add directory="$(#penjintwo.lib)/Pandora" />
 				</Linker>
 			</Target>
-			<Target title="LinGL Debug">
-				<Option platforms="Unix;" />
-				<Option output="bin/Linux/PirateBabyGL_D" prefix_auto="1" extension_auto="0" />
-				<Option working_dir="resources" />
-				<Option object_output="obj/lin/DebugGL/" />
-				<Option type="1" />
-				<Option compiler="linux" />
-				<Compiler>
-					<Add option="-g" />
-					<Add option="-DPLATFORM_PC" />
-					<Add option="-D_DEBUG" />
-					<Add option="-D_LINUX" />
-					<Add option="-DPENJIN_GL" />
-				</Compiler>
-				<Linker>
-					<Add option="`sdl-config --libs`" />
-					<Add option="-lX11 -lXi" />
-					<Add option="-lGL -lGLU" />
-					<Add option="-lSDL_ttf" />
-					<Add option="-lSDL_image" />
-					<Add option="-lSDL_mixer" />
-					<Add option="-lSDL_gfx" />
-					<Add directory="../PenjinBase/obj/lin/Debug" />
-				</Linker>
-			</Target>
 			<Target title="GP2X Debug">
 				<Option output="bin/GP2X/PirateBaby_D.gpe" prefix_auto="1" extension_auto="0" />
 				<Option working_dir="resources" />
@@ -244,7 +219,9 @@
 					<Add option="-lz" />
 					<Add option="-lsmpeg" />
 					<Add option="-ljpeg" />
+					<Add library="libPenjinTwoD" />
 					<Add directory="$(#gp2x_sdk.lib)" />
+					<Add directory="$(#penjintwo.lib)/GP2X" />
 				</Linker>
 			</Target>
 			<Target title="GP2X Release">
@@ -254,8 +231,8 @@
 				<Option type="0" />
 				<Option compiler="gp2x" />
 				<Compiler>
-					<Add option="-O2" />
 					<Add option="-msoft-float" />
+					<Add option="-O2" />
 					<Add option="-DPLATFORM_GP2X" />
 					<Add option="-DPENJIN_SDL" />
 					<Add directory="$(#gp2x_sdk.include)" />
@@ -273,61 +250,198 @@
 					<Add option="-lz" />
 					<Add option="-lsmpeg" />
 					<Add option="-ljpeg" />
+					<Add library="libPenjinTwo" />
 					<Add directory="$(#gp2x_sdk.lib)" />
+					<Add directory="$(#penjintwo.lib)/GP2X" />
 				</Linker>
 			</Target>
-			<Target title="Wii Debug">
-				<Option output="bin/Wii/PirateBaby_D.elf" prefix_auto="1" extension_auto="0" />
+			<Target title="Wiz Debug">
+				<Option output="bin/Wiz/PirateBaby_D.gpe" prefix_auto="1" extension_auto="0" />
 				<Option working_dir="resources" />
-				<Option object_output="obj/Wii/Debug/" />
+				<Option object_output="obj/Wiz/Debug/" />
 				<Option type="1" />
-				<Option compiler="devkitppc" />
+				<Option compiler="wiz" />
 				<Option use_console_runner="0" />
 				<Compiler>
-					<Add option="-mhard-float" />
-					<Add option="-meabi" />
-					<Add option="-Wall" />
+					<Add option="-msoft-float" />
 					<Add option="-g" />
-					<Add option="-DPLATFORM_WII" />
+					<Add option="`$(#gp2x_sdk)/bin/sdl-config --cflags`" />
+					<Add option="-DPLATFORM_GP2X" />
 					<Add option="-D_DEBUG" />
 					<Add option="-DPENJIN_SDL" />
-					<Add option="-DPENJIN_SDL_INPUT" />
-					<Add directory="$(#libogc.include)" />
+					<Add directory="$(#wiz_sdk.include)" />
 				</Compiler>
 				<Linker>
+					<Add option="-lm -lg -lpthread -lSDL" />
+					<Add option="-lSDL_ttf" />
 					<Add option="-lSDL_mixer" />
-					<Add option="-lsmpeg" />
 					<Add option="-lSDL_image" />
 					<Add option="-lSDL_gfx" />
-					<Add option="-lSDL_ttf" />
-					<Add option="-lSDL" />
-					<Add option="-lz -lwiiuse" />
-					<Add option="-lfat -lbte -logc" />
-					<Add option="-lwiikeyboard" />
-					<Add library="$(#libogc.lib)/libfreetype.a" />
-					<Add library="$(#libogc.lib)/libpng.a" />
-					<Add library="$(#libogc.lib)/libjpeg.a" />
-					<Add library="$(#libogc.lib)/wii/libz.a" />
-					<Add library="$(#libogc.lib)/libvorbisidec.a" />
-					<Add directory="$(#libogc.lib)/wii" />
+					<Add option="-lpng" />
+					<Add option="-lfreetype" />
+					<Add option="-lz" />
+					<Add option="-lsmpeg" />
+					<Add option="-ljpeg" />
+					<Add library="libPenjinTwoD" />
+					<Add directory="$(#wiz_sdk.lib)" />
+					<Add directory="$(#penjintwo.lib)/GP2X" />
 				</Linker>
 			</Target>
-			<Target title="Wii Release">
-				<Option output="bin/Wii/PirateBaby_R.elf" prefix_auto="1" extension_auto="0" />
+			<Target title="Wiz Release">
+				<Option output="bin/Wiz/PirateBaby_R.gpe" prefix_auto="1" extension_auto="0" />
 				<Option working_dir="resources" />
-				<Option object_output="obj/Wii/Release/" />
+				<Option object_output="obj/Wiz/Release/" />
 				<Option type="0" />
-				<Option compiler="devkitppc" />
+				<Option compiler="wiz" />
 				<Compiler>
+					<Add option="-msoft-float" />
 					<Add option="-O2" />
-					<Add option="-DPLATFORM_WII" />
+					<Add option="-DPLATFORM_GP2X" />
 					<Add option="-DPENJIN_SDL" />
-					<Add directory="$(#libogc.include)" />
+					<Add directory="$(#wiz_sdk.include)" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add option="-lwiiuse -lbte -logc -lm" />
-					<Add directory="$(#libogc.lib)/wii" />
+					<Add option="-lm -lg -lpthread -lSDL" />
+					<Add option="-lSDL_ttf" />
+					<Add option="-lSDL_mixer" />
+					<Add option="-lSDL_image" />
+					<Add option="-lSDL_gfx" />
+					<Add option="-lpng" />
+					<Add option="-lfreetype" />
+					<Add option="-lz" />
+					<Add option="-lsmpeg" />
+					<Add option="-ljpeg" />
+					<Add library="libPenjinTwo" />
+					<Add directory="$(#wiz_sdk.lib)" />
+					<Add directory="$(#penjintwo.lib)/GP2X" />
+				</Linker>
+			</Target>
+			<Target title="Caanoo Debug">
+				<Option output="bin/Caanoo/PirateBaby_D.gpe" prefix_auto="1" extension_auto="0" />
+				<Option working_dir="resources" />
+				<Option object_output="obj/Caanoo/Debug/" />
+				<Option type="1" />
+				<Option compiler="caanoo" />
+				<Option use_console_runner="0" />
+				<Compiler>
+					<Add option="-msoft-float" />
+					<Add option="-g" />
+					<Add option="`$(#gp2x_sdk)/bin/sdl-config --cflags`" />
+					<Add option="-DPLATFORM_GP2X" />
+					<Add option="-D_DEBUG" />
+					<Add option="-DPENJIN_SDL" />
+					<Add directory="$(#caanoo_sdk.include)" />
+				</Compiler>
+				<Linker>
+					<Add option="-lm -lg -lpthread -lSDL" />
+					<Add option="-lSDL_ttf" />
+					<Add option="-lSDL_mixer" />
+					<Add option="-lSDL_image" />
+					<Add option="-lSDL_gfx" />
+					<Add option="-lpng" />
+					<Add option="-lfreetype" />
+					<Add option="-lz" />
+					<Add option="-lsmpeg" />
+					<Add option="-ljpeg" />
+					<Add library="libPenjinTwoD" />
+					<Add directory="$(#caanoo_sdk.lib)" />
+					<Add directory="$(#penjintwo.lib)/GP2X" />
+				</Linker>
+			</Target>
+			<Target title="Caanoo Release">
+				<Option output="bin/Caanoo/PirateBaby_R.gpe" prefix_auto="1" extension_auto="0" />
+				<Option working_dir="resources" />
+				<Option object_output="obj/Caanoo/Release/" />
+				<Option type="0" />
+				<Option compiler="caanoo" />
+				<Compiler>
+					<Add option="-msoft-float" />
+					<Add option="-O2" />
+					<Add option="-DPLATFORM_GP2X" />
+					<Add option="-DPENJIN_SDL" />
+					<Add directory="$(#caanoo_sdk.include)" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-lm -lg -lSDL" />
+					<Add option="-lSDL_ttf" />
+					<Add option="-lSDL_mixer" />
+					<Add option="-lSDL_image" />
+					<Add option="-lSDL_gfx" />
+					<Add option="-lpng" />
+					<Add option="-lfreetype" />
+					<Add option="-lz" />
+					<Add option="-lsmpeg" />
+					<Add option="-ljpeg" />
+					<Add library="libPenjinTwo" />
+					<Add library="libc" />
+					<Add directory="$(#caanoo_sdk.lib)" />
+					<Add directory="$(#penjintwo.lib)/GP2X" />
+				</Linker>
+			</Target>
+			<Target title="Dingoo Debug">
+				<Option output="bin/Dingoo/PirateBaby_D.dge" prefix_auto="1" extension_auto="0" />
+				<Option working_dir="resources" />
+				<Option object_output="obj/Dingoo/Debug/" />
+				<Option type="1" />
+				<Option compiler="dingoo" />
+				<Option use_console_runner="0" />
+				<Compiler>
+					<Add option="-msoft-float" />
+					<Add option="-g" />
+					<Add option="`$(#gp2x_sdk)/bin/sdl-config --cflags`" />
+					<Add option="-DPLATFORM_GP2X" />
+					<Add option="-D_DEBUG" />
+					<Add option="-DPENJIN_SDL" />
+					<Add directory="$(#dingoo_sdk.include)" />
+				</Compiler>
+				<Linker>
+					<Add option="-lm -lg -lpthread -lSDL" />
+					<Add option="`$(#gp2x_sdk)/bin/sdl-config --static-libs`" />
+					<Add option="-lSDL_ttf" />
+					<Add option="-lSDL_mixer" />
+					<Add option="-lSDL_image" />
+					<Add option="-lSDL_gfx" />
+					<Add option="-lpng" />
+					<Add option="-lfreetype" />
+					<Add option="-lz" />
+					<Add option="-lsmpeg" />
+					<Add option="-ljpeg" />
+					<Add library="libPenjinTwoD" />
+					<Add directory="$(#dingoo_sdk.lib)" />
+					<Add directory="$(#penjintwo.lib)/GP2X" />
+				</Linker>
+			</Target>
+			<Target title="Dingoo Release">
+				<Option output="bin/Dingoo/PirateBaby_R.dge" prefix_auto="1" extension_auto="0" />
+				<Option working_dir="resources" />
+				<Option object_output="obj/Dingoo/Release/" />
+				<Option type="0" />
+				<Option compiler="dingoo" />
+				<Compiler>
+					<Add option="-msoft-float" />
+					<Add option="-O2" />
+					<Add option="-DPLATFORM_GP2X" />
+					<Add option="-DPENJIN_SDL" />
+					<Add directory="$(#dingoo_sdk.include)" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-lm -lg -lpthread -lSDL" />
+					<Add option="`$(#gp2x_sdk)/bin/sdl-config --static-libs`" />
+					<Add option="-lSDL_ttf" />
+					<Add option="-lSDL_mixer" />
+					<Add option="-lSDL_image" />
+					<Add option="-lSDL_gfx" />
+					<Add option="-lpng" />
+					<Add option="-lfreetype" />
+					<Add option="-lz" />
+					<Add option="-lsmpeg" />
+					<Add option="-ljpeg" />
+					<Add library="libPenjinTwo" />
+					<Add directory="$(#dingoo_sdk.lib)" />
+					<Add directory="$(#penjintwo.lib)/GP2X" />
 				</Linker>
 			</Target>
 		</Build>
