@@ -27,9 +27,11 @@
 #include "Timer.h"
 #include "StringUtility.h"
 #include "SimpleJoy.h"
+#include "CollisionRegion.h"
 using Penjin::Baby;
 using Penjin::Sprite;
 using Penjin::Timer;
+using Penjin::CollisionRegion;
 
 Baby::Baby() :  action(ACTION_IDLE), touchCount(0) ,intelligence(1),hunger(90),hygiene(10), toilet(20),strength(0), weight(0.2f),levelChanged(true),
 sprActive(NULL), sprIdle(NULL), sprJump(NULL), sprdance(NULL), sprWalkLeft(NULL), sprWalkRight(NULL), sprEat(NULL),
@@ -201,14 +203,13 @@ void Baby::update()
     // Animations
     sprActive->setPosition(position);
     sprActive->update();
+}
 
+void Baby::touch()
+{
     // User touch
-    if(sprActive->hitTest( Joy::getInstance()->getMouse() ).hasCollided && Joy::getInstance()->isLeftClick())
-    {
-        ++touchCount;
-        switchAction(ACTION_BLINK);
-    }
-
+    ++touchCount;
+    switchAction(ACTION_BLINK);
 }
 
 void Baby::switchAction(const BABY_ACTIONS& a)
@@ -296,6 +297,12 @@ void Baby::setAge(const int & a)
 int Baby::getAge()
 {
     return age;
+}
+
+CollisionRegion* Baby::getCollisionRegion()
+{
+    if(sprActive)
+        return sprActive->getCollisionRegion();
 }
 
 int Baby::getLevel()

@@ -61,6 +61,7 @@ namespace Penjin
             void setupPanel();                          // Setup the panel depending on the level of the baby
             void setupWindows();                        // Prepares any windows we may need to view.
             void handleButtons(const int& b);           // perform relevant actions depending on button
+            bool babyClicked();
 
             Baby* baby;
             Panel* panel;

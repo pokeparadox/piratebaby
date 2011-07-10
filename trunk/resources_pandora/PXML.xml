@@ -35,6 +35,7 @@ Extra block for compatibility with OS versions before HF6
 <previewpics>
 <pic src="./previews/preview01.png"/>
 <pic src="./previews/preview02.png"/>
+<pic src="./previews/preview03.png"/>
 </previewpics>
 <info name="PirateBaby Readme" type="text/plain" src="PirateBaby.readme.txt"/>
 <categories>

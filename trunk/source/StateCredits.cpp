@@ -69,7 +69,7 @@ void StateCredits::init()
     buff = new BackBuffer;
 
     sprite = new Sprite;
-    sprite->load("images/splash/penjinretro.png");
+    sprite->load("images/splash/piratebaby.png");
     Vector2d<float>pos = Penjin::GFX::getInstance()->getResolution() - sprite->getDimensions();
     pos = pos *0.5f;
     sprite->setPosition(pos);
@@ -111,7 +111,7 @@ void StateCredits::input()
 
 void StateCredits::update()
 {
-    if(current >= 9)
+    if(current >= 14)
         StateMan::getInstance()->setNextState(STATE_TITLE);
 
     if(timer->getScaledTicks()>4)
@@ -207,7 +207,10 @@ void StateCredits::printText()
         tx->print(lsm->getValue(section,"ArtBy", "Art by Dragons_Slayer"));
     }
     else if(current == 4)
+    {
+        text->print(lsm->getValue(section,"Penjin", "PenjinTwo"));
         tx->print(lsm->getValue(section,"Penjin", "PenjinTwo"));
+    }
     else if(current == 5)
     {
         text->print(lsm->getValue(section,"PenjinBy", "By PokeParadox"));
@@ -215,15 +218,40 @@ void StateCredits::printText()
     }
     else if(current == 6)
     {
+        text->print(lsm->getValue(section,"ThanksTo", "With thanks to:"));
+        tx->print(lsm->getValue(section,"ThanksTo", "With thanks to:"));
+    }
+    else if(current == 7)
+    {
+        text->print(lsm->getValue(section,"Sebt3", "Sebt3"));
+        tx->print(lsm->getValue(section,"Sebt3", "Sebt3"));
+    }
+    else if(current == 8)
+    {
+        text->print(lsm->getValue(section,"BAFelton61", "BAFelton61"));
+        tx->print(lsm->getValue(section,"BAFelton61", "BAFelton61"));
+    }
+    else if(current == 9)
+    {
+        text->print(lsm->getValue(section,"Torpor", "Torpor"));
+        tx->print(lsm->getValue(section,"Torpor", "Torpor"));
+    }
+    else if(current == 10)
+    {
+        text->print(lsm->getValue(section,"kayuz", "kayuz"));
+        tx->print(lsm->getValue(section,"kayuz", "kayuz"));
+    }
+    else if(current == 11)
+    {
         text->print(lsm->getValue(section,"PirateGames", "Presented by Pirate Games"));
         tx->print(lsm->getValue(section,"PirateGames", "Presented by Pirate Games"));
     }
-    else if(current == 7)
+    else if(current == 12)
     {
         text->print(lsm->getValue(section,"CopyRight", "(c)2011, All rights reserved."));
         tx->print(lsm->getValue(section,"CopyRight", "(c)2011, All rights reserved."));
     }
-    else if(current == 8)
+    else if(current == 13)
     {
         text->print(lsm->getValue(section,"Thanks", "Thanks for watching!"));
         tx->print(lsm->getValue(section,"Thanks", "Thanks for watching!"));
