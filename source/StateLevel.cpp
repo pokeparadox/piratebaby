@@ -346,6 +346,16 @@ void StateLevel::render()
         splashButton->render();
 }
 
+bool StateLevel::babyClicked()
+{
+    if(!Joy::getInstance()->isLeftClick())
+        return false;
+    CollisionRegion* r = baby->getCollisionRegion();
+    if(r == NULL)
+        return false;
+    return(r->hitTest(Joy::getInstance()->getMouse()).hasCollided);
+}
+
 void StateLevel::input()
 {
     if(panel->isHidden())
@@ -359,6 +369,12 @@ void StateLevel::input()
         {
             statWindow->hideWindow();
             Joy::getInstance()->resetB();
+        }
+        if(Joy::getInstance()->isX() || babyClicked())
+        {
+            if(baby->getLevel()==0)
+                baby->touch();
+            Joy::getInstance()->resetX();
         }
         if(Joy::getInstance()->isR() && Joy::getInstance()->isL())
         {
@@ -375,7 +391,7 @@ void StateLevel::input()
             creditsButton->setActive(true);
             //Joy::getInstance()->resetStart();Joy::getInstance()->resetX();
         }
-        if(Joy::getInstance()->getMouse().y < GFX::getInstance()->getHeight() / 90)
+        if(Joy::getInstance()->getMouse().y < GFX::getInstance()->getHeight() / 48)
         {
             panel->setShouldHide(false);
         }

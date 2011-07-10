@@ -112,6 +112,14 @@ void StateTitle::setupSplashes()
     pos = pos *0.5f;
     t->setPosition(pos);
     splashes.push_back(t);
+
+    t = NULL;
+    t = new Sprite;
+    t->load(path+"piratebaby.png");
+    pos = Penjin::GFX::getInstance()->getResolution() - t->getDimensions();
+    pos = pos *0.5f;
+    t->setPosition(pos);
+    splashes.push_back(t);
 }
 
 void StateTitle::clear()
@@ -174,11 +182,15 @@ void StateTitle::printText()
         t->print(lsm->getValue(section,"RIOTdigital", "For RIOTdigital."));
     else if(current == 4)
         t->print(lsm->getValue(section,"SponsoredBy", "Sponsored by:"));
+    else if(current == 5)
+        t->print(lsm->getValue(section,"PirateBaby", "PirateBaby"));
 #else
     else if(current == 2)
         t->print(lsm->getValue(section,"RIOTdigital", "For RIOTdigital."));
     else if(current == 3)
         t->print(lsm->getValue(section,"SponsoredBy", "Sponsored by:"));
+    else if(current == 4)
+        t->print(lsm->getValue(section,"PirateBaby", "PirateBaby"));
 #endif
 }
 

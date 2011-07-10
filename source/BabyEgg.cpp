@@ -28,7 +28,7 @@ BabyEgg::BabyEgg()
     sprIdle->clear();
     sprIdle->load("images/egg.png",4,1);
     sprIdle->setPlayMode(pmPulse);
-    sprIdle->setLooping(1);
+    sprIdle->setLooping(true);
     Vector2d<int> dim = GFX::getInstance()->getResolution();
     dim.x = dim.x / 2.5f;
     dim.y = dim.y / 2.25f;
@@ -98,11 +98,10 @@ void BabyEgg::evolve()
 
 string BabyEgg::getNextForm()
 {
+    level = 1;
     if(age<300|| touchCount > 20)
     {
-        level = 1;
         return "Blob";
     }
-
     return "EggBaby";
 }

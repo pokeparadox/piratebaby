@@ -35,8 +35,9 @@ BabyBlob::BabyBlob()
     //ctor
     sprIdle->clear();
     sprIdle->load("images/blob.png",4,1);
-    sprIdle->setPlayMode(pmPulse);
-    sprIdle->setLooping(1);
+    sprIdle->setPlayMode(pmNormal);
+    sprIdle->setLooping(true);
+    sprIdle->setFramesPerSecond(5);
     Vector2d<int> dim = GFX::getInstance()->getResolution();
     dim.x = dim.x / 2.5f;
     dim.y = dim.y / 2.25f;
@@ -50,13 +51,13 @@ BabyBlob::BabyBlob()
 
     sprWalkLeft->clear();
     sprWalkLeft->load("images/blobwalkleft.png",4,1);
-    sprWalkLeft->setPlayMode(pmPulse);
+    sprWalkLeft->setPlayMode(pmNormal);
     sprWalkLeft->setLooping(true);
     sprWalkLeft->setPosition(dim);
 
     sprWalkRight->clear();
     sprWalkRight->load("images/blobwalkright.png",4,1);
-    sprWalkRight->setPlayMode(pmPulse);
+    sprWalkRight->setPlayMode(pmNormal);
     sprWalkRight->setLooping(true);
     sprWalkRight->setPosition(dim);
 
@@ -222,7 +223,7 @@ void BabyBlob::update()
             if(illness == NULL)
             {
                 illness = new Sprite;
-                illness->load("images/illness.gif",4,1);
+                illness->load("images/illness.png",4,1);
                 illness->setLooping(true);
                 illness->setPosition(position);
             }

@@ -31,13 +31,26 @@ BabyEggBaby::BabyEggBaby()
     //ctor
     sprIdle->clear();
     sprIdle->load("images/eggbaby.png",4,1);
-    sprIdle->setPlayMode(pmPulse);
-    sprIdle->setLooping(1);
+    sprIdle->setPlayMode(pmNormal);
+    sprIdle->setFramesPerSecond(5);
+    sprIdle->setLooping(true);
 
     sprEat->clear();
     sprEat->load("images/eggbabyeat.png",4,1);
     sprEat->setPlayMode(pmPulse);
     sprEat->setLooping(true);
+
+    sprWalkLeft->clear();
+    sprWalkLeft->load("images/eggbabywalkleft.png",4,1);
+    sprWalkLeft->setPlayMode(pmNormal);
+    sprWalkLeft->setLooping(true);
+
+
+    sprWalkRight->clear();
+    sprWalkRight->load("images/eggbabywalkright.png",4,1);
+    sprWalkRight->setPlayMode(pmNormal);
+    sprWalkRight->setLooping(true);
+
 
     Vector2d<int> dim = GFX::getInstance()->getResolution();
     dim.x = dim.x / 2.5f;
@@ -50,4 +63,14 @@ BabyEggBaby::BabyEggBaby()
 BabyEggBaby::~BabyEggBaby()
 {
     //dtor
+}
+
+void BabyEggBaby::render()
+{
+    BabyBlob::render();
+}
+
+void BabyEggBaby::update()
+{
+    BabyBlob::update();
 }

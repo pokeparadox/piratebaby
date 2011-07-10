@@ -35,6 +35,10 @@ namespace Penjin
             BabyEggBaby();
             /** Default destructor */
             virtual ~BabyEggBaby();
+
+            virtual void render();
+
+            virtual void update();
         protected:
         private:
     };

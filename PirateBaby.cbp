@@ -265,8 +265,7 @@
 				<Compiler>
 					<Add option="-msoft-float" />
 					<Add option="-g" />
-					<Add option="`$(#gp2x_sdk)/bin/sdl-config --cflags`" />
-					<Add option="-DPLATFORM_GP2X" />
+					<Add option="-DPLATFORM_WIZ" />
 					<Add option="-D_DEBUG" />
 					<Add option="-DPENJIN_SDL" />
 					<Add directory="$(#wiz_sdk.include)" />
@@ -277,14 +276,14 @@
 					<Add option="-lSDL_mixer" />
 					<Add option="-lSDL_image" />
 					<Add option="-lSDL_gfx" />
-					<Add option="-lpng" />
-					<Add option="-lfreetype" />
-					<Add option="-lz" />
-					<Add option="-lsmpeg" />
-					<Add option="-ljpeg" />
 					<Add library="libPenjinTwoD" />
+					<Add library="png" />
+					<Add library="freetype" />
+					<Add library="z" />
+					<Add library="smpeg" />
+					<Add library="jpeg" />
 					<Add directory="$(#wiz_sdk.lib)" />
-					<Add directory="$(#penjintwo.lib)/GP2X" />
+					<Add directory="$(#penjintwo.lib)/Wiz" />
 				</Linker>
 			</Target>
 			<Target title="Wiz Release">
@@ -296,7 +295,7 @@
 				<Compiler>
 					<Add option="-msoft-float" />
 					<Add option="-O2" />
-					<Add option="-DPLATFORM_GP2X" />
+					<Add option="-DPLATFORM_WIZ" />
 					<Add option="-DPENJIN_SDL" />
 					<Add directory="$(#wiz_sdk.include)" />
 				</Compiler>
@@ -307,14 +306,14 @@
 					<Add option="-lSDL_mixer" />
 					<Add option="-lSDL_image" />
 					<Add option="-lSDL_gfx" />
-					<Add option="-lpng" />
-					<Add option="-lfreetype" />
-					<Add option="-lz" />
-					<Add option="-lsmpeg" />
-					<Add option="-ljpeg" />
 					<Add library="libPenjinTwo" />
+					<Add library="png" />
+					<Add library="freetype" />
+					<Add library="z" />
+					<Add library="smpeg" />
+					<Add library="jpeg" />
 					<Add directory="$(#wiz_sdk.lib)" />
-					<Add directory="$(#penjintwo.lib)/GP2X" />
+					<Add directory="$(#penjintwo.lib)/Wiz" />
 				</Linker>
 			</Target>
 			<Target title="Caanoo Debug">
@@ -346,7 +345,7 @@
 					<Add option="-ljpeg" />
 					<Add library="libPenjinTwoD" />
 					<Add directory="$(#caanoo_sdk.lib)" />
-					<Add directory="$(#penjintwo.lib)/GP2X" />
+					<Add directory="$(#penjintwo.lib)/Caanoo" />
 				</Linker>
 			</Target>
 			<Target title="Caanoo Release">
@@ -358,7 +357,7 @@
 				<Compiler>
 					<Add option="-msoft-float" />
 					<Add option="-O2" />
-					<Add option="-DPLATFORM_GP2X" />
+					<Add option="-DPLATFORM_CAANOO" />
 					<Add option="-DPENJIN_SDL" />
 					<Add directory="$(#caanoo_sdk.include)" />
 				</Compiler>
@@ -377,7 +376,7 @@
 					<Add library="libPenjinTwo" />
 					<Add library="libc" />
 					<Add directory="$(#caanoo_sdk.lib)" />
-					<Add directory="$(#penjintwo.lib)/GP2X" />
+					<Add directory="$(#penjintwo.lib)/Caanoo" />
 				</Linker>
 			</Target>
 			<Target title="Dingoo Debug">
@@ -410,7 +409,7 @@
 					<Add option="-ljpeg" />
 					<Add library="libPenjinTwoD" />
 					<Add directory="$(#dingoo_sdk.lib)" />
-					<Add directory="$(#penjintwo.lib)/GP2X" />
+					<Add directory="$(#penjintwo.lib)/Dingoo" />
 				</Linker>
 			</Target>
 			<Target title="Dingoo Release">
@@ -422,7 +421,8 @@
 				<Compiler>
 					<Add option="-msoft-float" />
 					<Add option="-O2" />
-					<Add option="-DPLATFORM_GP2X" />
+					<Add option="-fPIC" />
+					<Add option="-DPLATFORM_DINGOO" />
 					<Add option="-DPENJIN_SDL" />
 					<Add directory="$(#dingoo_sdk.include)" />
 				</Compiler>
@@ -441,10 +441,14 @@
 					<Add option="-ljpeg" />
 					<Add library="libPenjinTwo" />
 					<Add directory="$(#dingoo_sdk.lib)" />
-					<Add directory="$(#penjintwo.lib)/GP2X" />
+					<Add directory="$(#penjintwo.lib)/Dingoo" />
 				</Linker>
 			</Target>
 		</Build>
+		<VirtualTargets>
+			<Add alias="All Debug" targets="W32 Debug;Lin Debug;GP2X Debug;Wiz Debug;Caanoo Debug;" />
+			<Add alias="All Release" targets="W32 Release;Lin Release;GP2X Release;Wiz Release;Caanoo Release;" />
+		</VirtualTargets>
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="`sdl-config --cflags`" />

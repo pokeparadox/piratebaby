@@ -71,6 +71,7 @@ namespace Penjin
     class Timer;
     class Prop;
     class Food;
+    class CollisionRegion;
 
     class Baby : public RenderObject, public UpdateObject, private ConfigFile
     {
@@ -88,6 +89,7 @@ namespace Penjin
             virtual void eat(Food* food);
             virtual void wash();
             virtual void heal();
+            virtual void touch();
 
             void setAge(const int& age);
             int getAge();
@@ -97,6 +99,7 @@ namespace Penjin
             int getHygiene();
             int getHealth();
             int getLevel();
+            CollisionRegion* getCollisionRegion();
             void setLevel(const int& l);
             // request the next form this baby will take.
             virtual string getNextForm(){return "Blob";}
