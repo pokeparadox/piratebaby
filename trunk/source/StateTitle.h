@@ -1,5 +1,6 @@
-/*
-	PirateBaby is Copyright (c) 2011 Kevin Winfield-Pantoja
+/**
+	\section LICENSE
+	PirateBaby is Copyright (c)2011 Kevin Winfield-Pantoja
 
 	This file is part of PirateBaby.
 
