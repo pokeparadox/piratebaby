@@ -459,6 +459,7 @@
 			<Add directory="$(#penjintwo.lib)" />
 			<Add directory="./" />
 		</Linker>
+		<Unit filename="../PenjinTwo/include/LibrarySetup.h" />
 		<Unit filename="source/Baby.cpp" />
 		<Unit filename="source/Baby.h" />
 		<Unit filename="source/BabyBlob.cpp" />
