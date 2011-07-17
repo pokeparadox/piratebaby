@@ -76,7 +76,7 @@ void StateCredits::init()
 
     text = new Text;
     text->load("fonts/unispace.ttf",10);
-    text->setRenderMode(GlyphClass::NICE);
+    //text->setRenderMode(GlyphClass::NICE);
     text->setRelativity(false);
     //text->setWrapping(false);
     text->setColour(DARK_GREY);
@@ -85,13 +85,13 @@ void StateCredits::init()
     tx->setColour(LIGHT_GREY);
     tx->setRelativity(false);
     //tx->setWrapping(false);
-    tx->setRenderMode(GlyphClass::NICE);
+    //tx->setRenderMode(GlyphClass::NICE);
 
 
     //text->setWrapping(false);
     Vector2d<float> pxScale = Penjin::GFX::getInstance()->getPixelScale();
-    pos.y += sprite->getHeight();
-    pos.y = pos.y/pxScale.y;
+    pos.y += sprite->getHeight() * pxScale.y;
+    pos = pos/pxScale;
 
     text->setPosition(pos);
     tx->setPosition(pos - Vector2d<float>(2,2));
@@ -129,22 +129,22 @@ void StateCredits::render()
     Renderer* gfx = GFX::getInstance();
 
     unsigned char red,green,blue;
-    float scale = 240.0f/180.0f;
+    float scale = gfx->getWidth()/180.0f;
     //for(unsigned int y = 0; y<gfx->getHeight(); ++y)
         float deg = angle*PI/180.0f;
         red = 128;
         green =0;//(LUT::Lsin(*angle + 1)+1);
         blue = 0;
-        gfx->setDrawWidth(6);
+        gfx->setDrawWidth(6 * gfx->getPixelScale().x);
         gfx->setDrawColour(Colour(red,green,blue));
         Vector2d<float> vec;
         vec.x = angle;
         vec.x *= scale;
-        vec.y = sin(deg)*90.0f;//LUT::Lsin(*angle)*10;
+        vec.y = sin(deg)*90.0f* gfx->getPixelScale().x;//LUT::Lsin(*angle)*10;
         vec.y += gfx->getHeight()*0.5f;
         gfx->drawPixel(vec);
 
-        vec.y = cos(deg)*60.0f;//LUT::Lsin(*angle)*10;
+        vec.y = cos(deg)*60.0f* gfx->getPixelScale().x;//LUT::Lsin(*angle)*10;
         vec.y += gfx->getHeight()*0.5f;
         red =0;
         green=128;
@@ -155,7 +155,7 @@ void StateCredits::render()
         scale = scale/2;
         vec.x *= scale;
         vec.x = gfx->getWidth()-vec.x;
-        vec.y = cos(deg)*100.0f;//LUT::Lsin(*angle)*10;
+        vec.y = cos(deg)*100.0f* gfx->getPixelScale().x;//LUT::Lsin(*angle)*10;
         vec.y += gfx->getHeight()*0.5f;
         blue =128;
         green=0;

@@ -34,24 +34,4 @@ int main(int argc, char** argv)
     // Tidy up!
     delete game;
     return Penjin::PENJIN_OK;
-	/*//ErrorHandler error;
-
-	//	Setup game engine
-	game = new MyGame;
-
-	cout << error.getErrorString(game->argHandler(argc,argv));
-	cout << error.getErrorString(game->penjinInit());
-
-	while(game->stateLoop());	//	Perform main loop until shutdown
-	cout << error.getErrorString(PENJIN_SHUTDOWN);
-
-	//	Tidy up
-    if(game)
-    {
-        delete game;
-        game = NULL;
-    }
-    cout << error.getErrorString(PENJIN_GOODBYE);
-    SDL_Quit();		//	Shut down SDL tidyly*/
-	return EXIT_SUCCESS;	//	Normal program termination.
 }
